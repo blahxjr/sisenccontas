@@ -59,6 +59,17 @@
 - E2E validado: POST /publico/solicitacoes ✅ | GET /interno/solicitacoes ✅ | GET /interno/solicitacoes/:id (decrypt) ✅
 - `tsc --noEmit` ✅ em backend e frontend-interno (zero erros)
 
+### Fase 4 — Frontend Cliente Next.js 14 ✅ (05/04/2026)
+- `frontend-cliente/` scaffolded: Next.js 14.2.5, React 18, TailwindCSS 3, react-hook-form + zod, axios, lucide-react
+- `next.config.mjs` (ES module): headers de segurança (CSP, X-Frame-Options: DENY, HSTS, Referrer-Policy, Permissions-Policy)
+- `tailwind.config.ts`: cores BNB — bnb-amarelo (#F5A800), bnb-azul (#003087), bnb-azul-claro (#0055B8)
+- `src/lib/api-client.ts`: axios com baseURL via env, interceptors para 400/404/429/500
+- `src/hooks/useCatalogos.ts`: `useMotivos()`, `useUfs()`, `useAgencias(uf?)` — cascata UF → Agência
+- `FormularioEncerramento.tsx`: RHF + Zod, seleção UF→Agência em cascata, tela de sucesso com protocolo
+- Rotas: `/` (landing), `/encerramento/formulario`, `/encerramento/status?protocolo=`
+- `next build` ✅ | tipos ok | 4 rotas geradas
+- **Commit eb21b9d pushed para origin/main** (fases 1-4: 64 arquivos, +12.065 linhas)
+
 ### Fase 6 — Upload de Documentos + PDF do Termo ✅ (05/04/2026)
 - `prisma/schema.prisma`: enum `TipoDocumento` (TERMO_GERADO, TERMO_ASSINADO) + modelo `Documento`; migration `20260405201024_sisenccontas` aplicada
 - `MinioService` (`shared/minio/`): `@Global()`, S3Client com `forcePathStyle: true`, `upload()`, `gerarUrlPresignada()` (5 min TTL), criação automática de bucket no `onModuleInit()`
@@ -72,17 +83,7 @@
 - **Nota dev**: `ServerSideEncryption: 'AES256'` removido do upload MinIO local (MinIO open-source não suporta SSE-S3 sem KMS); em produção usar SSE configurado na infraestrutura
 - `tsc --noEmit` ✅ em backend, frontend-cliente e frontend-interno (zero erros); `nest build` ✅
 - E2E validado: gerar-termo (PDF 2KB no MinIO) ✅ | listar documentos ✅ | URL download presignada ✅
-
-### Fase 4 — Frontend Cliente Next.js 14 ✅ (05/04/2026)
-- `frontend-cliente/` scaffolded: Next.js 14.2.5, React 18, TailwindCSS 3, react-hook-form + zod, axios, lucide-react
-- `next.config.mjs` (ES module): headers de segurança (CSP, X-Frame-Options: DENY, HSTS, Referrer-Policy, Permissions-Policy)
-- `tailwind.config.ts`: cores BNB — bnb-amarelo (#F5A800), bnb-azul (#003087), bnb-azul-claro (#0055B8)
-- `src/lib/api-client.ts`: axios com baseURL via env, interceptors para 400/404/429/500
-- `src/hooks/useCatalogos.ts`: `useMotivos()`, `useUfs()`, `useAgencias(uf?)` — cascata UF → Agência
-- `FormularioEncerramento.tsx`: RHF + Zod, seleção UF→Agência em cascata, tela de sucesso com protocolo
-- Rotas: `/` (landing), `/encerramento/formulario`, `/encerramento/status?protocolo=`
-- `next build` ✅ | tipos ok | 4 rotas geradas
-- **Commit eb21b9d pushed para origin/main** (fases 1-4: 64 arquivos, +12.065 linhas)
+- **Commit 07ebd64 pushed para origin/main** (fase 6: 23 arquivos, +2.352 linhas)
 
 ---
 
@@ -100,9 +101,9 @@
 
 ## Próximos passos imediatos
 
-1. **Fase 6** — Upload de documentos (MinIO/S3), geração de PDF do Termo de Encerramento
-2. Testes unitários e de integração (Jest) nos módulos backend
-3. Playwright e2e: fluxo completo cliente → operador
+1. **Fase 7** — Testes unitários e de integração (Jest) nos módulos backend
+2. **Fase 8** — Playwright e2e: fluxo completo cliente → operador
+3. Integração gov.br para assinatura digital do Termo de Encerramento
 
 ---
 
