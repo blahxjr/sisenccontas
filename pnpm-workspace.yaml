@@ -3,6 +3,7 @@ packages:
   - 'frontend-cliente'
   - 'frontend-interno'
   - 'backend'
+  - 'e2e'
   - 'packages/*'
 allowBuilds:
   '@nestjs/core': false

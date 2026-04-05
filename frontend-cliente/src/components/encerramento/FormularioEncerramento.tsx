@@ -100,7 +100,10 @@ export function FormularioEncerramento() {
           <h2 className="text-2xl font-bold text-green-800">Solicitação Registrada!</h2>
           <div className="bg-white border border-green-300 rounded-lg p-5 space-y-1">
             <p className="text-sm text-gray-500">Número do protocolo</p>
-            <p className="text-3xl font-bold text-bnb-azul font-mono tracking-widest">
+            <p
+              data-testid="protocolo"
+              className="text-3xl font-bold text-bnb-azul font-mono tracking-widest"
+            >
               {protocolo}
             </p>
             <p className="text-xs text-gray-400">
