@@ -1,0 +1,11 @@
+# Configuração de workspaces PNPM — EncerraDigital
+packages:
+  - 'frontend-cliente'
+  - 'frontend-interno'
+  - 'backend'
+  - 'packages/*'
+allowBuilds:
+  '@nestjs/core': false
+  '@prisma/client': false
+  '@prisma/engines': false
+  prisma: false

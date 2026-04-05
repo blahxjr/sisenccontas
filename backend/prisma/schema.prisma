@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum StatusSolicitacao {
+  PENDENTE
+  EM_ANALISE
+  CONCLUIDO
+  CANCELADO
+  REJEITADO
+}
+
+model Solicitacao {
+  id                    String            @id @default(uuid())
+  numeroProtocolo       String            @unique
+  agencia               String            @db.VarChar(10)
+  numeroConta           String            @db.VarChar(512)
+  titularNome           String            @db.VarChar(512)
+  motivoEncerramento    String?           @db.VarChar(100)
+  status                StatusSolicitacao @default(PENDENTE)
+  aceiteTermosVersao    String            @db.VarChar(20)
+  aceiteTermosTimestamp DateTime
+  ipOrigemMascarado     String?           @db.VarChar(20)
+  criadoEm             DateTime          @default(now())
+  atualizadoEm         DateTime          @updatedAt
+
+  @@index([status])
+  @@index([agencia])
+  @@map("solicitacoes")
+}

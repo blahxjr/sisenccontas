@@ -1,0 +1,40 @@
+# Dependências
+node_modules/
+.pnpm-store/
+
+# Build
+.next/
+dist/
+build/
+out/
+
+# Ambiente
+.env
+.env.local
+.env.*.local
+.env.production
+
+# Banco de dados
+*.db
+*.sqlite
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+
+# Dev tools
+.DS_Store
+.vscode/settings.json
+*.swp
+*.swo
+
+# Prisma
+prisma/migrations/dev.db
+
+# Uploads locais (nunca versionar arquivos de usuário)
+uploads/
+
+# Coverage
+coverage/
+.nyc_output/

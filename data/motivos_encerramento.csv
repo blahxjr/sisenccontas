@@ -1,0 +1,12 @@
+# Motivos de encerramento de conta corrente — EncerraDigital BNB
+# Uso interno: lista exibida ao cliente no formulário/chatbot
+# Atualizado em: 05/04/2026
+#
+codigo,descricao
+01,Mudança para outra instituição financeira
+02,Insatisfação com tarifas e encargos
+03,Pouca utilização da conta
+04,Dificuldade de acesso a agências e canais digitais
+05,Encerramento de atividade profissional ou empresarial
+06,Falecimento do titular (solicitação por herdeiro)
+07,Outros motivos

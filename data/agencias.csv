@@ -1,0 +1,307 @@
+# Agências do Banco do Nordeste do Brasil (BNB)
+# Fonte: Banco Central do Brasil — API Informes_Agencias (ODbL)
+# URL: https://olinda.bcb.gov.br/olinda/servico/Informes_Agencias/versao/v1
+# Atualizado em: 05/04/2026 | Total: 300 agências
+# CNPJ BNB: 07.237.373/0001-20 | Código COMPE: 004
+#
+codigo,nome,municipio,uf,cep,endereco,bairro,ddd,telefone
+6,Arapiraca,Arapiraca,AL,57300-070,Rua Fernandes Lima,Centro,82,35228550
+7,Batalha,Batalha,AL,57420-000,Praca Da Penha,Centro,82,35311259
+282,Coruripe,Coruripe,AL,57230-000,Rua Lindolfo Simoes,Centro,82,32732132
+281,Delmiro Gouveia,Delmiro Gouveia,AL,57480-000,Rua Manoel Monteiro,Centro,82,36411332
+31,Maceio Centro,Maceio,AL,57020-330,Rua Dr. Melo Moraes,Centro,82,32164500
+229,Maceió Antares,Maceio,AL,57083-048,Av. Antonio Lisboa Amorim,Antares,82,33745616
+190,Maceió Farol,Maceio,AL,57052-400,Av.Fernandes Lima,Gruta De Lourdes,82,33383424
+280,Maragogi,Maragogi,AL,57955-000,Pc Guedes De Miranda,Centro,82,32962578
+32,Mata Grande,Mata Grande,AL,57540-000,Rua Siqueira Campos,Centro,82,36421107
+336,Olho D'Agua Das Flores,Olho D'Agua Das Flores,AL,57442-000,Av 2 De Dezembro,Centro,82,36232350
+80,Palmeira Dos Indios,Palmeira Dos Indios,AL,57600-030,Rua Jose Maria Passos,Centr0,82,34214401
+66,Penedo,Penedo,AL,57200-000,Av. Floriano Peixoto,Centro,82,35512225
+279,Rio Largo,Rio Largo,AL,57100-000,Rua  Candido Lins,Centro,82,32611135
+165,Santana Do Ipanema,Santana Do Ipanema,AL,57500-000,"Praca Sen Eneas Araujo, 38",Centro,82,36211421
+222,São Miguel Dos Campos,Sao Miguel Dos Campos,AL,57240-000,Rua Barão De Jequia,Centro,38,37411613
+110,Uniao Dos Palmares,Uniao Dos Palmares,AL,57800-000,Av. Xv De Novembro 64,Centro,82,32811420
+355,Vicosa ,Vicosa,AL,57700-000,Rua Frederico Maia,Centro,82,988013746
+83,Alagoinhas,Alagoinhas,BA,48000-173,"Praca Dr Milton Jose Ornelas, S/N",Centro,75,34037900
+151,Andarai,Andarai,BA,46830-000,"Praca São Francisco, S/N",Alto Do Ibirapitanga,75,33355500
+324,Araci,Araci,BA,48760-000,Rua José Pedro De Carvalho,Centro,75,32663800
+310,Barra Da Estiva,Barra Da Estiva,BA,46650-000,Rua Teixeira De Freitas,Centro,77,34502200
+92,Barreiras,Barreiras,BA,47800-358,Av. Cleriston Andrade,Juscelino Kubitschek,77,36147900
+154,Bom Jesus Da Lapa,Bom Jesus Da Lapa,BA,47600-000,Av. Duque De Caxias,Centro,77,34814826
+247,Brumado,Brumado,BA,46100-000,Av Doutor Antonio Mourão Guimarães,Centro,77,34538000
+157,Camacan,Camacan,BA,45880-000,Av. Dr. Joao Vargens,Centro,73,32831360
+142,Camacari,Camacari,BA,42800-902,Rua Duque De Caxias,Centro,71,34541200
+285,Campo Formoso,Campo Formoso,BA,44790-000,Rua Hipolito Ribeiro,Centro,74,36454300
+326,Candeias,Candeias,BA,43805-220,Praça Tiradentes,Centro,71,36057950
+286,Casa Nova,Casa Nova,BA,47300-000,Qd R,Centro,74,35364300
+325,Catu,Catu,BA,48110-000,"Rua Desembargador Pedro Ribeiro, Sn",Centro,71,36418700
+13,Cicero Dantas,Cicero Dantas,BA,48410-000,"Praca Do Forum, Sn",Centro,75,34694200
+213,Conceição Do Coité,Conceicao Do Coite,BA,48730-000,Rua Dr. José Gonçalves,Centro,75,32627600
+144,Correntina,Correntina,BA,47650-000,Praca Felipe Santos,Centro,77,34889600
+244,Cruz Das Almas,Cruz Das Almas,BA,44380-000,Pc Senador Themosticles,Centro,75,36730400
+323,Dias D Avila,Dias D'Avila,BA,42850-000,"Av Raul Seixas, Sn",Centro,71,36631600
+321,Euclides Da Cunha,Euclides Da Cunha,BA,48500-000,Rua Castro Alves,Centro,75,32591700
+177,Eunapolis,Eunapolis,BA,45820-081,Av. Dom Pedro Ii,Centro,73,31662200
+14,Feira De Santana,Feira De Santana,BA,44002-272,Rua Conselheiro Franco,Centro,75,36020900
+19,Guanambi,Guanambi,BA,46430-000,Rua Dr. Joaquim Manoel,Centro,77,34524100
+283,Ibotirama,Ibotirama,BA,47520-000,Tv. Pedro Olimpio De Souza,Centro,77,36986800
+160,Ilheus,Ilheus,BA,45652-065,Av. Soares Lopes,Cidade Nova,73,32345900
+168,Ipiau,Ipiau,BA,45570-000,Praca Ruy Barbosa,Centro,73,35318150
+261,Ipirá,Ipira,BA,44600-000,Rua Valdomiro Lins,Centro,75,32544200
+22,Irece,Irece,BA,44900-000,Rua Herculano Dourado,Centro,74,36886550
+84,Itaberaba,Itaberaba,BA,46880-000,Rua 18 De Maio,Centro,75,32511312
+58,Itabuna,Itabuna,BA,45600-903,Av. Cinquentenario,Centro,73,32146900
+74,Itamaraju,Itamaraju,BA,45836-000,Praca Da Independencia,Centro,73,32943065
+82,Itapetinga,Itapetinga,BA,45700-000,Praca Augusto De Carvalho,Centro,77,32611422
+132,Jacobina,Jacobina,BA,44700-000,Rua Senador Pedro Lago,Centro,74,36213926
+284,Jaguaquara,Jaguaquara,BA,45345-000,Pça Jj Seabra,Centro,73,35342796
+27,Jequie,Jequie,BA,45200-250,Praca Ruy Barbosa,Centro,73,35254531
+137,Juazeiro,Juazeiro,BA,48903-902,Praça Barao Do Rio Branco,Centro,74,36117813
+322,Lauro De Freitasa,Lauro De Freitas,BA,42700-000,Av. Santos Dumont,Estrada Do Coco,71,32834400
+196,Luis Eduardo Magalhães,Luis Eduardo Magalhaes,BA,47850-000,Rua Parana,Centro,77,36284482
+143,Medeiros Neto,Medeiros Neto,BA,45960-000,Rua Adao Fernandes,Centro,73,32961113
+288,Monte Santo,Monte Santo,BA,48800-000,"Pça Monsenhor Berenguer, Sn",Centro,75,32751896
+3,Morro Do Chapeu,Morro Do Chapeu,BA,44850-000,Praca Camilo Calazans,Centro,74,36531220
+117,Mundo Novo,Mundo Novo,BA,44800-000,"Praca Senador Cohin, S/N",Centro,74,36262342
+163,Paulo Afonso,Paulo Afonso,BA,48602-490,Av Ministro Landulfo Alves,Centro,75,32814826
+251,Porto Seguro,Porto Seguro,BA,45810-000,R Treze De Maio,Centro,73,32681929
+181,Salvador Barra,Salvador,BA,40140-230,"Rua Almirante J. Marques De Leao, 41",Barra,71,32642507
+46,Salvador Comércio,Salvador,BA,40010-020,"Av. Estados Unidos, 346",Centro,71,32546400
+187,Salvador Costa Azul,Salvador,BA,41760-000,Rua Arthur De Azevedo Machado,Costa Azul,71,34027500
+249,Salvador Tancredo Neves,Salvador,BA,41820-020,Av Tancredo Neves,Caminho Das  Árvores,71,33414044
+262,Santo Amaro,Santo Amaro,BA,44200-000,Av. Imperador,Centro,75,32172500
+126,Santo Antonio De Jesus,Santo Antonio De Jesus,BA,44571-355,"Rua Gorgonio Jose De Araujo, 93",Centro,75,36313655
+243,Seabra,Seabra,BA,46900-000,R Pio Xii,Centro,75,33313700
+104,Senhor Do Bonfim,Senhor Do Bonfim,BA,48970-000,"Praca Dr. Jose Goncalves, 224",Centro,74,35413122
+302,Serrinha,Serrinha,BA,48700-000,Pc Luiz Nogueira,Centro,75,32612796
+90,Simões Filho,Simoes Filho,BA,43700-000,"Centro Ind. De Aratu, Q 2,Lte 1",Centro Indl Aratu,71,33941022
+121,Sta Maria Da Vitoria,Santa Maria Da Vitoria,BA,47640-000,"Praca Da Bandeira, 82",Centro,77,34831226
+173,Teixeira De Freitas,Teixeira De Freitas,BA,45985-158,"Av. Marechal Castelo Branco, 698",Centro,73,32915777
+289,Tucano,Tucano,BA,48790-000,Rua 7 De Setembro,Centro,75,32721548
+212,Valenca,Valenca,BA,45400-000,"Rua Barão De Jequiriçá, 253",Centro,75,36412589
+73,Vitoria Da Conquista,Vitoria Da Conquista,BA,45020-902,"Praca Barao Do Rio Branco, 106",Centro,77,34245233
+287,Xique-Xique,Xique-Xique,BA,47400-000,Rua Cel Gustavo Costa,Centro,74,36615263
+264,Acarau,Acarau,CE,62580-000,Rua Expedito Farias,Centro,88,36617200
+230,Acopiara,Acopiara,CE,63560-000,R Francisco Gurgel Valente,Centro,88,35650053
+317,Aquiraz,Aquiraz,CE,61700-000,Rua Pedro Brasil,Centro,85,33621400
+145,Aracati,Aracati,CE,62800-029,Rua Coronel Alexandrino,Centro,88,34219300
+231,Barbalha,Barbalha,CE,63091-000,Av. Coronel João Coelho,Rosário,88,35327250
+88,Baturite,Baturite,CE,62760-000,Av. 7 De Setembro,Centro,85,33479200
+153,Boa Viagem,Boa Viagem,CE,63870-000,Rua São Vicente De Paulo,Centro,88,34275050
+114,Brejo Santo,Brejo Santo,CE,63260-000,Rua Jose Matias Sampaio,Centro,88,35318400
+10,Campos Sales,Campos Sales,CE,63150-000,Rua Julio Noroes,Centro,88,35334250
+62,Caninde,Caninde,CE,62700-000,Praca Tomaz Barbosa,Centro,85,33439200
+8,Cascavel,Cascavel,CE,62850-000,Avenida Prefeito Vitoriano Antunes,Centro,85,33349300
+218,Caucaia,Caucaia,CE,61600-090,Rua 15 De Novembro,Centro,85,33877600
+89,Crateus,Crateus,CE,63700-079,Rua D. Pedro Ii,Centro,88,36919100
+124,Crato,Crato,CE,63100-045,Rua Cel Luis Teixeira,Centro,88,35219300
+313,Eusébio,Eusebio,CE,61760-051,Av. Eusébio De Queiroz,Centro,85,32606550
+152,Fortaleza Aldeota,Fortaleza,CE,60150-161,Av. Santos Dumont,Aldeota,85,34624200
+182,Fortaleza Bezerra De Menezes,Fortaleza,CE,60325-003,Av. Bezerra De Menezes,Parquelandia,85,32886900
+16,Fortaleza Centro,Fortaleza,CE,60025-100,Rua Major Facundo,Centro,85,34643100
+318,Fortaleza Maraponga,Fortaleza,CE,60711-945,Av. Godofredo Maciel,Mondubim,85,34994600
+189,Fortaleza Montese,Fortaleza,CE,60410-357,Av. Professor Gomes De Mattos,Parreao,85,34553100
+300,Fortaleza Passare,Fortaleza,CE,60743-762,Avenida Dr. Silas Munguba,Passaré,85,32995400
+228,Fortaleza Washington Soares,Fortaleza,CE,60833-005,Av Washington Soares,Sapiranga,85,32703900
+105,Granja,Granja,CE,62430-000,Rua Conrado Porto,Centro,88,36240500
+267,Horizonte,Horizonte,CE,62880-384,Av. Pres. Castelo Branco,Centro,85,33369200
+21,Iguatu,Iguatu,CE,63500-063,Av. Agenor Araujo,Centro,88,35101100
+298,Itapage,Itapage,CE,62600-000,"Pç Vicente Porfirio Sampaio, Sn",Centro,85,98377111
+119,Itapipoca,Itapipoca,CE,62500-000,Rua Oswaldo Cruz,Centro,88,36311003
+24,Jaguaribe,Jaguaribe,CE,63475-000,Praca Tenente Barreira,Centro,88,35221277
+29,Juazeiro Do Norte,Juazeiro Do Norte,CE,63010-010,Rua Sao Pedro,Centro,88,35123077
+72,Lavras Da Mangabeira,Lavras Da Mangabeira,CE,63300-000,"Praca Mal Humberto A Castelo Branco, 2",Centro,88,35361076
+30,Limoeiro Do Norte,Limoeiro Do Norte,CE,62930-000,Travessa Pedro Alves De Freitas,Centro,88,34234166
+186,Maracanaú,Maracanau,CE,61900-150,Rua João De Alencar,Centro,85,32999700
+265,Maranguape,Maranguape,CE,61942-460,Rua Capitão Jeova Colares,Centro,85,33413439
+113,Mombaca,Mombaca,CE,63610-000,Rua Antonio Jaime Benevides,Centro,88,35831114
+36,Nova Russas,Nova Russas,CE,62200-000,Rua Pe.Francisco Rosa,Centro,88,36721222
+227,Pacajus,Pacajus,CE,62870-000,R Conego Eduardo Araripe,Centro,85,35323450
+135,Quixada,Quixada,CE,63900-153,"Rua Pascoal Crispino,215",Centro,88,34120113
+43,Quixeramobim,Quixeramobim,CE,63800-000,"Rua Capitao Raimundo, 32",Centro,88,34411007
+305,Russas,Russas,CE,62900-000,Av Dom Lino,Centro,86,34112316
+292,Santa Quiteria,Santa Quiteria,CE,62280-000,Rua Cel Manoel Alves,Centro,88,36280162
+48,Sao Benedito,Sao Benedito,CE,62370-000,"Praca 25 De Novembro, 492",Centro,88,36262125
+52,Sobral,Sobral,CE,62011-040,Rua Cel Jose Saboia,Centro,88,36777100
+55,Taua,Taua,CE,63660-000,"Rua Coronel Lourenço Feitosa, 10",Centro,88,34371107
+133,Tiangua,Tiangua,CE,62320-000,"Rua Deputado Manoel Francisco,453",Centro,88,36711673
+268,Vicosa Do Ceara,Vicosa Do Ceara,CE,62300-000,Pc Marechal Bezerril,Centro,88,36321987
+198,Colatina,Colatina,ES,29702-030,Rua Moacyr Ávidos,Vila Nova,27,37701200
+200,Linhares,Linhares,ES,29900-022,Av. João Felipe Calmon,Centro,27,33713673
+219,Nova Venécia,Nova Venecia,ES,29830-000,Praca Jones Dos Santos Neves,Centro,27,37523011
+345,Pinheiros,Pinheiros,ES,29980-000,Av Agenor Luiz Heringer,Centro,27,988926449
+220,São Mateus,Sao Mateus,ES,29930-440,Av. Jones Dos Santos Neves,Sernamby,27,37632288
+166,Acailandia,Acailandia,MA,65930-000,Av. Dorgival Pinheiro De Souza,Centro,99,35381180
+106,Bacabal,Bacabal,MA,65700-000,Rua Barao De Capanema,Centro,99,36211115
+139,Balsas,Balsas,MA,65800-000,Rua Benedito Leite,Centro,99,35427050
+107,Barra Do Corda,Barra Do Corda,MA,65950-000,Rua Cel. Jose Nava,Centro,99,34273450
+295,Barreirinhas,Barreirinhas,MA,65590-000,"R Cazuza Ramos, Sn",Centro,98,33946200
+93,Caxias,Caxias,MA,65600-270,Rua São Benedito,Centro,99,35220250
+108,Chapadinha,Chapadinha,MA,65500-000,Av. Jose Caetano,Centro,98,34718400
+127,Codo,Codo,MA,65400-000,Rua Professor Fernando De Carvalho,Centro,99,36693100
+290,Colinas,Colinas,MA,65690-000,Av Dr Osano Brandao,Centro,99,35522500
+291,Governador Nunes Freire,Governador Nunes Freire,MA,65284-000,R 7 De Setembro,Centro,98,33713500
+241,Grajaú,Grajau,MA,65940-000,R Senador Paulo Do Norte,Centro,99,35329157
+81,Imperatriz,Imperatriz,MA,65903-280,Av. Getulio Vargas,Centro,99,35294600
+312,Itapecuru Mirim,Itapecuru Mirim,MA,65485-000,Praça Cônego Albino Campos,Centro,77,3261422
+278,Paco Do Lumiar,Paco Do Lumiar,MA,65130-000,"Av. 13,  Qd 122",Maiobão,98,32745287
+128,Pedreiras,Pedreiras,MA,65725-000,Av. Rio Branco,Centro,99,36421115
+195,Pinheiro,Pinheiro,MA,65200-000,Praça José Sarney,Centro,98,33812513
+216,Porto Franco - Ma,Porto Franco,MA,65970-000,"Rua Joaquim Pereira, S/Nº",Centro,99,35712045
+102,Presidente Dutra,Presidente Dutra,MA,65760-000,"Trav. Cel. Antonio Macedo, 12",Centro,99,36631331
+103,Santa Ines,Santa Ines,MA,65300-000,"Rua Do Comercio, 187",Centro,98,36531951
+242,Santa Luzia,Santa Luzia,MA,65390-000,Av Newton Belo,Centro,98,36214230
+59,Sao Luis Areinha,Sao Luis,MA,65030-015,Av. Senador Vitorino,Areinha,98,32189600
+193,Sao Luis Calhau,Sao Luis,MA,65071-380,Av.Dos Holandeses,Calhau,98,32354236
+253,São José De Ribamar - Ma,Sao Jose De Ribamar,MA,65110-000,Av Gonçalves Dias,Centro,98,32243472
+311,São João Dos Patos,Sao Joao Dos Patos,MA,65665-000,R 7 De Setembro S/N,Centro,99,3553580
+240,São Luis São Cristóvão,Sao Luis,MA,65055-285,Av Guajajaras,Jardim São Cristóvão,98,32597117
+224,Timon,Timon,MA,65631-240,Av Francisco Carlos Jansen,Parque Piauí,86,32120241
+277,Tutoia,Tutoia,MA,65580-000,R Celson Fonseca,Centro,98,34791314
+296,Viana,Viana,MA,65215-000,Av Luis De Almeida Couto,Centro,98,33519100
+147,Ze Doca,Ze Doca,MA,65365-000,"Av Do Comercio, 125",Centro,98,36553261
+357,Aimores,Aimores,MG,35200-000,Praça João Pinheiro,Centro,33,32676100
+217,Almenara,Almenara,MG,39900-000,Praça Dr Hélio Rocha Guimarães,Centro,33,37219600
+334,Aracuai,Aracuai,MG,39600-006,Rua Tulio Hostílio,Centro,33,37319800
+254,Arinos,Arinos,MG,38680-000,Av Aristoteles Fernandes Valadares,Centro,38,36353100
+131,Belo Horizonte,Belo Horizonte,MG,30140-120,"Rua Dos Inconfidentes, 1051",Savassi,31,32636400
+333,Bocaiúva,Bocaiuva,MG,39390-000,Praca Pedro Caldeira,Centro,38,32519100
+70,Brasilia De Minas,Brasilia De Minas,MG,39330-000,"Av. Rui Barbosa,",Centro,38,32313900
+197,Capelinha,Capelinha,MG,39680-008,Rua Rio Branco,Centro,33,35166100
+255,Diamantina,Diamantina,MG,39100-000,Rua Do Carmo,Centro,38,35326100
+356,Governador Valadares,Governador Valadares,MG,35010-250,Avenida Minas Gerais,Centro,33,32136600
+360,Guanhaes,Guanhaes,MG,39740-000,Rua Padre Saint Clair Ferreira Filho,Acropole,33,988234203
+359,Inhapim,Inhapim,MG,35330-000,Rua Padre Vigilato,Centro,33,999626489
+335,Jaiba,Jaiba,MG,39508-000,Av. Coronel Moacir J Silva,Centro,38,988281108
+140,Janauba,Janauba,MG,39440-000,Praca Romulo Sales Azevedo,Centro,38,38212997
+25,Januaria,Januaria,MG,39480-000,Rua  Mata Machado,Centro,38,36211233
+358,Mantena,Mantena,MG,35290-000,Rua Wilson Melado,Centro,27,999809950
+109,Montalvania,Montalvania,MG,39495-000,Av. Madame Curie,Centro,38,36141423
+85,Monte Azul,Monte Azul,MG,39500-000,Rua Dos Fernandes,Centro,38,38111116
+34,Montes Claros,Montes Claros,MG,39400-023,Rua Coronel Altino De Freitas,Centro,38,32297500
+332,Nanuque,Nanuque,MG,39860-000,Rua Sao Joao Del Rey,Centro,38,988320243
+77,Pirapora,Pirapora,MG,39270-000,Praca Melo Viana,Centro,38,37413977
+42,Porteirinha,Porteirinha,MG,39517-000,"Praca Cel Odilon Coelho, 217",Centro,38,38311243
+60,Salinas,Salinas,MG,39560-000,"Rua Barao Do Rio Branco, 32",Centro,38,38411179
+260,Sao Francisco,Sao Francisco,MG,39300-000,Av Brasiliano Braz,Centro,38,36312059
+199,Teófilo Otoni,Teofilo Otoni,MG,39803-013,"Av. Bernarda Laender, 183",São Diogo,33,35235323
+2,Alagoa Grande,Alagoa Grande,PB,58388-000,"Praca Cel Elisio Sobreira, S/N",Centro,83,32737750
+293,Bayeux,Bayeux,PB,58306-000,Av. Liberdade,Centro,83,32533835
+327,Cabedelo,Cabedelo,PB,58100-683,R João Vitaliano,Ponta De Matos,83,32487300
+91,Cajazeiras,Cajazeiras,PB,58900-000,Rua Padre Rolim,Centro,83,35322450
+9,Campina Grande,Campina Grande,PB,58400-105,Rua 7 De Setembro,Centro,83,33155800
+12,Catole Do Rocha,Catole Do Rocha,PB,58884-000,Av. Deputado Americo Maia,Centro,83,34411012
+20,Guarabira,Guarabira,PB,58200-000,Rua Dom Pedro Ii,Centro,83,35021600
+23,Itaporanga,Itaporanga,PB,58780-000,Av. Irineu Rodrigues Da Silva,Centro,83,34512421
+28,Joao Pessoa Centro,Joao Pessoa,PB,58010-450,Rua Gama E Melo,Varadouro,83,32182900
+185,Joao Pessoa Epitácio Pessoa,Joao Pessoa,PB,58040-000,Av. Presidente Epitacio Pessoa,Bairro Da Torre,83,32443558
+225,João Pessoa Cidade Universitária,Joao Pessoa,PB,58052-200,Rua Walfredo Macedo Brandao,Jardim Cidade Universitaria,83,32359674
+350,Monteiro,Monteiro,PB,58500-000,"Av  Olimpio Gomes, Sn",Centro,83,33532286
+67,Patos,Patos,PB,58700-004,Av. Solon Lucena,Centro,83,34213305
+328,Picuí,Picui,PB,58187-000,R Sao Sebastiao,Centro,83,33712621
+164,Pombal,Pombal,PB,58840-000,"Rua Pe. Amancio Leite, 35",Centro,83,34312403
+226,Santa Rita,Santa Rita,PB,58300-230,R Joao Ribeiro Coutinho,Centro,83,32292118
+172,Sape,Sape,PB,58340-000,Av. Comendador Renato Ribeiro Coutinho,Centro,83,32832433
+97,Solanea,Solanea,PB,58225-000,"Praca 26 De Novembro, 25",Centro,83,33632304
+53,Sousa,Sousa,PB,58800-050,"Rua Cel Jose Gomes De Sa, 5",Centro,83,35222730
+141,Sume,Sume,PB,58540-000,"Rua Augusto Santa Cruz, 144",Centro,83,33532286
+320,Abreu E Lima,Abreu E Lima,PE,53510-050,Av. Duque De Caxias,Centro,81,35388800
+150,Araripina,Araripina,PE,56280-000,Rua Joaquim Rodrigues Nogueira,Centro,87,38738500
+259,Arcoverde,Arcoverde,PE,56506-100,Av Coronel Antonio Japiassu,Centro,87,38227400
+308,Belo Jardim,Belo Jardim,PE,55150-160,Rua Cleto Campelo,Centro,81,37268400
+8,Bezerros,Bezerros,PE,55660-000,Rua Coronel Bezerra,Centro,81,37286500
+303,Bom Conselho,Bom Conselho,PE,55330-000,R Sete De Setembro,Centro,87,37714500
+319,Cabo De Santo Agostinho,Cabo De Santo Agostinho,PE,54510-360,Av. Historiador Pereira Costa,Centro,81,35217300
+233,Camaragibe,Camaragibe,PE,54762-303,Av. Doutor Belmino Correia,Novo Carmelo,81,34568700
+245,Carpina,Carpina,PE,55815-000,Av. Estacio Coimbra,Sao Jose,81,36228550
+99,Caruaru,Caruaru,PE,55004-180,Av. Rio Branco,Nossa Senhora Das Dores,81,37228450
+309,Escada,Escada,PE,55500-000,Av Comendador Jose Pereira,Centro,81,35348300
+15,Floresta,Floresta,PE,56400-000,Av.Deputado Audomar Ferraz,Centro,87,38774800
+17,Garanhuns,Garanhuns,PE,55295-080,Rua Dantas Barreto,Centro,87,37628200
+122,Goiana,Goiana,PE,55900-000,Av. Manoel Borba,Centro,81,36267850
+276,Gravatá,Gravata,PE,55642-210,Av Agamenon Magalhães,Prado,81,35339200
+304,Igarassu,Igarassu,PE,53625-015,Av Br 101 Norte  Km 25 Quadra A,Cruz De Reboucas,81,35435600
+306,Ipojuca,Ipojuca,PE,55590-000,Av. Francisco Alves De Souza,Centro,81,35617300
+232,Jaboatão Dos Guararapes,Jaboatao Dos Guararapes,PE,54410-010,Av. Bernardo Vieira De Melo,Piedade,81,34681787
+307,Limoeiro,Limoeiro,PE,55700-000,Rua Da Alegria,Centro,81,36284690
+272,Moreno,Moreno,PE,54800-000,Av Cleto Campelo,Centro,81,35351387
+237,Olinda,Olinda,PE,53030-010,Av Getulio Vargas,Bairro Novo,81,32935075
+63,Ouricuri,Ouricuri,PE,56200-000,"Praca Francisco Pedro Da Silva, S/N",Centro,87,38741234
+238,Palmares,Palmares,PE,55540-000,R Coronel Austriclinio,Centro,81,36622069
+316,Paudalho,Paudalho,PE,55825-000,R Marechal Deodoro,Centro,81,36361801
+120,Paulista,Paulista,PE,53401-250,Praca Frederico Lundgren,Centro,81,34330085
+40,Pesqueira,Pesqueira,PE,55200-000,Rua Duque De Caxias,Centro,87,38351611
+41,Petrolina,Petrolina,PE,56304-907,Av. Dr. Fernando Goes,Centro,87,38628400
+76,Recife Agamenon Magalhães,Recife,PE,52020-000,"Av. Agamenon Magalhães, 2764",Espinheiro,81,32166950
+274,Recife Casa Forte,Recife,PE,52060-410,Rua Nestor Silva,Santana,81,32656280
+44,Recife Centro,Recife,PE,50060-004,"Conde Da Boa Vista, 800",Boa Vista,81,32166900
+192,Recife Domingos Ferreira,Recife,PE,51020-031,Av. Domingos Ferreira,Boa Viagem,81,33288400
+45,Salgueiro,Salgueiro,PE,56000-000,"Av. Agamenon Magalhaes, 789",Centro,87,38710700
+273,Santa Cruz Do Capibaribe,Santa Cruz Do Capibaribe,PE,55194-142,Av Teonilio Silvestre,São Cristovão,81,37051687
+275,Sao Bento Do Una,Sao Bento Do Una,PE,55370-000,Av Vereador Valdemar Cordeiro De Moraes,Centro,81,37351072
+271,Sao Lourenco Da Mata,Sao Lourenco Da Mata,PE,54730-000,Av Francisco Correia,Centro,81,35254459
+111,Serra Talhada,Serra Talhada,PE,56903-914,"Rua Dr Sergio Magalhaes, 820",Centro,87,38311455
+50,Sertania,Sertania,PE,56600-000,"Praca Cel. Francisco Sales De Oliveira,8",Centro,87,38411046
+54,Surubim,Surubim,PE,55750-000,"Av. Paulo Afonso, 97",Centro,81,36341211
+130,Timbauba,Timbauba,PE,55870-000,Rua Dr. Alcebiades 110,Centro,81,36310402
+118,Vitoria De Sto Antao,Vitoria De Santo Antao,PE,55602-921,"Rua Pref. Joao Cleofas De Oliveira, 151",Centro,81,35231514
+123,Agua Branca,Agua Branca,PI,64460-000,Av. Neco Teixeira,Centro,86,32821132
+138,Bom Jesus,Bom Jesus,PI,64900-000,"Rua Arsênio Santos,",Centro,89,35623850
+96,Campo Maior,Campo Maior,PI,64280-000,Av. Demerval Lobao,Centro,86,32521133
+95,Corrente,Corrente,PI,64980-000,Rua Ipiranga,Centro,89,35734150
+159,Esperantina,Esperantina,PI,64180-000,Rua Cel Jose Fortes,Centro,86,33831426
+68,Floriano,Floriano,PI,64800-060,Av. Getulio Vargas,Centro,89,35151300
+37,Oeiras,Oeiras,PI,64500-000,Av. Jose Tapety,Centro,89,34621142
+38,Parnaiba,Parnaiba,PI,60200-904,Praca Da Graca,Centro,86,33212812
+178,Paulistana,Paulistana,PI,64750-000,Av. Marechal Deodoro,Centro,89,34871187
+86,Picos,Picos,PI,64600-002,Av.Getulio Vargas,Centro,89,34221671
+342,Piracuruca,Piracuruca,PI,64240-000,"Avenida Aurélio Brito, Sn",Centro,86,988035538
+125,Piripiri,Piripiri,PI,64260-000,Av. Quatro De Julho,Centro,86,32761502
+214,São João Do Piauí,Sao Joao Do Piaui,PI,64760-000,"Rua Rodrigo Carvalho, 974",Centro,89,34831645
+49,São Raimundo Nonato,Sao Raimundo Nonato,PI,64770-000,"Av. Prof. Joao Menezes, 567",Centro,89,35821512
+56,Teresina Centro,Teresina,PI,64000-090,"Rua Rui Barbosa, 163",Norte,86,32168600
+246,Teresina Dirceu,Teresina,PI,64078-625,Av. Joaquim Nelson,Parque Ideal,86,32318659
+194,Teresina Dom Severino,Teresina,PI,64052-535,Av. Dom Severino,Horto,86,32168700
+330,Uniao,Uniao,PI,64120-000,Rua 15 De Novembro,Centro,86,32168672
+211,Urucui,Urucui,PI,64860-000,"Rua Davi Caldas, S/Nº",Centro,89,35442032
+57,Valenca Do Piaui,Valenca Do Piaui,PI,64300-000,"Rua Epaminondas Nogueira, 473",Centro,89,34651325
+64,Rio De Janeiro,Rio De Janeiro,RJ,20040-004,"Rio Branco, 89",Centro,21,32215900
+115,Acu,Acu,RN,59650-000,Praça Pedro Velho,Centro,84,33319400
+4,Angicos,Angicos,RN,59515-000,Rua Vereador Joaquim Bernardo,Centro,84,35314800
+112,Apodi,Apodi,RN,59700-000,Marechal Floriano Peixoto,Centro,84,33336300
+101,Caico,Caico,RN,59300-000,Av. Cel. Martiniano,Centro,84,34177750
+236,Ceara- Mirim,Ceara-Mirim,RN,59570-000,"R Heraclito Villar, Sn",Centro,84,32748601
+100,Currais Novos,Currais Novos,RN,59380-000,Av. Dr Silvio Bezerra De Melo,Centro,84,34051050
+329,Goianinha,Goianinha,RN,59173-000,Rua Vigário Antonio Montenegro,Centro,84,33433048
+26,Jardim Do Serido,Jardim Do Serido,RN,59343-000,Rua Dr. Otavio Lamartine,Centro,84,34722261
+301,Joao Camara,Joao Camara,RN,59550-000,Rua Maria De Fatima Rafael De Freitas,Centro,84,32622271
+258,Macaiba,Macaiba,RN,59280-000,Rua Nossa Senhora Aparecida Ii,Centro,84,32715333
+87,Macau,Macau,RN,59500-000,Rua Martins Ferreira,Centro,84,35211228
+33,Mossoro,Mossoro,RN,59600-115,Praca Getulio Vargas,Centro,84,33163023
+183,Natal Prudente De Morais,Natal,RN,59056-200,Av. Prudente De Morais,Lagoa Nova,84,32134074
+248,Natal Roberto Freire,Natal,RN,59082-095,Av  Engenheiro Roberto Freire,Capim Macio,84,36424104
+35,Natal Tirol,Natal,RN,59020-505,Av Prudente De Morais,Cidade Alta,84,32201700
+2150,Parnamirim - Rn,Parnamirim,RN,59140-020,Av. Tenente Medeiros,Centro,84,36447800
+39,Pau Dos Ferros,Pau Dos Ferros,RN,59900-000,Praca Da Matriz,Centro,84,33512111
+47,Santa Cruz,Santa Cruz,RN,59200-000,"Rua Manoel Cicero De Lima, 95",Centro,84,32912118
+61,Santo Antonio,Santo Antonio,RN,59255-000,"Av. Lindolfo Gomes Vidal, 360",Centro,84,32822232
+266,São Gonçalo Do Amarante,Sao Goncalo Do Amarante,RN,59290-000,R Benedito Santana,Gancho Do Igapo,84,32785600
+269,Umarizal,Umarizal,RN,59865-000,Rua Porcino Costa,Centro,84,99650014
+5,Aracaju Centro,Aracaju,SE,49010-190,Rua Itabaianinha,Centro,79,32165600
+235,Aracaju Jardins,Aracaju,SE,49025-330,Av Jorge Amado,Jardins,79,31942500
+180,Aracaju Siqueira Campos,Aracaju,SE,49075-370,Rua Mariano Salmeron,Siqueira Campos,79,32163300
+155,Boquim,Boquim,SE,49360-000,Av. Simpliciano Fernandes Da Fonseca,Centro,79,36454000
+11,Carira,Carira,SE,49550-000,Praca Olimpio Rabelo De Morais,Centro,79,34451218
+129,Estancia,Estancia,SE,49200-000,Praca Orlando Gomes Dos Santos,Centro,79,35222626
+18,Gararu,Gararu,SE,49830-000,Praça Rio Branco,Centro,79,33541260
+116,Itabaiana,Itabaiana,SE,49500-000,Rua Francisco Santos,Centro,79,34313020
+146,Lagarto,Lagarto,SE,49400-000,Praca Da Piedade,Centro,79,36313126
+161,Laranjeiras,Laranjeiras,SE,49170-000,Rua Getulio Vargas,Centro,79,32811146
+171,Neopolis,Neopolis,SE,49980-000,Rua Batista Gomes,Centro,79,33441395
+134,Nossa Senhora Da Gloria,Nossa Senhora Da Gloria,SE,49680-000,Praca Filemon Bezerra Lemos,Centro,79,34111364
+78,Nossa Senhora Das Dores,Nossa Senhora Das Dores,SE,49600-000,Praca Mal Deodoro Da Fonseca,Centro,79,32651280
+257,Nossa Senhora Do Socorro,Nossa Senhora Do Socorro,SE,49160-000,Av Coletora A,Joao Alves Filho,79,88192431
+69,Propria,Propria,SE,49900-000,"Av. Augusto Maynard, 167",Centro,79,3221280
+51,Simao Dias,Simao Dias,SE,49480-000,"Rua Felisberto Prata, 214",Centro,79,36111341
+98,Tobias Barreto,Tobias Barreto,SE,49300-000,"Av. 7 De Junho, 618",Centro,79,35411401
+71,Sao Paulo,Sao Paulo,SP,01310-000,"Av.Paulista,460 -Ed.Pedro Biagi",Bela Vista,11,32531611

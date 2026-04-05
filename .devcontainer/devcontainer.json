@@ -1,0 +1,50 @@
+{
+  "name": "EncerraDigital — Ambiente de Desenvolvimento",
+  "dockerComposeFile": "../infra/docker-compose.dev.yml",
+  "service": "devcontainer",
+  "workspaceFolder": "/workspace",
+  "shutdownAction": "stopCompose",
+
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "bradlc.vscode-tailwindcss",
+        "Prisma.prisma",
+        "ms-azuretools.vscode-docker",
+        "github.copilot",
+        "github.copilot-chat",
+        "eamodio.gitlens",
+        "streetsidesoftware.code-spell-checker",
+        "streetsidesoftware.code-spell-checker-portuguese-brazilian",
+        "mtxr.sqltools",
+        "mtxr.sqltools-driver-pg",
+        "PKief.material-icon-theme",
+        "usernamehw.errorlens",
+        "ms-vscode.vscode-typescript-next"
+      ],
+      "settings": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+          "source.fixAll.eslint": "explicit"
+        },
+        "typescript.preferences.importModuleSpecifier": "relative",
+        "cSpell.language": "pt-BR,en",
+        "cSpell.words": [
+          "encerramento", "solicitacao", "solicitacoes", "agencia", "titular",
+          "backend", "frontend", "monorepo", "prisma", "nestjs", "nextjs"
+        ],
+        "github.copilot.chat.codeGeneration.instructions": [
+          {
+            "file": ".github/copilot-instructions.md"
+          }
+        ]
+      }
+    }
+  },
+
+  "postCreateCommand": "pnpm install",
+  "remoteUser": "node"
+}

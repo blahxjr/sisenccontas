@@ -1,0 +1,23 @@
+{
+  "name": "EncerraDigital",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --parallel --filter=./frontend-cliente --filter=./backend dev",
+    "dev:cliente": "pnpm --filter=./frontend-cliente dev",
+    "dev:interno": "pnpm --filter=./frontend-interno dev",
+    "dev:backend": "pnpm --filter=./backend dev",
+    "build": "pnpm --recursive build",
+    "lint": "pnpm --recursive lint",
+    "test": "pnpm --recursive test",
+    "typecheck": "pnpm --recursive typecheck"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.0",
+    "eslint": "^9.0.0",
+    "typescript": "^5.5.0"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=9.0.0"
+  }
+}
