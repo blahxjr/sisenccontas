@@ -4,7 +4,7 @@
 > Ele representa o estado atual real do projeto.
 
 **Atualizado em**: 2026-04-05  
-**Fase atual**: Fase 2 — Scaffold Backend NestJS ✅
+**Fase atual**: Fase 4 — Frontend Cliente completo ✅
 
 ---
 
@@ -38,6 +38,24 @@
 - Endpoints validados: `/api/saude` ✅ | `/agencias/ufs` (13 UFs) ✅ | `?uf=MA` (29) ✅ | `?busca=fortaleza` (7) ✅
 - Correções aplicadas: `strictNullChecks` em `listarAgencias`, path de CSV via `__dirname`
 
+### Fase 3 — Backend Solicitações ✅ (05/04/2026)
+- `CriarSolicitacaoDto` com class-validator: `@Matches`, `@IsDateString`, `@Equals(true)` para aceite de termos
+- `SolicitacoesRepository` com Prisma: `criar()` com `selectPublico` (sem campos sensíveis na resposta), `buscarStatusPorProtocolo()` com `selectStatus`
+- `SolicitacoesService`: criptografia AES-256-CBC em repouso em `numeroConta` e `titularNome`; geração de protocolo único; `NotFoundException` para protocolo inexistente
+- `SolicitacoesController`: `POST /api/publico/solicitacoes` + `GET /api/publico/solicitacoes/:protocolo/status`; IP mascarado nos logs
+- `tsc --noEmit` ✅ (zero erros) | Boot confirmado com Prisma gracioso sem DB
+
+### Fase 4 — Frontend Cliente Next.js 14 ✅ (05/04/2026)
+- `frontend-cliente/` scaffolded: Next.js 14.2.5, React 18, TailwindCSS 3, react-hook-form + zod, axios, lucide-react
+- `next.config.mjs` (ES module): headers de segurança (CSP, X-Frame-Options: DENY, HSTS, Referrer-Policy, Permissions-Policy)
+- `tailwind.config.ts`: cores BNB — bnb-amarelo (#F5A800), bnb-azul (#003087), bnb-azul-claro (#0055B8)
+- `src/lib/api-client.ts`: axios com baseURL via env, interceptors para 400/404/429/500
+- `src/hooks/useCatalogos.ts`: `useMotivos()`, `useUfs()`, `useAgencias(uf?)` — cascata UF → Agência
+- `FormularioEncerramento.tsx`: RHF + Zod, seleção UF→Agência em cascata, tela de sucesso com protocolo
+- Rotas: `/` (landing), `/encerramento/formulario`, `/encerramento/status?protocolo=`
+- `next build` ✅ | tipos ok | 4 rotas geradas
+- **Commit eb21b9d pushed para origin/main** (fases 1-4: 64 arquivos, +12.065 linhas)
+
 ---
 
 ## O que está em andamento
@@ -48,17 +66,16 @@
 
 ## O que está bloqueado
 
-- ⏸️ Nenhum bloqueio no momento
+- ⏸️ **Fase 3 persistência**: `POST /api/publico/solicitacoes` retorna 500 sem PostgreSQL — use `docker compose -f infra/docker-compose.dev.yml up -d db` para ativar, depois `prisma migrate dev`
 
 ---
 
 ## Próximos passos imediatos
 
-1. **Fase 3** — DTOs de entrada validados com class-validator para criação de solicitação
-2. **Fase 3** — Service e Repository completos de Solicitações (`TEC-008`)
-3. **Fase 3** — `prisma migrate dev` com banco PostgreSQL disponível (Docker Compose) (`TEC-006`, `TEC-007`)
-4. Criar o projeto `frontend-cliente` Next.js 14 + TypeScript + TailwindCSS (`TEC-003`)
-5. Migrar o chatbot do HTML para componente React (`TEC-012`)
+1. **Infraestrutura**: `docker compose up` para PostgreSQL + MinIO + Redis locais
+2. `prisma migrate dev --name init` para criar as tabelas
+3. **Fase 5** — `frontend-interno`: scaffold Next.js, autenticação mockada (SSO), listagem de solicitações para operadores
+4. Testar fluxo E2E completo: formulário → backend → banco → consulta de status
 
 ---
 
@@ -81,5 +98,5 @@ ou usa um chatbot guiado, gera o Termo de Encerramento, assina via gov.br
 e faz upload. O módulo interno permite que operadores do banco processem 
 as solicitações sem necessidade de papel ou atendimento presencial.
 
-**Repositório de referência**: A ser definido (criar no GitHub)  
+**Repositório**: https://github.com/blahxjr/sisenccontas  
 **Protótipo HTML original**: `Codigo-incial.html` (arquivo de referência)
