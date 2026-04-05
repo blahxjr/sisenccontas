@@ -39,6 +39,7 @@ export class SolicitacoesService {
 
     return {
       protocolo: resultado.numeroProtocolo,
+      solicitacaoId: resultado.id,
       status: resultado.status,
       mensagem: 'Solicitação registrada com sucesso. Guarde o número de protocolo.',
     };

@@ -8,6 +8,7 @@ import Link from 'next/link';
 import { Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import { useMotivos, useUfs, useAgencias } from '@hooks/useCatalogos';
 import { apiClient } from '@lib/api-client';
+import { UploadTermoAssinado } from './UploadTermoAssinado';
 
 const schema = z.object({
   uf: z.string().min(2, 'Selecione um estado'),
@@ -31,6 +32,7 @@ type FormData = z.infer<typeof schema>;
 
 interface RespostaCriacao {
   protocolo: string;
+  solicitacaoId: string;
   status: string;
   mensagem: string;
 }
@@ -38,6 +40,7 @@ interface RespostaCriacao {
 /** Formulário de solicitação de encerramento de conta corrente BNB. */
 export function FormularioEncerramento() {
   const [protocolo, setProtocolo] = useState<string | null>(null);
+  const [solicitacaoId, setSolicitacaoId] = useState<string | null>(null);
   const [erroEnvio, setErroEnvio] = useState<string | null>(null);
   const [enviando, setEnviando] = useState(false);
 
@@ -80,6 +83,7 @@ export function FormularioEncerramento() {
         payload,
       );
       setProtocolo(resposta.data.protocolo);
+      setSolicitacaoId(resposta.data.solicitacaoId);
     } catch (err) {
       setErroEnvio((err as Error).message);
     } finally {
@@ -90,33 +94,40 @@ export function FormularioEncerramento() {
   // Tela de sucesso pós-submit
   if (protocolo) {
     return (
-      <div className="bg-green-50 border border-green-200 rounded-xl p-8 text-center space-y-5">
-        <CheckCircle className="h-14 w-14 text-green-600 mx-auto" />
-        <h2 className="text-2xl font-bold text-green-800">Solicitação Registrada!</h2>
-        <div className="bg-white border border-green-300 rounded-lg p-5 space-y-1">
-          <p className="text-sm text-gray-500">Número do protocolo</p>
-          <p className="text-3xl font-bold text-bnb-azul font-mono tracking-widest">
-            {protocolo}
+      <div className="space-y-6">
+        <div className="bg-green-50 border border-green-200 rounded-xl p-8 text-center space-y-5">
+          <CheckCircle className="h-14 w-14 text-green-600 mx-auto" />
+          <h2 className="text-2xl font-bold text-green-800">Solicitação Registrada!</h2>
+          <div className="bg-white border border-green-300 rounded-lg p-5 space-y-1">
+            <p className="text-sm text-gray-500">Número do protocolo</p>
+            <p className="text-3xl font-bold text-bnb-azul font-mono tracking-widest">
+              {protocolo}
+            </p>
+            <p className="text-xs text-gray-400">
+              Guarde este número para acompanhar sua solicitação
+            </p>
+          </div>
+          <p className="text-gray-700 text-sm max-w-md mx-auto">
+            <strong>Próximo passo:</strong> Nossa equipe gerará o Termo de Encerramento.
+            Após assinar via <strong>gov.br</strong>, envie o documento abaixo.
           </p>
-          <p className="text-xs text-gray-400">
-            Guarde este número para acompanhar sua solicitação
+          <Link
+            href={`/encerramento/status?protocolo=${protocolo}`}
+            className="inline-block bg-bnb-azul text-white px-8 py-3 rounded-lg font-medium hover:bg-bnb-azul-claro transition-colors"
+          >
+            Consultar status da solicitação
+          </Link>
+          <p>
+            <Link href="/" className="text-sm text-gray-500 underline hover:text-gray-700">
+              Voltar ao início
+            </Link>
           </p>
         </div>
-        <p className="text-gray-700 text-sm max-w-md mx-auto">
-          <strong>Próximo passo:</strong> Nossa equipe analisará sua solicitação.
-          Você receberá um retorno em até 5 dias úteis.
-        </p>
-        <Link
-          href={`/encerramento/status?protocolo=${protocolo}`}
-          className="inline-block bg-bnb-azul text-white px-8 py-3 rounded-lg font-medium hover:bg-bnb-azul-claro transition-colors"
-        >
-          Consultar status da solicitação
-        </Link>
-        <p>
-          <Link href="/" className="text-sm text-gray-500 underline hover:text-gray-700">
-            Voltar ao início
-          </Link>
-        </p>
+
+        {/* Upload do termo assinado — exibido apenas quando temos o solicitacaoId */}
+        {solicitacaoId && (
+          <UploadTermoAssinado solicitacaoId={solicitacaoId} />
+        )}
       </div>
     );
   }

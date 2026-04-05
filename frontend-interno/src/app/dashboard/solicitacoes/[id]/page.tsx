@@ -1,15 +1,16 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
-import { ArrowLeft, AlertCircle, CheckCircle2, XCircle, Loader2 } from 'lucide-react';
+import { ArrowLeft, AlertCircle, CheckCircle2, XCircle, Loader2, FileText, Download, FilePlus } from 'lucide-react';
 import { apiInterno } from '@/lib/api-interno';
 import type { UsuarioInterno } from '@/lib/auth';
 import type { Session } from 'next-auth';
 
 type UsuarioSessao = Session['user'] & Partial<UsuarioInterno>;
 type StatusSolicitacao = 'PENDENTE' | 'EM_ANALISE' | 'CONCLUIDO' | 'CANCELADO' | 'REJEITADO';
+type TipoDocumento = 'TERMO_GERADO' | 'TERMO_ASSINADO';
 
 interface SolicitacaoDetalhe {
   id: string;
@@ -23,6 +24,15 @@ interface SolicitacaoDetalhe {
   aceiteTermosTimestamp: string;
   criadoEm: string;
   atualizadoEm: string;
+}
+
+interface Documento {
+  id: string;
+  tipo: TipoDocumento;
+  nomeOriginal: string;
+  tamanhoBytes: number;
+  mimeType: string;
+  criadoEm: string;
 }
 
 const STATUS_LABEL: Record<StatusSolicitacao, string> = {
@@ -58,6 +68,18 @@ export default function DetalhesSolicitacaoPage({ params }: Props) {
   const [erro, setErro] = useState('');
   const [atualizando, setAtualizando] = useState(false);
   const [mensagem, setMensagem] = useState('');
+  const [documentos, setDocumentos] = useState<Documento[]>([]);
+  const [gerandoTermo, setGerandoTermo] = useState(false);
+  const [termoUrl, setTermoUrl] = useState<string | null>(null);
+
+  const carregarDocumentos = useCallback(async (id: string) => {
+    try {
+      const resp = await apiInterno.get<Documento[]>(`/interno/solicitacoes/${id}/documentos`);
+      setDocumentos(resp.data);
+    } catch {
+      // Silencioso — documentos podem não existir ainda
+    }
+  }, []);
 
   useEffect(() => {
     async function carregar() {
@@ -66,6 +88,7 @@ export default function DetalhesSolicitacaoPage({ params }: Props) {
           `/interno/solicitacoes/${params.id}`,
         );
         setSolicitacao(resp.data);
+        await carregarDocumentos(params.id);
       } catch (e: unknown) {
         setErro(e instanceof Error ? e.message : 'Erro ao carregar solicitação.');
       } finally {
@@ -73,7 +96,7 @@ export default function DetalhesSolicitacaoPage({ params }: Props) {
       }
     }
     carregar();
-  }, [params.id]);
+  }, [params.id, carregarDocumentos]);
 
   async function atualizarStatus(novoStatus: StatusSolicitacao) {
     if (!solicitacao) return;
@@ -89,6 +112,34 @@ export default function DetalhesSolicitacaoPage({ params }: Props) {
       setMensagem(e instanceof Error ? e.message : 'Erro ao atualizar status.');
     } finally {
       setAtualizando(false);
+    }
+  }
+
+  async function gerarTermo() {
+    if (!solicitacao) return;
+    setGerandoTermo(true);
+    setTermoUrl(null);
+    try {
+      const resp = await apiInterno.post<{ id: string; url: string }>(
+        `/interno/solicitacoes/${solicitacao.id}/documentos/gerar-termo`,
+      );
+      setTermoUrl(resp.data.url);
+      await carregarDocumentos(solicitacao.id);
+    } catch (e: unknown) {
+      setMensagem(e instanceof Error ? e.message : 'Erro ao gerar termo.');
+    } finally {
+      setGerandoTermo(false);
+    }
+  }
+
+  async function baixarDocumento(docId: string) {
+    try {
+      const resp = await apiInterno.get<{ url: string; expiraEm: string }>(
+        `/interno/documentos/${docId}/download`,
+      );
+      window.open(resp.data.url, '_blank', 'noopener,noreferrer');
+    } catch (e: unknown) {
+      setMensagem(e instanceof Error ? e.message : 'Erro ao gerar link de download.');
     }
   }
 
@@ -224,6 +275,95 @@ export default function DetalhesSolicitacaoPage({ params }: Props) {
               <XCircle size={14} /> Cancelar
             </button>
           </div>
+        </div>
+
+        {/* Seção de Documentos */}
+        <div className="bg-white rounded-xl shadow-sm p-6">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="font-bold text-bnb-azul flex items-center gap-2">
+              <FileText size={18} />
+              Documentos
+            </h2>
+            <button
+              onClick={gerarTermo}
+              disabled={gerandoTermo}
+              className="flex items-center gap-2 bg-bnb-azul text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-bnb-azul-claro disabled:opacity-50 transition-colors"
+            >
+              {gerandoTermo ? (
+                <Loader2 size={14} className="animate-spin" />
+              ) : (
+                <FilePlus size={14} />
+              )}
+              Gerar Termo de Encerramento
+            </button>
+          </div>
+
+          {termoUrl && (
+            <div className="mb-4 px-4 py-3 rounded-lg bg-blue-50 text-blue-700 text-sm flex items-center gap-2">
+              <Download size={16} />
+              Termo gerado!{' '}
+              <a
+                href={termoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline font-medium"
+              >
+                Baixar agora (URL expira em 5 min)
+              </a>
+            </div>
+          )}
+
+          {documentos.length === 0 ? (
+            <p className="text-sm text-gray-400 text-center py-6">
+              Nenhum documento gerado ainda. Clique em "Gerar Termo" para criar o PDF.
+            </p>
+          ) : (
+            <table className="w-full text-sm">
+              <thead className="bg-gray-50 text-gray-500 uppercase text-xs">
+                <tr>
+                  <th className="text-left px-4 py-2">Tipo</th>
+                  <th className="text-left px-4 py-2">Nome</th>
+                  <th className="text-left px-4 py-2">Tamanho</th>
+                  <th className="text-left px-4 py-2">Data</th>
+                  <th className="text-left px-4 py-2">Ação</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-gray-100">
+                {documentos.map((doc) => (
+                  <tr key={doc.id} className="hover:bg-gray-50">
+                    <td className="px-4 py-3">
+                      <span
+                        className={`inline-block px-2 py-0.5 rounded text-xs font-medium ${
+                          doc.tipo === 'TERMO_GERADO'
+                            ? 'bg-blue-100 text-blue-700'
+                            : 'bg-green-100 text-green-700'
+                        }`}
+                      >
+                        {doc.tipo === 'TERMO_GERADO' ? 'Gerado' : 'Assinado'}
+                      </span>
+                    </td>
+                    <td className="px-4 py-3 max-w-xs truncate text-gray-700">
+                      {doc.nomeOriginal}
+                    </td>
+                    <td className="px-4 py-3 text-gray-500">
+                      {(doc.tamanhoBytes / 1024).toFixed(0)} KB
+                    </td>
+                    <td className="px-4 py-3 text-gray-500">
+                      {new Date(doc.criadoEm).toLocaleString('pt-BR')}
+                    </td>
+                    <td className="px-4 py-3">
+                      <button
+                        onClick={() => baixarDocumento(doc.id)}
+                        className="flex items-center gap-1 text-bnb-azul-claro hover:underline text-sm"
+                      >
+                        <Download size={14} /> Baixar
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </main>
     </div>

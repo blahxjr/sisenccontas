@@ -4,7 +4,7 @@
 > Ele representa o estado atual real do projeto.
 
 **Atualizado em**: 2026-04-05  
-**Fase atual**: Fase 5 — Frontend Interno + Auth Mock ✅
+**Fase atual**: Fase 6 — Upload de Documentos + PDF do Termo ✅
 
 ---
 
@@ -58,6 +58,20 @@
 - Tela de detalhe: dados descriptografados (titularNome, numeroConta) + ações por perfil
 - E2E validado: POST /publico/solicitacoes ✅ | GET /interno/solicitacoes ✅ | GET /interno/solicitacoes/:id (decrypt) ✅
 - `tsc --noEmit` ✅ em backend e frontend-interno (zero erros)
+
+### Fase 6 — Upload de Documentos + PDF do Termo ✅ (05/04/2026)
+- `prisma/schema.prisma`: enum `TipoDocumento` (TERMO_GERADO, TERMO_ASSINADO) + modelo `Documento`; migration `20260405201024_sisenccontas` aplicada
+- `MinioService` (`shared/minio/`): `@Global()`, S3Client com `forcePathStyle: true`, `upload()`, `gerarUrlPresignada()` (5 min TTL), criação automática de bucket no `onModuleInit()`
+- `PdfService` (`shared/pdf/`): `@Global()`, `gerarTermoEncerramento()` — PDF A4 com cabeçalho BNB azul (#003087), tabela de dados, texto legal, área de assinatura, marca d'água girada 35°
+- `DocumentosModule`: `DocumentosRepository` (sem expor `chaveObjeto`), `DocumentosService` (gerarTermo, receberTermoAssinado com validação magic bytes `%PDF`, listar, gerarUrlDownload), `DocumentosController` (`POST /api/publico/solicitacoes/:id/documentos/upload`)
+- `InternoController`: 3 novos endpoints — `GET /interno/solicitacoes/:id/documentos`, `POST /interno/solicitacoes/:id/documentos/gerar-termo`, `GET /interno/documentos/:docId/download`
+- `SolicitacoesService.criar()`: agora retorna `solicitacaoId` junto com `protocolo`
+- `frontend-cliente`: componente `UploadTermoAssinado.tsx` (drag-drop, progress bar, axios, estados idle/selecionado/enviando/sucesso/erro); `FormularioEncerramento.tsx` atualizado com tela de sucesso + upload integrado
+- `frontend-interno`: seção "Documentos" em `[id]/page.tsx` — botão "Gerar Termo", tabela de documentos com tipo badge / nome / tamanho / data / download
+- Segurança: validação magic bytes `%PDF`, hash SHA-256 por arquivo, max 10MB, URLs presignadas sem exposição da chave de objeto
+- **Nota dev**: `ServerSideEncryption: 'AES256'` removido do upload MinIO local (MinIO open-source não suporta SSE-S3 sem KMS); em produção usar SSE configurado na infraestrutura
+- `tsc --noEmit` ✅ em backend, frontend-cliente e frontend-interno (zero erros); `nest build` ✅
+- E2E validado: gerar-termo (PDF 2KB no MinIO) ✅ | listar documentos ✅ | URL download presignada ✅
 
 ### Fase 4 — Frontend Cliente Next.js 14 ✅ (05/04/2026)
 - `frontend-cliente/` scaffolded: Next.js 14.2.5, React 18, TailwindCSS 3, react-hook-form + zod, axios, lucide-react

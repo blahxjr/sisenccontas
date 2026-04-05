@@ -29,7 +29,32 @@ model Solicitacao {
   criadoEm             DateTime          @default(now())
   atualizadoEm         DateTime          @updatedAt
 
+  documentos       Documento[]
+
   @@index([status])
   @@index([agencia])
   @@map("solicitacoes")
+}
+
+enum TipoDocumento {
+  TERMO_GERADO   // PDF gerado pelo sistema antes da assinatura
+  TERMO_ASSINADO // PDF enviado pelo cliente após assinar via gov.br
+}
+
+model Documento {
+  id            String        @id @default(uuid())
+  solicitacaoId String
+  tipo          TipoDocumento
+  nomeOriginal  String        @db.VarChar(255)
+  bucketMinio   String        @db.VarChar(100)
+  chaveObjeto   String        @db.VarChar(512) // caminho no MinIO
+  hashSha256    String        @db.VarChar(64) // integridade
+  tamanhoBytes  Int
+  mimeType      String        @db.VarChar(100)
+  criadoEm     DateTime      @default(now())
+
+  solicitacao Solicitacao @relation(fields: [solicitacaoId], references: [id])
+
+  @@index([solicitacaoId])
+  @@map("documentos")
 }

@@ -1,6 +1,7 @@
 import {
   Controller,
   Get,
+  Post,
   Patch,
   Param,
   Query,
@@ -85,5 +86,49 @@ export class InternoController {
       throw new ForbiddenException(`Status inválido. Use: ${statusValidos.join(', ')}`);
     }
     return this.service.atualizarStatus(id, status as StatusSolicitacao);
+  }
+
+  /**
+   * Lista documentos de uma solicitação (sem expor chaveObjeto).
+   */
+  @Get('solicitacoes/:id/documentos')
+  @ApiOperation({ summary: '[Interno] Lista documentos de uma solicitação' })
+  @ApiHeader({ name: 'x-interno-token', required: true })
+  async listarDocumentos(
+    @Headers('x-interno-token') token: string,
+    @Param('id') id: string,
+  ) {
+    this.verificarToken(token);
+    return this.service.listarDocumentos(id);
+  }
+
+  /**
+   * Gera o PDF do Termo de Encerramento e armazena no MinIO.
+   * Retorna ID do documento e URL presignada de 5 minutos.
+   */
+  @Post('solicitacoes/:id/documentos/gerar-termo')
+  @ApiOperation({ summary: '[Interno] Gera o PDF do Termo de Encerramento' })
+  @ApiHeader({ name: 'x-interno-token', required: true })
+  async gerarTermo(
+    @Headers('x-interno-token') token: string,
+    @Param('id') id: string,
+  ) {
+    this.verificarToken(token);
+    return this.service.gerarTermoParaSolicitacao(id);
+  }
+
+  /**
+   * Gera URL presignada de download válida por 5 minutos.
+   * O arquivo é servido diretamente do MinIO — sem passar pelo backend.
+   */
+  @Get('documentos/:docId/download')
+  @ApiOperation({ summary: '[Interno] Gera URL presignada de download (5 min)' })
+  @ApiHeader({ name: 'x-interno-token', required: true })
+  async downloadDocumento(
+    @Headers('x-interno-token') token: string,
+    @Param('docId') docId: string,
+  ) {
+    this.verificarToken(token);
+    return this.service.gerarUrlDownload(docId);
   }
 }
