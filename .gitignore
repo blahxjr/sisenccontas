@@ -20,8 +20,18 @@ out/
 
 # Logs
 *.log
+*.txt
 logs/
 npm-debug.log*
+backend-log.txt
+fi-log.txt
+
+# TypeScript build cache
+*.tsbuildinfo
+
+# E2E resultados de execução (reportes e screenshots)
+e2e/e2e-report/
+e2e/test-results/
 
 # Dev tools
 .DS_Store
