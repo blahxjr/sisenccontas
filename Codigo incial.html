@@ -1,0 +1,802 @@
+from IPython.display import HTML
+
+html_content = r'''
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Solicitação de Encerramento de Conta - Banco do Nordeste</title>
+  <style>
+    :root{
+      --bnb-vermelho:#A6193C; --bnb-laranja:#F68B1F; --bnb-amarelo:#FFCB05; --bnb-cinza:#646464;
+      --bnb-azul:#0996B6; --bnb-preto:#000; --bnb-branco:#FFF; --bnb-fundo:#FFE6CB;
+    }
+    *{box-sizing:border-box}
+    body{
+      font-family: Arial, sans-serif;
+      display:flex;
+      justify-content:center;
+      align-items:flex-start;
+      min-height:100vh;
+      margin:0;
+      background-color:var(--bnb-branco);
+    }
+    .main-wrapper{
+      width:100%;
+      max-width:900px;
+      padding:20px;
+      background-color:var(--bnb-fundo);
+      border:1px solid var(--bnb-preto);
+      border-radius:6px;
+      box-shadow:0 2px 5px rgba(0,0,0,.08);
+      margin:18px;
+    }
+    .header{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      margin-bottom:20px;
+      flex-wrap:wrap;
+    }
+    .logo{ width:150px; }
+    h1{
+      color:var(--bnb-vermelho);
+      font-size:1.6rem;
+      margin:.2rem 0 1rem;
+    }
+
+    #mode-selector {
+      text-align: center;
+      padding: 40px 20px;
+    }
+    #mode-selector h2 {
+      color: var(--bnb-vermelho);
+      margin-bottom: 25px;
+    }
+    .mode-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-mode {
+      padding: 20px 30px;
+      font-size: 1.1rem;
+      border: 2px solid var(--bnb-vermelho);
+      background: #fff;
+      color: var(--bnb-vermelho);
+      cursor: pointer;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: 0.3s;
+      width: 250px;
+    }
+    .btn-mode:hover {
+      background: var(--bnb-vermelho);
+      color: #fff;
+    }
+
+    #encerramento-form, #chatbot-container { display: none; }
+
+    /* Chatbot */
+    #chatbot-window {
+      height: 400px;
+      overflow-y: auto;
+      border: 1px solid var(--bnb-preto);
+      background: #fff;
+      padding: 15px;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .msg {
+      max-width: 80%;
+      padding: 10px;
+      border-radius: 8px;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+    .msg-bot {
+      align-self: flex-start;
+      background: #f1f1f1;
+      color: #333;
+      border-bottom-left-radius: 0;
+    }
+    .msg-user {
+      align-self: flex-end;
+      background: var(--bnb-vermelho);
+      color: #fff;
+      border-bottom-right-radius: 0;
+    }
+    .chat-input-area {
+      display: flex;
+      gap: 8px;
+    }
+    #chat-input {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid var(--bnb-preto);
+      border-radius: 4px;
+    }
+    #chat-send {
+      background: var(--bnb-laranja);
+      color: white;
+      border: none;
+      padding: 0 20px;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    /* Formulário */
+    fieldset{
+      border:1px solid var(--bnb-preto);
+      border-radius:6px;
+      padding:14px;
+      margin-bottom:12px;
+      background:#fff;
+    }
+    legend{
+      padding:0 .4rem;
+      color:var(--bnb-vermelho);
+      font-weight:bold;
+    }
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap:10px;
+    }
+    .col-12{ grid-column: span 12; }
+    .col-9{ grid-column: span 9; }
+    .col-8{ grid-column: span 8; }
+    .col-6{ grid-column: span 6; }
+    .col-4{ grid-column: span 4; }
+    .col-3{ grid-column: span 3; }
+
+    label{
+      display:block;
+      font-weight:600;
+      color:var(--bnb-vermelho);
+      margin-bottom:5px;
+    }
+    input, textarea, select{
+      width:100%;
+      padding:8px;
+      border:1px solid var(--bnb-preto);
+      border-radius:4px;
+      background:#fff;
+      color:#000;
+    }
+    textarea{
+      min-height:64px;
+      resize:vertical;
+    }
+    .button-group{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:10px;
+    }
+    button{
+      padding:10px 14px;
+      border:none;
+      border-radius:4px;
+      cursor:pointer;
+      font-weight:bold;
+      color:#fff;
+    }
+    button[type="submit"]{ background-color:var(--bnb-laranja); }
+    button[type="submit"]:hover{
+      background-color:var(--bnb-amarelo);
+      color:#000;
+    }
+    #export-pdf{ background-color:var(--bnb-cinza); }
+    #print-btn{ background-color:var(--bnb-azul); }
+
+    #documento{
+      display:none;
+      margin-top:16px;
+      padding:30px;
+      background:#fff;
+      color:#000;
+      border:1px solid #000;
+    }
+    #documento h2 {
+      text-align: center;
+      color: var(--bnb-vermelho);
+    }
+    .assinatura, .autorizacao { margin-top: 30px; }
+
+    /* Assinatura gov.br + upload */
+    #assinatura-upload{
+      display:none;
+      margin-top:20px;
+      padding:16px;
+      background:#fff;
+      border:1px solid var(--bnb-preto);
+      border-radius:6px;
+    }
+    #assinatura-upload h3{
+      margin-top:0;
+      color:var(--bnb-vermelho);
+    }
+    #upload-status{
+      margin-top:8px;
+      font-size:0.9rem;
+      color:var(--bnb-vermelho);
+    }
+    #assinatura-actions{
+      margin:10px 0;
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+    #assinatura-actions button{
+      padding:8px 12px;
+      font-size:0.9rem;
+    }
+
+    @media print{
+      body *{ visibility: hidden; }
+      #documento, #documento *{ visibility: visible; }
+      #documento{
+        position:absolute;
+        left:0;
+        top:0;
+        width:100%;
+        border:none;
+      }
+      #assinatura-upload{ display:none !important; }
+    }
+
+    @media (max-width: 768px){
+      .grid{ grid-template-columns: repeat(6, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <div class="main-wrapper">
+    <div class="header">
+      <img class="logo" alt="Logo" src="https://www.bnb.gov.br/o/bnb-dxp-theme/images/logo-bnb.svg"
+           onclick="window.location.reload()" style="cursor:pointer" title="Voltar ao início"/>
+      <h1>Solicitação de Encerramento</h1>
+    </div>
+
+    <div id="mode-selector">
+      <h2>Como deseja preencher o termo?</h2>
+      <div class="mode-buttons">
+        <button class="btn-mode" onclick="showInterface('form')">Preencher Formulário Manual</button>
+        <button class="btn-mode" onclick="showInterface('chatbot')">Assistente Virtual (Chatbot)</button>
+      </div>
+    </div>
+
+    <div id="chatbot-container">
+      <fieldset>
+        <legend>Assistente Virtual BNB</legend>
+        <div id="chatbot-window"></div>
+        <div class="chat-input-area">
+          <input type="text" id="chat-input" placeholder="Digite sua resposta..." onkeypress="handleChatKey(event)">
+          <button id="chat-send" onclick="processChatStep()">Enviar</button>
+        </div>
+        <button type="button" onclick="showInterface('select')"
+                style="background: var(--bnb-cinza); margin-top:10px">Voltar</button>
+      </fieldset>
+    </div>
+
+    <form id="encerramento-form">
+      <fieldset>
+        <legend>1. Destinatário e 2. Conta</legend>
+        <div class="grid">
+          <div class="col-9">
+            <label>1.1 Instituição</label>
+            <input type="text" id="instituicao" value="BANCO DO NORDESTE DO BRASIL S/A" required>
+          </div>
+          <div class="col-3">
+            <label>1.2 Agência</label>
+            <input type="text" id="agencia" required>
+          </div>
+          <div class="col-4">
+            <label>2.1 Conta com DV</label>
+            <input type="text" id="conta" required>
+          </div>
+          <div class="col-8">
+            <label>2.2 Titular(es)</label>
+            <input type="text" id="titulares" required>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>3. Motivo e 5, 6. Opções</legend>
+        <textarea id="motivo" placeholder="Motivo (opcional)"></textarea>
+        <div style="margin-top:10px">
+          <label>
+            <input type="checkbox" id="usou-cheque">
+            5. Movimentava com cheques
+          </label>
+          <input type="text" id="cheques" placeholder="Nº cheques devolvidos"
+                 style="display:none; margin-top:5px">
+        </div>
+        <div style="margin-top:10px">
+          <label>
+            <input type="checkbox" id="cartoes-devolvidos">
+            6. Cartões devolvidos ou inutilizados
+          </label>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>8. Saldo e 9. Débitos</legend>
+        <div class="grid">
+          <div class="col-4">
+            <label>Banco Crédito</label>
+            <input type="text" id="banco-credito">
+          </div>
+          <div class="col-4">
+            <label>Agência</label>
+            <input type="text" id="agencia-credito">
+          </div>
+          <div class="col-4">
+            <label>Conta</label>
+            <input type="text" id="conta-credito">
+          </div>
+          <div class="col-12" style="margin-top:10px">
+            <label>
+              <input type="checkbox" id="autoriza-cancelar-debitos" checked disabled>
+              9. Autorizo o cancelamento de débitos automáticos vinculados à conta e comprometo-me a
+              comunicar os beneficiários sobre o encerramento.
+            </label>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset>
+        <legend>14. Dados Finais</legend>
+        <div class="grid">
+          <div class="col-6">
+            <label>Local</label>
+            <input type="text" id="local" value="Chapadinha-MA" required>
+          </div>
+          <div class="col-6">
+            <label>Data</label>
+            <input type="date" id="data" required>
+          </div>
+          <div class="col-12">
+            <label>Endereço Atualizado</label>
+            <input type="text" id="endereco" required>
+          </div>
+          <div class="col-6">
+            <label>E-mail</label>
+            <input type="text" id="email">
+          </div>
+          <div class="col-6">
+            <label>Telefone</label>
+            <input type="text" id="telefone">
+          </div>
+          <div class="col-6">
+            <label>Assinante/Titular 1 (principal)</label>
+            <input type="text" id="assinante1" required>
+          </div>
+          <div class="col-6">
+            <label>Assinante/Titular 2 (opcional)</label>
+            <input type="text" id="assinante2">
+          </div>
+        </div>
+      </fieldset>
+
+      <div class="button-group">
+        <button type="submit">Gerar Termo</button>
+        <button type="button" id="export-pdf">PDF</button>
+        <button type="button" id="print-btn">Imprimir</button>
+        <button type="button" onclick="showInterface('select')" style="background: var(--bnb-cinza)">Voltar</button>
+      </div>
+    </form>
+
+    <div id="documento"></div>
+
+    <div id="assinatura-upload">
+      <h3>Assinatura Eletrônica gov.br e Upload do Termo</h3>
+      <p>
+        Após gerar o termo, você pode assiná-lo eletronicamente pelo serviço oficial de
+        assinatura do governo federal:
+        <a href="https://www.gov.br/pt-br/servicos/assinatura-eletronica" target="_blank" rel="noopener">
+          https://www.gov.br/pt-br/servicos/assinatura-eletronica
+        </a>.
+      </p>
+      <ol>
+        <li>Clique em <strong>PDF</strong> ou em <strong>Imprimir &gt; Salvar como PDF</strong> para baixar o termo.</li>
+        <li>Acesse o link acima e faça login com sua conta gov.br (recomenda-se nível prata ou ouro).[web:3]</li>
+        <li>Envie o arquivo do termo em PDF para o portal de assinatura e conclua a assinatura eletrônica.</li>
+        <li>Baixe o documento já assinado eletronicamente pelo gov.br.</li>
+        <li>Por fim, envie o termo assinado pelo campo de upload abaixo (simulação de recebimento pelo banco).</li>
+      </ol>
+
+      <div id="assinatura-actions">
+        <button type="button" id="btn-assinatura-pdf"
+                style="background: var(--bnb-cinza); color:#fff;">
+          Gerar PDF novamente
+        </button>
+        <button type="button" id="btn-assinatura-print"
+                style="background: var(--bnb-azul); color:#fff;">
+          Imprimir / Salvar como PDF
+        </button>
+        <a href="https://www.gov.br/pt-br/servicos/assinatura-eletronica"
+           target="_blank" rel="noopener"
+           style="padding:8px 12px; background:var(--bnb-vermelho); color:#fff; border-radius:4px; text-decoration:none; font-weight:bold; font-size:0.9rem;">
+          Ir para assinatura gov.br
+        </a>
+      </div>
+
+      <label for="arquivo-assinado">Upload do termo assinado (PDF ou imagem digitalizada):</label>
+      <input type="file" id="arquivo-assinado" accept="application/pdf,image/*">
+      <div id="upload-status"></div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <script>
+    const model = {
+      escapeHtml: (str) =>
+        String(str || '').replace(/[&<\\">']/g, s =>
+          ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[s])
+        )
+    };
+
+    // Chatbot: sem pergunta extra de assinante, usa o titular como assinante principal
+    const questions = [
+      { id: 'agencia', text: 'Olá! Vamos preencher o seu termo. Qual o número da sua agência?' },
+      { id: 'conta', text: 'Certo. Agora me informe o número da conta (com dígito verificador).' },
+      { id: 'titulares', text: 'Qual o nome completo do(s) titular(es) da conta?' },
+      { id: 'motivo', text: 'Deseja informar o motivo do encerramento? (Se não, digite: Não)' },
+      { id: 'usouCheque', text: 'Você movimentava a conta com cheques? (Sim/Não)' },
+      {
+        id: 'cheques',
+        text: 'Informe os números dos cheques devolvidos ou inutilizados (se houver, caso contrário digite: nenhum)',
+        condition: (data) => data.usouCheque && data.usouCheque.toLowerCase().includes('sim')
+      },
+      { id: 'cartoes', text: 'Os cartões magnéticos foram devolvidos ou inutilizados? (Sim/Não)' },
+      { id: 'bcred', text: 'Para transferência de eventual saldo, informe o Banco de destino:' },
+      { id: 'acred', text: 'Informe a Agência de destino:' },
+      { id: 'ccred', text: 'Informe a Conta de destino:' },
+      { id: 'end', text: 'Qual o seu endereço completo atualizado?' },
+      { id: 'email', text: 'Informe seu e-mail:' },
+      { id: 'contato', text: 'Qual seu telefone de contato?' }
+      // Não há mais pergunta "ass1", o titular será usado como assinante principal
+    ];
+
+    let currentStep = 0;
+    let chatData = {};
+
+    function showInterface(mode) {
+      document.getElementById('mode-selector').style.display =
+        mode === 'select' ? 'block' : 'none';
+      document.getElementById('encerramento-form').style.display =
+        mode === 'form' ? 'block' : 'none';
+      document.getElementById('chatbot-container').style.display =
+        mode === 'chatbot' ? 'block' : 'none';
+      document.getElementById('documento').style.display = 'none';
+      document.getElementById('assinatura-upload').style.display = 'none';
+
+      if (mode === 'chatbot') startChat();
+    }
+
+    function addChatMessage(role, text) {
+      const win = document.getElementById('chatbot-window');
+      const div = document.createElement('div');
+      div.className = 'msg msg-' + role;
+      div.innerText = text;
+      win.appendChild(div);
+      win.scrollTop = win.scrollHeight;
+    }
+
+    function handleChatKey(e) {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        processChatStep();
+      }
+    }
+
+    function startChat() {
+      document.getElementById('chatbot-window').innerHTML = '';
+      document.getElementById('chat-input').value = '';
+      currentStep = 0;
+      chatData = {};
+      addChatMessage('bot', questions[currentStep].text);
+    }
+
+    function processChatStep() {
+      const input = document.getElementById('chat-input');
+      const val = input.value.trim();
+      if (!val) return;
+
+      addChatMessage('user', val);
+      chatData[questions[currentStep].id] = val;
+      input.value = '';
+
+      currentStep++;
+
+      while (
+        currentStep < questions.length &&
+        questions[currentStep].condition &&
+        !questions[currentStep].condition(chatData)
+      ) {
+        chatData[questions[currentStep].id] = '';
+        currentStep++;
+      }
+
+      if (currentStep < questions.length) {
+        setTimeout(() => addChatMessage('bot', questions[currentStep].text), 500);
+      } else {
+        setTimeout(() => {
+          addChatMessage('bot', 'Obrigado! Gerando seu documento...');
+          generateDocumentFromChat();
+        }, 800);
+      }
+    }
+
+    function normalizeNao(str) {
+      if (!str) return '';
+      return str.toLowerCase().replace('ã', 'a').replace('á', 'a');
+    }
+
+    function generateDocumentFromChat() {
+      const motivoRaw = chatData.motivo || '';
+      const motivoIsNao = ['nao','não'].includes(normalizeNao(motivoRaw));
+
+      const data = {
+        inst: 'BANCO DO NORDESTE DO BRASIL S/A',
+        agencia: chatData.agencia,
+        conta: chatData.conta,
+        titulares: chatData.titulares,
+        motivo: motivoIsNao ? '' : motivoRaw,
+        usouCheque: chatData.usouCheque &&
+                    chatData.usouCheque.toLowerCase().includes('sim'),
+        cheques: chatData.cheques,
+        cartoes: chatData.cartoes &&
+                 chatData.cartoes.toLowerCase().includes('sim'),
+        bcred: chatData.bcred,
+        acred: chatData.acred,
+        ccred: chatData.ccred,
+        cancelar: true,
+        local: 'Chapadinha-MA',
+        end: chatData.end,
+        email: chatData.email,
+        contato: chatData.contato,
+        ass1: chatData.titulares, // assinante principal = titular
+        ass2: '',
+        dataObj: new Date()
+      };
+      renderTermo(data);
+      document.getElementById('chatbot-container').style.display = 'none';
+    }
+
+    function renderTermo(d) {
+      const meses = [
+        'janeiro','fevereiro','março','abril','maio','junho',
+        'julho','agosto','setembro','outubro','novembro','dezembro'
+      ];
+      const dataFmt = d.dataObj
+        ? d.dataObj.getDate() + ' de ' +
+          meses[d.dataObj.getMonth()] + ' de ' +
+          d.dataObj.getFullYear()
+        : '';
+
+      const doc = document.getElementById('documento');
+
+      doc.innerHTML = `
+        <h2>TERMO DE ENCERRAMENTO DE CONTA</h2>
+        <p><strong>1 Identificação do Destinatário</strong></p>
+        <p>1.1 Instituição Financeira Signatária:
+           <strong>${model.escapeHtml(d.inst)}</strong><br/>
+           1.2 Nome e número da agência:
+           <strong>${model.escapeHtml(d.agencia || '')}</strong></p>
+
+        <p><strong>2 Identificação da Conta Corrente</strong></p>
+        <p>2.1 Número com DV:
+           <strong>${model.escapeHtml(d.conta || '')}</strong><br/>
+           2.2 Nome do(s) titular(es):
+           <strong>${model.escapeHtml(d.titulares || '')}</strong></p>
+
+        <p><strong>3 Motivo do encerramento da conta corrente (facultativo):</strong><br/>
+           ${d.motivo ? model.escapeHtml(d.motivo) : '<em>Não informado</em>'}
+        </p>
+
+        <p><strong>4 Efeitos do pedido de encerramento da conta corrente</strong><br/>
+        Estou ciente de que o pedido de encerramento produz efeitos imediatos e que eventuais tarifas de pacote de serviços poderão ser cobradas <em>pro rata</em>.</p>
+
+        <p><strong>5 Folhas de cheques não utilizadas</strong><br/>
+        ${d.usouCheque
+          ? 'Declaro que os cheques sob meu poder foram devolvidos à instituição ou inutilizados.'
+          : 'Não movimentava a conta por cheques.'}
+        ${d.usouCheque && d.cheques
+          ? '<br/>5.1.1 Nº(s) de cheque(s): <strong>' +
+            model.escapeHtml(d.cheques) + '</strong>'
+          : ''}
+        </p>
+
+        <p><strong>6 Cartões magnéticos de movimentação</strong><br/>
+        ${d.cartoes
+          ? 'Declaro que os cartões foram devolvidos ou inutilizados.'
+          : 'Declaro ciência quanto à devolução/inutilização dos cartões.'}
+        </p>
+
+        <p><strong>7 Manutenção de fundos</strong><br/>
+        Estou ciente de que devo manter fundos suficientes para a liquidação de compromissos assumidos, estritamente relacionados à conta em encerramento (tributos; contratos; convênios de débitos programados; tarifas e encargos pendentes).</p>
+
+        <p><strong>8 Saldo credor (se houver)</strong><br/>
+        Caso não retirado antes do encerramento, o saldo ficará à disposição. Autorizo a transferência do saldo positivo para a conta de minha titularidade, conforme dados:<br/>
+        Banco: <strong>${model.escapeHtml(d.bcred || '')}</strong>,
+        Agência: <strong>${model.escapeHtml(d.acred || '')}</strong>,
+        Conta: <strong>${model.escapeHtml(d.ccred || '')}</strong>.
+        </p>
+
+        <p><strong>9 Débitos automáticos (se houver)</strong><br/>
+        Estou ciente de que a instituição poderá cancelar autorizações de débito automático vinculadas à conta encerrada e de que devo comunicar os beneficiários sobre o encerramento e eventual alteração de forma de pagamento.</p>
+
+        <p><strong>10 Transações</strong><br/>
+        Estou ciente de que débitos de transações efetuadas serão pagos normalmente, desde que existam fundos, no período entre o pedido e a efetivação do encerramento.</p>
+
+        <p><strong>11 Cheques sustados, revogados ou cancelados</strong><br/>
+        Estou ciente de que, se apresentados no prazo de prescrição, serão devolvidos pelos respectivos motivos, mesmo após o encerramento.</p>
+
+        <p><strong>12 Cheques pré-datados ou pendentes</strong><br/>
+        Estou ciente de que, se apresentados no prazo de prescrição, serão devolvidos mesmo após o encerramento, não me eximindo das obrigações legais, inclusive possibilidade de inclusão no CCF do Banco Central do Brasil.</p>
+
+        <p><strong>13 Prazo para encerramento</strong><br/>
+        Estou ciente de que o encerramento ocorrerá em até 30 (trinta) dias corridos, com ciência da data final mediante notificação da instituição por meio eficaz ou correspondência.</p>
+
+        <p><strong>14 Assinatura(s) e endereço(s) atualizado(s) do(s) titular(es)</strong><br/>
+        Local e data: <strong>${model.escapeHtml(d.local || '')}</strong>,
+        <strong>${model.escapeHtml(dataFmt)}</strong><br/>
+        Endereço atualizado:
+        <strong>${model.escapeHtml(d.end || '')}</strong><br/>
+        E-mail:
+        <strong>${model.escapeHtml(d.email || '')}</strong>${
+          d.contato
+            ? ' — Telefone: <strong>' +
+              model.escapeHtml(d.contato) + '</strong>'
+            : ''
+        }
+        </p>
+
+        <div class="assinatura">
+          ________________________________________________<br/>
+          (Nome/assinatura do titular 1 - assinante principal):
+          <strong>${model.escapeHtml(d.ass1 || '')}</strong>
+        </div>
+        ${
+          d.ass2
+            ? '<div class="assinatura">___________________________________________<br/>(Nome/assinatura do titular 2): <strong>' +
+              model.escapeHtml(d.ass2) + '</strong></div>'
+            : ''
+        }
+
+        <div class="autorizacao" style="margin-top:24px;">
+          <em>Banco do Nordeste do Brasil S/A</em><br/>
+          Recebido em: ____/____/____<br/>
+          Carimbo e assinatura
+        </div>
+      `;
+
+      doc.style.display = 'block';
+      doc.scrollIntoView({behavior: 'smooth'});
+
+      const uploadBox = document.getElementById('assinatura-upload');
+      if (uploadBox) uploadBox.style.display = 'block';
+    }
+
+    // Formulário manual
+    document.getElementById('encerramento-form').onsubmit = function(e) {
+      e.preventDefault();
+      const data = {
+        inst: document.getElementById('instituicao').value,
+        agencia: document.getElementById('agencia').value,
+        conta: document.getElementById('conta').value,
+        titulares: document.getElementById('titulares').value,
+        motivo: document.getElementById('motivo').value,
+        usouCheque: document.getElementById('usou-cheque').checked,
+        cheques: document.getElementById('cheques').value,
+        cartoes: document.getElementById('cartoes-devolvidos').checked,
+        bcred: document.getElementById('banco-credito').value,
+        acred: document.getElementById('agencia-credito').value,
+        ccred: document.getElementById('conta-credito').value,
+        cancelar: true,
+        local: document.getElementById('local').value,
+        end: document.getElementById('endereco').value,
+        email: document.getElementById('email').value,
+        contato: document.getElementById('telefone').value,
+        ass1: document.getElementById('assinante1').value,
+        ass2: document.getElementById('assinante2').value,
+        dataObj: new Date(
+          document.getElementById('data').value
+            ? document.getElementById('data').value + 'T00:00:00'
+            : new Date().toISOString().split('T')[0] + 'T00:00:00'
+        )
+      };
+      renderTermo(data);
+    };
+
+    document.getElementById('data').value =
+      new Date().toISOString().split('T')[0];
+
+    document.getElementById('usou-cheque').onclick = function() {
+      document.getElementById('cheques').style.display =
+        this.checked ? 'block' : 'none';
+    };
+
+    function doPrint() {
+      const docDiv = document.getElementById('documento');
+      if (docDiv.style.display !== 'block') {
+        alert('Gere o termo antes de imprimir.');
+        return;
+      }
+      window.print();
+    }
+
+    function doPdf() {
+      const { jsPDF } = window.jspdf || {};
+      const docDiv = document.getElementById('documento');
+      if (!docDiv || docDiv.style.display !== 'block') {
+        alert('Gere o termo primeiro!');
+        return;
+      }
+      if (!jsPDF) {
+        alert('jsPDF não disponível. Use "Imprimir" e escolha "Salvar como PDF".');
+        return;
+      }
+      const content = docDiv.innerText;
+      const pdf = new jsPDF();
+      pdf.text(pdf.splitTextToSize(content, 180), 10, 10);
+      pdf.save('encerramento_bnb.pdf');
+    }
+
+    document.getElementById('print-btn').onclick = doPrint;
+    document.getElementById('export-pdf').onclick = doPdf;
+
+    // Botões dentro da seção de assinatura chamando as mesmas funções
+    const btnAssPdf = document.getElementById('btn-assinatura-pdf');
+    const btnAssPrint = document.getElementById('btn-assinatura-print');
+    if (btnAssPdf) btnAssPdf.onclick = doPdf;
+    if (btnAssPrint) btnAssPrint.onclick = doPrint;
+
+    // Upload do termo assinado (simulação)
+    const uploadInput = document.getElementById('arquivo-assinado');
+    const uploadStatus = document.getElementById('upload-status');
+    if (uploadInput && uploadStatus) {
+      uploadInput.addEventListener('change', function() {
+        if (this.files && this.files.length > 0) {
+         const btnEnviarAss = document.getElementById('btn-enviar-assinado');
+if (btnEnviarAss && uploadInput && uploadStatus) {
+  btnEnviarAss.addEventListener('click', function() {
+    if (!uploadInput.files || uploadInput.files.length === 0) {
+      alert('Selecione primeiro o arquivo do termo assinado.');
+      return;
+    }
+    // Aqui seria o ponto de chamada ao back-end / API.
+    uploadStatus.textContent =
+      'Termo assinado enviado com sucesso (simulação de envio ao banco).';
+    alert('Termo assinado enviado com sucesso!');
+  });
+}
+
+          uploadStatus.textContent =
+            'Arquivo "' + this.files[0].name + '" selecionado com sucesso (simulação de envio).';
+        } else {
+          uploadStatus.textContent = '';
+        }
+      });
+    }
+
+    window.onload = function() {
+      showInterface('select');
+    };
+  </script>
+</body>
+</html>
+'''
+
+HTML(html_content)
