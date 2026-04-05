@@ -4,7 +4,7 @@
 > Ele representa o estado atual real do projeto.
 
 **Atualizado em**: 2026-04-05  
-**Fase atual**: Fase 4 — Frontend Cliente completo ✅
+**Fase atual**: Fase 5 — Frontend Interno + Auth Mock ✅
 
 ---
 
@@ -45,6 +45,20 @@
 - `SolicitacoesController`: `POST /api/publico/solicitacoes` + `GET /api/publico/solicitacoes/:protocolo/status`; IP mascarado nos logs
 - `tsc --noEmit` ✅ (zero erros) | Boot confirmado com Prisma gracioso sem DB
 
+### Fase 5 — Frontend Interno + Auth Mock ✅ (05/04/2026)
+- Docker Compose ativado (postgres, minio, redis) — todos healthy
+- Migration `20260405195603_sisenccontas` aplicada + seed ENC-2026-000001 criado
+- `InternoModule` no backend: `GET /interno/solicitacoes` (paginado), `GET /interno/solicitacoes/:id` (dados descriptografados), `PATCH /interno/solicitacoes/:id/status`
+- Auditoria: log `[AUDITORIA] operador=X acessou id=Y` em todas as operações internas
+- `frontend-interno/` em :3001 — Next.js 14, NextAuth v4, TailwindCSS com cores BNB
+- Auth mock OIDC: BNB0001 (operador) / BNB0002 (supervisor), sessão JWT 8h
+- `SessionProvider` via `providers.tsx` client-side (App Router compatible)
+- Middleware de proteção: todas as rotas exceto `/login` e `/api/auth` exigem sessão
+- Dashboard: tabela paginada com badges PENDENTE/EM_ANALISE/CONCLUIDO/CANCELADO/REJEITADO
+- Tela de detalhe: dados descriptografados (titularNome, numeroConta) + ações por perfil
+- E2E validado: POST /publico/solicitacoes ✅ | GET /interno/solicitacoes ✅ | GET /interno/solicitacoes/:id (decrypt) ✅
+- `tsc --noEmit` ✅ em backend e frontend-interno (zero erros)
+
 ### Fase 4 — Frontend Cliente Next.js 14 ✅ (05/04/2026)
 - `frontend-cliente/` scaffolded: Next.js 14.2.5, React 18, TailwindCSS 3, react-hook-form + zod, axios, lucide-react
 - `next.config.mjs` (ES module): headers de segurança (CSP, X-Frame-Options: DENY, HSTS, Referrer-Policy, Permissions-Policy)
@@ -66,16 +80,15 @@
 
 ## O que está bloqueado
 
-- ⏸️ **Fase 3 persistência**: `POST /api/publico/solicitacoes` retorna 500 sem PostgreSQL — use `docker compose -f infra/docker-compose.dev.yml up -d db` para ativar, depois `prisma migrate dev`
+- Nenhum bloqueio ativo
 
 ---
 
 ## Próximos passos imediatos
 
-1. **Infraestrutura**: `docker compose up` para PostgreSQL + MinIO + Redis locais
-2. `prisma migrate dev --name init` para criar as tabelas
-3. **Fase 5** — `frontend-interno`: scaffold Next.js, autenticação mockada (SSO), listagem de solicitações para operadores
-4. Testar fluxo E2E completo: formulário → backend → banco → consulta de status
+1. **Fase 6** — Upload de documentos (MinIO/S3), geração de PDF do Termo de Encerramento
+2. Testes unitários e de integração (Jest) nos módulos backend
+3. Playwright e2e: fluxo completo cliente → operador
 
 ---
 

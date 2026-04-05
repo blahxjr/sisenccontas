@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { StatusSolicitacao } from '@prisma/client';
 import { PrismaService } from '@shared/prisma/prisma.service';
 
 /** Dados necessários para persistir uma nova solicitação. */
@@ -32,6 +33,14 @@ const selectStatus = {
   atualizadoEm: true,
 } as const;
 
+/** Parâmetros para listagem paginada de solicitações. */
+export interface ListarSolicitacoesParams {
+  pagina: number;
+  itensPorPagina?: number;
+  status?: StatusSolicitacao;
+  agencia?: string;
+}
+
 @Injectable()
 export class SolicitacoesRepository {
   constructor(private readonly prisma: PrismaService) {}
@@ -64,6 +73,71 @@ export class SolicitacoesRepository {
     return this.prisma.solicitacao.findUnique({
       where: { numeroProtocolo: protocolo },
       select: selectStatus,
+    });
+  }
+
+  /**
+   * Lista solicitações paginadas para uso interno.
+   * Retorna campos sensíveis criptografados — descriptografar no InternoService.
+   */
+  async listar(params: ListarSolicitacoesParams) {
+    const { pagina, itensPorPagina = 10, status, agencia } = params;
+    const skip = (pagina - 1) * itensPorPagina;
+
+    const where = {
+      ...(status ? { status } : {}),
+      ...(agencia ? { agencia } : {}),
+    };
+
+    const [total, itens] = await Promise.all([
+      this.prisma.solicitacao.count({ where }),
+      this.prisma.solicitacao.findMany({
+        where,
+        skip,
+        take: itensPorPagina,
+        orderBy: { criadoEm: 'desc' },
+        select: {
+          id: true,
+          numeroProtocolo: true,
+          agencia: true,
+          status: true,
+          motivoEncerramento: true,
+          criadoEm: true,
+          atualizadoEm: true,
+        },
+      }),
+    ]);
+
+    return {
+      total,
+      pagina,
+      itensPorPagina,
+      totalPaginas: Math.ceil(total / itensPorPagina),
+      itens,
+    };
+  }
+
+  /**
+   * Busca uma solicitação pelo ID incluindo campos criptografados.
+   * Uso exclusivo do módulo interno — descriptografar antes de expor.
+   */
+  async buscarPorId(id: string) {
+    return this.prisma.solicitacao.findUnique({ where: { id } });
+  }
+
+  /**
+   * Atualiza o status de uma solicitação.
+   */
+  async atualizarStatus(id: string, status: StatusSolicitacao) {
+    return this.prisma.solicitacao.update({
+      where: { id },
+      data: { status },
+      select: {
+        id: true,
+        numeroProtocolo: true,
+        status: true,
+        atualizadoEm: true,
+      },
     });
   }
 }
