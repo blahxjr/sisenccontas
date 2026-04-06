@@ -95,6 +95,15 @@ export class InternoService {
       motivoDescricao,
       dataAceite: new Date(solicitacao.aceiteTermosTimestamp),
       versaoTermos: solicitacao.aceiteTermosVersao,
+      // Novos campos — conformidade 3303-03-11
+      enderecoCliente: solicitacao.enderecoCliente ?? undefined,
+      emailCliente: solicitacao.emailCliente ? this.descriptografar(solicitacao.emailCliente) : undefined,
+      possuiCheque: solicitacao.possuiCheque,
+      numeroChequeDevolvido: solicitacao.numeroChequeDevolvido ?? undefined,
+      possuiSaldoPositivo: solicitacao.possuiSaldoPositivo,
+      bancoTransferencia: solicitacao.bancoTransferencia ?? undefined,
+      agenciaTransferencia: solicitacao.agenciaTransferencia ?? undefined,
+      contaTransferencia: solicitacao.contaTransferencia ? this.descriptografar(solicitacao.contaTransferencia) : undefined,
     });
   }
 

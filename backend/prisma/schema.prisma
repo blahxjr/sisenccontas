@@ -29,6 +29,16 @@ model Solicitacao {
   criadoEm             DateTime          @default(now())
   atualizadoEm         DateTime          @updatedAt
 
+  // Campos complementares — conformidade normativa 3303-03-11
+  enderecoCliente       String?           @db.VarChar(200)
+  emailCliente          String?           @db.VarChar(512)  // criptografado em repouso (AES-256)
+  possuiCheque          Boolean           @default(false)
+  numeroChequeDevolvido String?           @db.VarChar(100)
+  possuiSaldoPositivo   Boolean           @default(false)
+  bancoTransferencia    String?           @db.VarChar(50)
+  agenciaTransferencia  String?           @db.VarChar(10)
+  contaTransferencia    String?           @db.VarChar(512)  // criptografado em repouso (AES-256)
+
   documentos       Documento[]
 
   @@index([status])

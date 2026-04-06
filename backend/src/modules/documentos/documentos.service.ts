@@ -7,7 +7,9 @@ import {
 import { TipoDocumento } from '@prisma/client';
 import { MinioService } from '@shared/minio/minio.service';
 import { PdfService, DadosTermoEncerramento } from '@shared/pdf/pdf.service';
-import { gerarHashSha256 } from '@shared/utils/seguranca.util';
+import { gerarHashSha256, descriptografarCampo } from '@shared/utils/seguranca.util';
+import { SolicitacoesRepository } from '@modules/solicitacoes/solicitacoes.repository';
+import { CatalogosService } from '@modules/catalogos/catalogos.service';
 import { DocumentosRepository } from './documentos.repository';
 
 const MIME_PDF = 'application/pdf';
@@ -21,10 +23,14 @@ const TAMANHO_MAX_UPLOAD = 10 * 1024 * 1024; // 10 MB
 export class DocumentosService {
   private readonly logger = new Logger(DocumentosService.name);
 
+  private readonly chave = process.env.ENCRYPTION_KEY ?? 'chave-local-desenvolvimento-32ch';
+
   constructor(
     private readonly repo: DocumentosRepository,
     private readonly minio: MinioService,
     private readonly pdf: PdfService,
+    private readonly solicitacoesRepo: SolicitacoesRepository,
+    private readonly catalogos: CatalogosService,
   ) {}
 
   /**
@@ -99,6 +105,41 @@ export class DocumentosService {
       `[DOCS] Termo assinado recebido — solicitacaoId=${solicitacaoId} hash=${hash.substring(0, 16)}...`,
     );
     return { id: doc.id };
+  }
+
+  /**
+   * Gera o Termo de Encerramento para uma solicitação via rota pública.
+   * Descriptografa os campos sensíveis internamente e delega ao gerarTermo.
+   */
+  async gerarTermoPublico(solicitacaoId: string): Promise<{ id: string; url: string }> {
+    const sol = await this.solicitacoesRepo.buscarPorId(solicitacaoId);
+    if (!sol) throw new NotFoundException('Solicitação não encontrada.');
+
+    const desc = (v: string) => descriptografarCampo(v, this.chave);
+    const agencia = this.catalogos.buscarAgenciaPorCodigo(sol.agencia);
+    const nomeAgencia = agencia?.nome ?? sol.agencia;
+    const motivoDescricao = sol.motivoEncerramento ?? 'Não informado';
+
+    this.logger.log(`[DOCS] gerarTermoPublico solicitacaoId=${solicitacaoId}`);
+
+    return this.gerarTermo(solicitacaoId, {
+      protocolo: sol.numeroProtocolo,
+      agencia: sol.agencia,
+      nomeAgencia,
+      numeroConta: desc(sol.numeroConta),
+      titularNome: desc(sol.titularNome),
+      motivoDescricao,
+      dataAceite: new Date(sol.aceiteTermosTimestamp),
+      versaoTermos: sol.aceiteTermosVersao,
+      enderecoCliente: sol.enderecoCliente ?? undefined,
+      emailCliente: sol.emailCliente ? desc(sol.emailCliente) : undefined,
+      possuiCheque: sol.possuiCheque,
+      numeroChequeDevolvido: sol.numeroChequeDevolvido ?? undefined,
+      possuiSaldoPositivo: sol.possuiSaldoPositivo,
+      bancoTransferencia: sol.bancoTransferencia ?? undefined,
+      agenciaTransferencia: sol.agenciaTransferencia ?? undefined,
+      contaTransferencia: sol.contaTransferencia ? desc(sol.contaTransferencia) : undefined,
+    });
   }
 
   /** Lista documentos de uma solicitação sem expor chaveObjeto. */

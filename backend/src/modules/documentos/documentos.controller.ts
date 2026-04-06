@@ -58,4 +58,15 @@ export class DocumentosController {
     );
     return { mensagem: 'Documento recebido com sucesso.', documentoId: resultado.id };
   }
+
+  /**
+   * Gera o Termo de Encerramento em PDF para a solicitação indicada.
+   * Rota pública — acessível pelo cliente após submissão do formulário.
+   */
+  @Post('gerar-termo')
+  @ApiOperation({ summary: 'Gera o Termo de Encerramento em PDF para assinatura pelo cliente' })
+  @ApiParam({ name: 'solicitacaoId', description: 'ID (UUID) da solicitação' })
+  async gerarTermo(@Param('solicitacaoId') solicitacaoId: string) {
+    return this.service.gerarTermoPublico(solicitacaoId);
+  }
 }

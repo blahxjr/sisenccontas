@@ -12,6 +12,15 @@ interface CriarSolicitacaoInput {
   aceiteTermosVersao: string;
   aceiteTermosTimestamp: Date;
   ipOrigemMascarado?: string;
+  // Campos complementares — conformidade normativa 3303-03-11
+  enderecoCliente?: string;
+  emailCliente?: string;
+  possuiCheque?: boolean;
+  numeroChequeDevolvido?: string;
+  possuiSaldoPositivo?: boolean;
+  bancoTransferencia?: string;
+  agenciaTransferencia?: string;
+  contaTransferencia?: string;
 }
 
 /** Campos retornados publicamente após criação — sem dados sensíveis. */
@@ -60,6 +69,14 @@ export class SolicitacoesRepository {
         aceiteTermosVersao: dados.aceiteTermosVersao,
         aceiteTermosTimestamp: dados.aceiteTermosTimestamp,
         ipOrigemMascarado: dados.ipOrigemMascarado,
+        enderecoCliente: dados.enderecoCliente,
+        emailCliente: dados.emailCliente,
+        possuiCheque: dados.possuiCheque ?? false,
+        numeroChequeDevolvido: dados.numeroChequeDevolvido,
+        possuiSaldoPositivo: dados.possuiSaldoPositivo ?? false,
+        bancoTransferencia: dados.bancoTransferencia,
+        agenciaTransferencia: dados.agenciaTransferencia,
+        contaTransferencia: dados.contaTransferencia,
       },
       select: selectPublico,
     });

@@ -8,6 +8,7 @@ import {
   IsDateString,
   Equals,
   IsBoolean,
+  IsEmail,
 } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
@@ -55,4 +56,51 @@ export class CriarSolicitacaoDto {
   @IsBoolean()
   @Equals(true, { message: 'O aceite dos termos é obrigatório' })
   aceitouTermos: boolean;
+
+  // ── Campos complementares — conformidade normativa 3303-03-11 ─────────────
+
+  @ApiProperty({ required: false, description: 'Endereço atualizado do titular' })
+  @IsOptional()
+  @IsString()
+  @MaxLength(200)
+  enderecoCliente?: string;
+
+  @ApiProperty({ required: false, description: 'E-mail do titular (criptografado em repouso)' })
+  @IsOptional()
+  @IsEmail({}, { message: 'E-mail inválido' })
+  emailCliente?: string;
+
+  @ApiProperty({ required: false, description: 'Titular movimentou a conta com cheques?' })
+  @IsOptional()
+  @IsBoolean()
+  possuiCheque?: boolean;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsString()
+  @MaxLength(100)
+  numeroChequeDevolvido?: string;
+
+  @ApiProperty({ required: false, description: 'Conta possui saldo positivo?' })
+  @IsOptional()
+  @IsBoolean()
+  possuiSaldoPositivo?: boolean;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsString()
+  @MaxLength(50)
+  bancoTransferencia?: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsString()
+  @MaxLength(10)
+  agenciaTransferencia?: string;
+
+  @ApiProperty({ required: false, description: 'Conta de destino para transferência do saldo (criptografada em repouso)' })
+  @IsOptional()
+  @IsString()
+  @MaxLength(20)
+  contaTransferencia?: string;
 }

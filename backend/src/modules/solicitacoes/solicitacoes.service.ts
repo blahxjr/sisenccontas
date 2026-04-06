@@ -33,6 +33,15 @@ export class SolicitacoesService {
       aceiteTermosVersao: dto.aceiteTermosVersao,
       aceiteTermosTimestamp: new Date(dto.aceiteTermosTimestamp),
       ipOrigemMascarado: ipOrigem,
+      // Campos complementares — campos sensíveis criptografados em repouso
+      enderecoCliente: dto.enderecoCliente,
+      emailCliente: dto.emailCliente ? criptografarCampo(dto.emailCliente, chave) : undefined,
+      possuiCheque: dto.possuiCheque,
+      numeroChequeDevolvido: dto.numeroChequeDevolvido,
+      possuiSaldoPositivo: dto.possuiSaldoPositivo,
+      bancoTransferencia: dto.bancoTransferencia,
+      agenciaTransferencia: dto.agenciaTransferencia,
+      contaTransferencia: dto.contaTransferencia ? criptografarCampo(dto.contaTransferencia, chave) : undefined,
     });
 
     this.logger.log(`Solicitação criada — Protocolo: ${resultado.numeroProtocolo} | Agência: ${resultado.agencia}`);

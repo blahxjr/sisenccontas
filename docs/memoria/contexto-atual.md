@@ -3,8 +3,8 @@
 > **LEIA ESTE ARQUIVO PRIMEIRO** ao iniciar qualquer nova sessão de desenvolvimento ou IA.
 > Ele representa o estado atual real do projeto.
 
-**Atualizado em**: 2026-04-05  
-**Fase atual**: Fase 7 — Testes Jest + Playwright E2E ✅ | Conformidade Visual BNB ✅
+**Atualizado em**: 2026-04-06  
+**Fase atual**: Fase 7 ✅ | Conformidade Normativa BNB 3303-40-64 / 3303-03-11 ✅
 
 ---
 
@@ -65,6 +65,23 @@
 - `tailwind.config.ts` (cliente) e `tailwind.config.mjs` (interno) atualizados com novos tokens
 - Todos os componentes/páginas migrados: `bnb-azul` → `bnb-vermelho`, `bnb-azul-claro` → `bnb-laranja`
 - `pdf.service.ts`: cabeçalho do Termo de Encerramento agora usa `rgb(0.651, 0.098, 0.235)` (Vermelho BNB) e `rgb(0.965, 0.545, 0.122)` (Laranja BNB)
+- `tsc --noEmit` ✅ nos 3 módulos (zero erros)
+
+### Conformidade Normativa BNB — Termo 3303-40-64 + Fluxo 3303-03-11 ✅ (06/04/2026)
+- **Tailwind expandido**: + `bnb-vermelho-escuro` (#7A1228), `bnb-laranja-escuro` (#C96D0A), `bnb-cinza-claro` (#F5F5F5); renomeado `bnb-azul-info` → `bnb-azul` (#0996B6) em ambos os configs
+- **PDF Termo oficial 3303-40-64**: `pdf.service.ts` substituído — 14 seções obrigatórias, faixa laranja, recibo do banco, rodapé vermelho, referência normativa `3303-40-64 v.020`
+- **Interface `DadosTermoEncerramento`** expandida com campos opcionais: `enderecoCliente`, `emailCliente`, `possuiCheque`, `numeroChequeDevolvido`, `possuiSaldoPositivo`, `bancoTransferencia`, `agenciaTransferencia`, `contaTransferencia`
+- **Formulário multi-etapa** em `FormularioEncerramento.tsx`:
+  - Etapa 1: Dados da Conta (campos existentes)
+  - Etapa 2: Informações Complementares (cheque, saldo positivo, endereço, email)
+  - Etapa 3: Confirmar e Assinar (aceite do normativo 3303-03-11 + submit)
+  - Tela de sucesso: instrução gov.br/ICP-Brasil, botão "Gerar PDF para Assinatura", `UploadTermoAssinado`
+- **`CriarSolicitacaoDto`**: 8 novos campos opcionais com class-validator
+- **Prisma**: migration `20260406005330_adicionar_campos_normativos` aplicada — 8 novos campos em `Solicitacao`
+- **SolicitacoesService**: `emailCliente` e `contaTransferencia` criptografados com AES-256-CBC em `criar()`
+- **InternoService**: novos campos descriptografados em `gerarTermoParaSolicitacao()`
+- **DocumentosService**: `gerarTermoPublico(solicitacaoId)` — endpoint público `POST /api/publico/solicitacoes/:id/documentos/gerar-termo`
+- **DocumentosModule** importa `CatalogosModule` para resolução do nome da agência
 - `tsc --noEmit` ✅ nos 3 módulos (zero erros)
 
 ### Fase 7 — Testes Jest + Playwright E2E ✅ (05/04/2026)
