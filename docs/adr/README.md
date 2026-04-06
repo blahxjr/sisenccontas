@@ -42,3 +42,6 @@ O que foi considerado e por que foi rejeitado?
 | ADR-002 | Padrão Backend for Frontend (BFF) com NestJS | Aceita | 2026-04-05 |
 | ADR-003 | PostgreSQL como banco de dados principal | Aceita | 2026-04-05 |
 | ADR-004 | MinIO para armazenamento de arquivos em dev | Aceita | 2026-04-05 |
+| ADR-005 | Paleta de cores oficial BNB (Vermelho #A6193C + Laranja #F68B1F) | Aceita | 2026-04-05 |
+| ADR-006 | Quebra de linha no PDF por largura real de pixel (`font.widthOfTextAtSize`) | Aceita | 2026-04-05 |
+| ADR-007 | Route Group `(main)` para isolamento de layout no frontend-cliente | Aceita | 2026-04-05 |

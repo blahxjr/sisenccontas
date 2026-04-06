@@ -4,7 +4,7 @@
 > Ele representa o estado atual real do projeto.
 
 **Atualizado em**: 2026-04-06  
-**Fase atual**: Fase 7 ✅ | Conformidade Normativa BNB 3303-40-64 / 3303-03-11 ✅
+**Fase atual**: Fase 7 ✅ | Conformidade Normativa BNB 3303-40-64 / 3303-03-11 ✅ | Demo Visual ✅ | PDF Formatação ✅
 
 ---
 
@@ -126,6 +126,23 @@
 - E2E validado: gerar-termo (PDF 2KB no MinIO) ✅ | listar documentos ✅ | URL download presignada ✅
 - **Commit 07ebd64 pushed para origin/main** (fase 6: 23 arquivos, +2.352 linhas)
 
+### Demo Visual — Página /demo ✅ (05/04/2026)
+- `frontend-cliente/src/app/demo/page.tsx` criado como rota standalone (sem header/footer do layout principal)
+- Route Group `(main)` criado para isolar o layout com header vermelho BNB e max-w-4xl
+- `(main)/layout.tsx`: header vermelho BNB + footer com link "Ver demonstração técnica"
+- `(main)/page.tsx`: home com link para `/demo`
+- Página `/demo` contém: hero vermelho/laranja BNB, badges de conformidade, preview interativo do formulário (4 etapas clicáveis), preview do dashboard do operador (linhas selecionáveis), tabela de arquitetura técnica (7 camadas), diagrama de fluxo de dados, grid de segurança (10 controles OWASP/LGPD), roadmap visual (8 fases, 6✅ 2⏳)
+- Link para `/demo` adicionado no footer de `(main)/layout.tsx` e na home page
+- **Commit 7251565 pushed para origin/main**
+
+### Fix PDF — Sobreposição de texto corrigida ✅ (05/04/2026)
+- `pdf.service.ts` reescrito completamente para corrigir sobreposição de texto em páginas longas
+- **Paginação real**: nova página criada automaticamente quando `y < 75`; rodapé vermelho renderizado em todas as páginas
+- **Quebra de linha por `font.widthOfTextAtSize()`**: largura real em pixel, eliminando sobreposição por contagem incorreta de caracteres
+- Espaçamentos corrigidos: `y -= 13/14/16` conforme tamanho da fonte (10/11/12pt)
+- Cabeçalho: faixa vermelha (#A6193C) + faixa laranja (#F68B1F); 14 seções obrigatórias do modelo oficial 3303-40-64; seção de Recibo do Banco; rodapé com referência `3303-40-64 v.020`
+- **Commit 14e1bdf pushed para origin/main**
+
 ---
 
 ## O que está em andamento
@@ -142,9 +159,11 @@
 
 ## Próximos passos imediatos
 
-1. **Fase 8** — Integração gov.br para assinatura digital do Termo de Encerramento
-2. **Fase 9** — CI/CD GitHub Actions (lint + test + build + deploy)
-3. Testes de carga e security review final
+1. **Fase 8** — Autenticação corporativa real (OIDC/SAML SSO BNB) substituindo o mock dev
+2. **Fase 9** — CI/CD GitHub Actions (lint + test + build + deploy + análise SAST)
+3. **Fase 10** — Hardening de produção (rate limiting, WAF, SIEM, revisão OWASP ASVS nível 2)
+4. Integração gov.br para assinatura digital do Termo de Encerramento
+5. Testes de carga e security review final
 
 ---
 
