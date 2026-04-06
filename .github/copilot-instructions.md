@@ -49,6 +49,7 @@ Antes de propor qualquer mudança de arquitetura ou design, consulte sempre:
 - `#file:'docs/adr/README.md'` — Índice de decisões arquiteturais (ADRs)
 - `#file:'docs/memoria/contexto-atual.md'` — Estado atual de desenvolvimento
 - `#file:'docs/convencoes.md'` — Convenções de código e nomenclatura
+- `#file:'docs/estrategia-agentes-e-memoria.md'` — Estratégia de desenvolvimento com agentes de IA e memória persistente
 
 ---
 

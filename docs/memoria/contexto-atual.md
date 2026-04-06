@@ -6,6 +6,8 @@
 **Atualizado em**: 2026-04-06  
 **Fase atual**: Fase 7 ✅ | Conformidade Normativa BNB 3303-40-64 / 3303-03-11 ✅ | Demo Visual ✅ | PDF Formatação ✅
 
+> **Novo**: `docs/estrategia-agentes-e-memoria.md` — visão completa sobre como o projeto usa agentes de IA e memória persistente.
+
 ---
 
 ## O que foi feito até agora
