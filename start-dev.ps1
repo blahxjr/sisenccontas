@@ -37,12 +37,35 @@ function Subir-Docker {
   Write-Host ""
   Write-Host "  [2/4] Subindo infraestrutura Docker..." -ForegroundColor Cyan
   Set-Location $Root
-  docker compose -f infra/docker-compose.dev.yml up -d
 
-  if ($LASTEXITCODE -ne 0) {
-    Write-Host "  ✗ Falha ao subir Docker. Verifique se o Docker Desktop está rodando." -ForegroundColor Red
-    exit 1
+  # Verifica se o daemon está acessível; se não, abre o Docker Desktop e aguarda
+  $daemonOk = docker info 2>&1 | Select-String "Server Version"
+  if (-not $daemonOk) {
+    Write-Host "  → Docker Desktop não encontrado. Iniciando..." -ForegroundColor Yellow
+    $dockerDesktop = "C:\Program Files\Docker\Docker\Docker Desktop.exe"
+    if (Test-Path $dockerDesktop) {
+      Start-Process $dockerDesktop
+    } else {
+      Write-Host "  ✗ Docker Desktop não encontrado em '$dockerDesktop'. Abra manualmente e tente novamente." -ForegroundColor Red
+      exit 1
+    }
+
+    Write-Host "  → Aguardando Docker daemon (até 90s)..." -ForegroundColor Yellow
+    $tentativas = 0
+    do {
+      Start-Sleep -Seconds 5
+      $tentativas++
+      $daemonOk = docker info 2>&1 | Select-String "Server Version"
+    } while (-not $daemonOk -and $tentativas -lt 18)
+
+    if (-not $daemonOk) {
+      Write-Host "  ✗ Docker daemon não respondeu após 90s. Verifique o Docker Desktop." -ForegroundColor Red
+      exit 1
+    }
+    Write-Host "  ✓ Docker Desktop pronto" -ForegroundColor Green
   }
+
+  docker compose -f infra/docker-compose.dev.yml up -d 2>&1 | Out-Null
 
   Write-Host "  ✓ PostgreSQL, Redis e MinIO disponíveis" -ForegroundColor Green
 }
