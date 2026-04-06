@@ -5,8 +5,9 @@ export class FormularioPage {
 
   async abrirFormulario() {
     await this.page.goto('http://localhost:3000/encerramento/formulario');
-    // Aguardar hidratação do React e carregamento dos catálogos
-    await this.page.waitForLoadState('networkidle');
+    // Aguardar até o select de UF ter opções reais (useEffect + API respondeu)
+    // options dentro de select são sempre hidden — usar 'attached' para verificar presença no DOM
+    await this.page.locator('#uf option[value="MA"]').waitFor({ state: 'attached', timeout: 30_000 });
   }
 
   /**

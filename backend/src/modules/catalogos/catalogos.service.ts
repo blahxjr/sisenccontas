@@ -36,10 +36,9 @@ export class CatalogosService implements OnModuleInit {
   }
 
   private caminhoData(): string {
-    // __dirname em ts-node: backend/src/modules/catalogos
-    // __dirname após build: backend/dist/modules/catalogos
-    // Subindo 4 níveis chega ao root do monorepo (SISENCCONTAS/data) em ambos os casos
-    return join(__dirname, '../../../../data');
+    // process.cwd() é sempre o diretório onde o processo foi iniciado (backend/)
+    // independente de ts-node, dist/src, ou dist — monorepo root está 1 nível acima
+    return join(process.cwd(), '..', 'data');
   }
 
   /** Parseia CSV com suporte a linhas de comentário (#) */

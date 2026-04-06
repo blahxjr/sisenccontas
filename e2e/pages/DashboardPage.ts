@@ -17,8 +17,13 @@ export class DashboardPage {
   }
 
   async abrirDetalhe(protocolo: string) {
-    await this.page.getByText(protocolo).click();
-    await this.page.waitForURL('**/solicitacoes/**');
+    // O protocolo é texto simples na tabela — clicar em "Ver detalhe" na linha correspondente
+    await this.page
+      .getByRole('row')
+      .filter({ hasText: protocolo })
+      .getByRole('link', { name: /ver detalhe/i })
+      .click();
+    await this.page.waitForURL('**/solicitacoes/**', { timeout: 15_000 });
   }
 
   async gerarTermo() {
@@ -27,6 +32,8 @@ export class DashboardPage {
   }
 
   async confirmarDocumentoNaLista(tipo: 'TERMO_GERADO' | 'TERMO_ASSINADO') {
-    await expect(this.page.getByText(tipo)).toBeVisible();
+    // O badge na tabela exibe 'Gerado' ou 'Assinado' como span — usar exact para evitar match parcial
+    const textoExibido = tipo === 'TERMO_GERADO' ? 'Gerado' : 'Assinado';
+    await expect(this.page.locator('span').getByText(textoExibido, { exact: true }).first()).toBeVisible();
   }
 }

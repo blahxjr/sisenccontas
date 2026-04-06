@@ -4,7 +4,7 @@
 > Ele representa o estado atual real do projeto.
 
 **Atualizado em**: 2026-04-05  
-**Fase atual**: Fase 6 — Upload de Documentos + PDF do Termo ✅
+**Fase atual**: Fase 7 — Testes Jest + Playwright E2E ✅
 
 ---
 
@@ -59,7 +59,23 @@
 - E2E validado: POST /publico/solicitacoes ✅ | GET /interno/solicitacoes ✅ | GET /interno/solicitacoes/:id (decrypt) ✅
 - `tsc --noEmit` ✅ em backend e frontend-interno (zero erros)
 
-### Fase 4 — Frontend Cliente Next.js 14 ✅ (05/04/2026)
+### Fase 7 — Testes Jest + Playwright E2E ✅ (05/04/2026)
+- `backend/jest.config.ts`: ts-jest v29, moduleNameMapper `@shared/` e `@modules/`, rootDir `src`
+- `seguranca.util.spec.ts`: 10 testes — AES-256-CBC criptografar/descriptografar, hash SHA-256, gerarNumeroProtocolo, mascararIp
+- `catalogos.service.spec.ts`: 8 testes — listar motivos/UFs/agencias, filtrar por UF, buscar por código, mock readFileSync
+- `documentos.service.spec.ts`: 4 testes — validação magic bytes PDF, tipo MIME inválido, limite 10MB, arquivo válido
+- **22 testes Jest passando, 0 falhas** ✅
+- `e2e/` adicionado como workspace pnpm dedicado (`pnpm-workspace.yaml`); `@playwright/test` v1.59.1 instalado; Chromium v1217 instalado
+- `e2e/playwright.config.ts`: Chromium, workers=1, sequencial, timeout 60s, screenshots on-failure
+- `e2e/pages/FormularioPage.ts`: single-page form (UF→Agência→Conta→Titular), wait `state: 'attached'` para opções DOM
+- `e2e/pages/DashboardPage.ts`: login mock SSO, filtro por linha para "Ver detalhe", badge 'Gerado'
+- `e2e/fluxo-completo.spec.ts`: 6 testes (01 formulário→protocolo, 02 status, 03 login, 04 dashboard, 05 gerar-termo, 06 LGPD)
+- **6/6 testes E2E passando** ✅
+- Correções de infraestrutura: CSP `connect-src` extraindo apenas a origem da `NEXT_PUBLIC_API_URL`; `caminhoData()` do catalogos.service usando `process.cwd()` em vez de `__dirname` (compatível com `dist/src/`)
+- `data-testid="protocolo"` adicionado em `FormularioEncerramento.tsx`
+- **Commit fase 7 pushed para origin/main**
+
+### Fase 6 — Upload de Documentos + PDF do Termo ✅ (05/04/2026)
 - `frontend-cliente/` scaffolded: Next.js 14.2.5, React 18, TailwindCSS 3, react-hook-form + zod, axios, lucide-react
 - `next.config.mjs` (ES module): headers de segurança (CSP, X-Frame-Options: DENY, HSTS, Referrer-Policy, Permissions-Policy)
 - `tailwind.config.ts`: cores BNB — bnb-amarelo (#F5A800), bnb-azul (#003087), bnb-azul-claro (#0055B8)
@@ -101,9 +117,9 @@
 
 ## Próximos passos imediatos
 
-1. **Fase 7** — Testes unitários e de integração (Jest) nos módulos backend
-2. **Fase 8** — Playwright e2e: fluxo completo cliente → operador
-3. Integração gov.br para assinatura digital do Termo de Encerramento
+1. **Fase 8** — Integração gov.br para assinatura digital do Termo de Encerramento
+2. **Fase 9** — CI/CD GitHub Actions (lint + test + build + deploy)
+3. Testes de carga e security review final
 
 ---
 
