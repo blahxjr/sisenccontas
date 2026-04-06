@@ -1,4 +1,4 @@
-# Instruções Globais para o GitHub Copilot — Projeto EncerraDigital BNB
+# Instruções Globais para o GitHub Copilot — Projeto EncerraDigital BRF
 
 > Este arquivo é lido automaticamente pelo GitHub Copilot Chat ao usar `@workspace`.
 > Ele define o contexto, regras e papéis dos agentes de IA para este projeto.
@@ -9,7 +9,7 @@
 ## 1. Visão geral do projeto
 
 **Nome**: EncerraDigital  
-**Contexto**: Sistema de solicitação digital de encerramento de conta corrente para o Banco do Nordeste (BNB).  
+**Contexto**: Sistema de solicitação digital de encerramento de conta corrente para o Banco Regional de Fomento (BRF).  
 **Objetivo**: Digitalizar e automatizar a jornada do cliente para encerramento de conta, eliminando a necessidade de atendimento presencial.  
 **Ecossistema**: Bancário — alto padrão de segurança, conformidade LGPD e OWASP ASVS obrigatórios.  
 

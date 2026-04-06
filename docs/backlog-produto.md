@@ -1,4 +1,4 @@
-# Backlog de Produto — EncerraDigital BNB
+# Backlog de Produto — EncerraDigital BRF
 
 **Última atualização**: 2026-04-06  
 **Formato**: Histórias de usuário com critérios de aceite
@@ -8,7 +8,7 @@
 ## Épico 1: Jornada do Cliente — Módulo Público
 
 ### US-001 — Formulário de encerramento guiado ⚠️ Parcial
-**Como** cliente do BNB,  
+**Como** cliente do BRF,  
 **Quero** ser guiado por um formulário multi-etapa passo a passo,  
 **Para que** eu possa solicitar o encerramento da minha conta sem precisar ir à agência.
 
@@ -27,8 +27,8 @@
 
 **Critérios de aceite**:
 - [x] O sistema gera o termo a partir dos dados do formulário
-- [x] O PDF gerado segue o padrão normativo do BNB (modelo 3303-40-64 v.020)
-- [x] O termo contém cabeçalho vermelho/laranja BNB, 14 seções obrigatórias, seção de Recibo do Banco e rodapé normativo
+- [x] O PDF gerado segue o padrão normativo do BRF (modelo BRF-3303-40-64 v.020)
+- [x] O termo contém cabeçalho vermelho/laranja BRF, 14 seções obrigatórias, seção de Recibo do Banco e rodapé normativo
 - [x] Texto não se sobrepõe (quebra de linha por largura real de pixel, paginação real)
 - [x] Botão "Gerar PDF para Assinatura" disponível na tela de sucesso do formulário
 - Status: ✅ Concluído
@@ -51,7 +51,7 @@
 ## Épico 2: Operações Internas — Módulo Interno
 
 ### US-004 — Listagem de solicitações pendentes ✅ Concluído
-**Como** operador interno do BNB,  
+**Como** operador interno do BRF,  
 **Quero** visualizar todas as solicitações de encerramento pendentes,  
 **Para que** eu possa processá-las em ordem de chegada.
 
@@ -78,14 +78,14 @@
 ## Épico 3: Apresentação e Conformidade
 
 ### US-006 — Página de demonstração visual (/demo) ✅ Concluído
-**Como** stakeholder do projeto BNB,  
+**Como** stakeholder do projeto BRF,  
 **Quero** acessar uma página de demonstração visual do sistema,  
 **Para que** eu possa avaliar o fluxo e a conformidade sem precisar de acesso ao ambiente de desenvolvimento.
 
 **Critérios de aceite**:
 - [x] Página standalone em `/demo` (sem login, sem header/footer do layout principal)
-- [x] Hero com identidade visual BNB (vermelho/laranja)
-- [x] Badges de conformidade LGPD/OWASP/BNB
+- [x] Hero com identidade visual BRF (vermelho/laranja)
+- [x] Badges de conformidade LGPD/OWASP/BRF
 - [x] Preview interativo do formulário (4 etapas clicáveis)
 - [x] Preview do dashboard do operador (linhas selecionáveis)
 - [x] Tabela de arquitetura técnica (7 camadas)
@@ -94,14 +94,14 @@
 - Status: ✅ Concluído
 
 ### US-007 — Autenticação SSO corporativa real — ⏸️ Próxima fase
-**Como** operador interno do BNB,  
+**Como** operador interno do BRF,  
 **Quero** autenticar no sistema com minha conta corporativa (AD/SSO),  
 **Para que** não seja necessário gerenciar credenciais separadas para o sistema.
 
 **Critérios de aceite**:
-- [ ] Integração OIDC ou SAML com provedor de identidade corporativo BNB
+- [ ] Integração OIDC ou SAML com provedor de identidade corporativo BRF
 - [ ] Sessão JWT com claims de perfil (operador/supervisor) vindos do IdP
-- [ ] Remover credenciais mock (BNB0001/BNB0002) do ambiente de produção
+- [ ] Remover credenciais mock (BRF0001/BRF0002) do ambiente de produção
 - [ ] Logout revoga sessão no IdP
 - Status: ⏸️ Fase 8
 

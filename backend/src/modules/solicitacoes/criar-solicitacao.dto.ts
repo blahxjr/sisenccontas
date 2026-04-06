@@ -57,7 +57,7 @@ export class CriarSolicitacaoDto {
   @Equals(true, { message: 'O aceite dos termos é obrigatório' })
   aceitouTermos: boolean;
 
-  // ── Campos complementares — conformidade normativa 3303-03-11 ─────────────
+  // ── Campos complementares — conformidade normativa BRF-3303-03-11 ─────────────
 
   @ApiProperty({ required: false, description: 'Endereço atualizado do titular' })
   @IsOptional()

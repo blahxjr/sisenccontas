@@ -1,10 +1,10 @@
-# Contexto Atual do Projeto — EncerraDigital BNB
+# Contexto Atual do Projeto — EncerraDigital BRF
 
 > **LEIA ESTE ARQUIVO PRIMEIRO** ao iniciar qualquer nova sessão de desenvolvimento ou IA.
 > Ele representa o estado atual real do projeto.
 
 **Atualizado em**: 2026-04-06  
-**Fase atual**: Fase 7 ✅ | Conformidade Normativa BNB 3303-40-64 / 3303-03-11 ✅ | Demo Visual ✅ | PDF Formatação ✅
+**Fase atual**: Fase 7 ✅ | Conformidade Normativa BRF BRF-3303-40-64 / BRF-3303-03-11 ✅ | Demo Visual ✅ | PDF Formatação ✅
 
 > **Novo**: `docs/estrategia-agentes-e-memoria.md` — visão completa sobre como o projeto usa agentes de IA e memória persistente.
 
@@ -12,7 +12,7 @@
 
 ## O que foi feito até agora
 
-- ✅ Análise do protótipo HTML original (formulário + chatbot de encerramento de conta BNB)
+- ✅ Análise do protótipo HTML original (formulário + chatbot de encerramento de conta BRF)
 - ✅ Definição da arquitetura alvo (monorepo, frontend-cliente, frontend-interno, backend BFF)
 - ✅ Criação de toda a documentação base do projeto (`docs/`)
 - ✅ Configuração das instruções do GitHub Copilot (`.github/copilot-instructions.md`)
@@ -20,8 +20,8 @@
 - ✅ Dev Container configurado (Node 20, PostgreSQL 16, Redis, MinIO)
 - ✅ Docker Compose de desenvolvimento criado
 
-### Fase 1 — Catálogos BNB ✅ (05/04/2026)
-- `data/agencias.csv` com 300 agências reais BNB (fonte: BCB/ODbL)
+### Fase 1 — Catálogos BRF ✅ (05/04/2026)
+- `data/agencias.csv` com 300 agências reais BRF (fonte: BCB/ODbL)
 - `data/motivos_encerramento.csv` com 7 motivos de encerramento
 - `backend/src/modules/catalogos/catalogos.service.ts` — lerCsv<T>, listarAgencias, listarUfs, buscarAgenciaPorCodigo
 - `backend/src/modules/catalogos/catalogos.controller.ts` — endpoints /agencias, /agencias?uf=, /agencias?busca=, /agencias/ufs
@@ -36,7 +36,7 @@
 - `SolicitacoesModule` criado (estrutura base — service/repository vazios para Fase 3)
 - `backend/prisma/schema.prisma` criado com modelo `Solicitacao` e enum `StatusSolicitacao`
 - `pnpm install` ✅ | `tsc --noEmit` ✅ (zero erros)
-- Boot confirmado: **Motivos: 7 | Agências BNB: 300** ✅
+- Boot confirmado: **Motivos: 7 | Agências BRF: 300** ✅
 - Endpoints validados: `/api/saude` ✅ | `/agencias/ufs` (13 UFs) ✅ | `?uf=MA` (29) ✅ | `?busca=fortaleza` (7) ✅
 - Correções aplicadas: `strictNullChecks` em `listarAgencias`, path de CSV via `__dirname`
 
@@ -52,8 +52,8 @@
 - Migration `20260405195603_sisenccontas` aplicada + seed ENC-2026-000001 criado
 - `InternoModule` no backend: `GET /interno/solicitacoes` (paginado), `GET /interno/solicitacoes/:id` (dados descriptografados), `PATCH /interno/solicitacoes/:id/status`
 - Auditoria: log `[AUDITORIA] operador=X acessou id=Y` em todas as operações internas
-- `frontend-interno/` em :3001 — Next.js 14, NextAuth v4, TailwindCSS com cores BNB
-- Auth mock OIDC: BNB0001 (operador) / BNB0002 (supervisor), sessão JWT 8h
+- `frontend-interno/` em :3001 — Next.js 14, NextAuth v4, TailwindCSS com cores BRF
+- Auth mock OIDC: BRF0001 (operador) / BRF0002 (supervisor), sessão JWT 8h
 - `SessionProvider` via `providers.tsx` client-side (App Router compatible)
 - Middleware de proteção: todas as rotas exceto `/login` e `/api/auth` exigem sessão
 - Dashboard: tabela paginada com badges PENDENTE/EM_ANALISE/CONCLUIDO/CANCELADO/REJEITADO
@@ -61,22 +61,22 @@
 - E2E validado: POST /publico/solicitacoes ✅ | GET /interno/solicitacoes ✅ | GET /interno/solicitacoes/:id (decrypt) ✅
 - `tsc --noEmit` ✅ em backend e frontend-interno (zero erros)
 
-### Conformidade Visual BNB — Paleta Oficial ✅ (05/04/2026)
-- Substituição completa do azul (#003087/#0055B8) pela paleta oficial do Manual de Identidade Visual BNB
-- **Tokens novos** (Tailwind): `bnb-vermelho` (#A6193C), `bnb-laranja` (#F68B1F), `bnb-amarelo` (#FFCB05), `bnb-salmao` (#FFE6CB), `bnb-cinza` (#646464), `bnb-verde` (#07A684), `bnb-azul-info` (#0996B6)
+### Conformidade Visual BRF — Paleta Oficial ✅ (05/04/2026)
+- Substituição completa do azul (#003087/#0055B8) pela paleta oficial do Paleta Banco Regional de Fomento
+- **Tokens novos** (Tailwind): `brf-vermelho` (#A6193C), `brf-laranja` (#F68B1F), `brf-amarelo` (#FFCB05), `brf-salmao` (#FFE6CB), `brf-cinza` (#646464), `brf-verde` (#07A684), `brf-azul-info` (#0996B6)
 - `tailwind.config.ts` (cliente) e `tailwind.config.mjs` (interno) atualizados com novos tokens
-- Todos os componentes/páginas migrados: `bnb-azul` → `bnb-vermelho`, `bnb-azul-claro` → `bnb-laranja`
-- `pdf.service.ts`: cabeçalho do Termo de Encerramento agora usa `rgb(0.651, 0.098, 0.235)` (Vermelho BNB) e `rgb(0.965, 0.545, 0.122)` (Laranja BNB)
+- Todos os componentes/páginas migrados: `brf-azul` → `brf-vermelho`, `brf-azul-claro` → `brf-laranja`
+- `pdf.service.ts`: cabeçalho do Termo de Encerramento agora usa `rgb(0.651, 0.098, 0.235)` (Vermelho BRF) e `rgb(0.965, 0.545, 0.122)` (Laranja BRF)
 - `tsc --noEmit` ✅ nos 3 módulos (zero erros)
 
-### Conformidade Normativa BNB — Termo 3303-40-64 + Fluxo 3303-03-11 ✅ (06/04/2026)
-- **Tailwind expandido**: + `bnb-vermelho-escuro` (#7A1228), `bnb-laranja-escuro` (#C96D0A), `bnb-cinza-claro` (#F5F5F5); renomeado `bnb-azul-info` → `bnb-azul` (#0996B6) em ambos os configs
-- **PDF Termo oficial 3303-40-64**: `pdf.service.ts` substituído — 14 seções obrigatórias, faixa laranja, recibo do banco, rodapé vermelho, referência normativa `3303-40-64 v.020`
+### Conformidade Normativa BRF — Termo BRF-3303-40-64 + Fluxo BRF-3303-03-11 ✅ (06/04/2026)
+- **Tailwind expandido**: + `brf-vermelho-escuro` (#7A1228), `brf-laranja-escuro` (#C96D0A), `brf-cinza-claro` (#F5F5F5); renomeado `brf-azul-info` → `brf-azul` (#0996B6) em ambos os configs
+- **PDF Termo oficial BRF-3303-40-64**: `pdf.service.ts` substituído — 14 seções obrigatórias, faixa laranja, recibo do banco, rodapé vermelho, referência normativa `BRF-3303-40-64 v.020`
 - **Interface `DadosTermoEncerramento`** expandida com campos opcionais: `enderecoCliente`, `emailCliente`, `possuiCheque`, `numeroChequeDevolvido`, `possuiSaldoPositivo`, `bancoTransferencia`, `agenciaTransferencia`, `contaTransferencia`
 - **Formulário multi-etapa** em `FormularioEncerramento.tsx`:
   - Etapa 1: Dados da Conta (campos existentes)
   - Etapa 2: Informações Complementares (cheque, saldo positivo, endereço, email)
-  - Etapa 3: Confirmar e Assinar (aceite do normativo 3303-03-11 + submit)
+  - Etapa 3: Confirmar e Assinar (aceite do normativo BRF-3303-03-11 + submit)
   - Tela de sucesso: instrução gov.br/ICP-Brasil, botão "Gerar PDF para Assinatura", `UploadTermoAssinado`
 - **`CriarSolicitacaoDto`**: 8 novos campos opcionais com class-validator
 - **Prisma**: migration `20260406005330_adicionar_campos_normativos` aplicada — 8 novos campos em `Solicitacao`
@@ -105,7 +105,7 @@
 ### Fase 6 — Upload de Documentos + PDF do Termo ✅ (05/04/2026)
 - `frontend-cliente/` scaffolded: Next.js 14.2.5, React 18, TailwindCSS 3, react-hook-form + zod, axios, lucide-react
 - `next.config.mjs` (ES module): headers de segurança (CSP, X-Frame-Options: DENY, HSTS, Referrer-Policy, Permissions-Policy)
-- `tailwind.config.ts`: cores BNB — bnb-amarelo (#F5A800), bnb-azul (#003087), bnb-azul-claro (#0055B8)
+- `tailwind.config.ts`: cores BRF — brf-amarelo (#F5A800), brf-azul (#003087), brf-azul-claro (#0055B8)
 - `src/lib/api-client.ts`: axios com baseURL via env, interceptors para 400/404/429/500
 - `src/hooks/useCatalogos.ts`: `useMotivos()`, `useUfs()`, `useAgencias(uf?)` — cascata UF → Agência
 - `FormularioEncerramento.tsx`: RHF + Zod, seleção UF→Agência em cascata, tela de sucesso com protocolo
@@ -116,7 +116,7 @@
 ### Fase 6 — Upload de Documentos + PDF do Termo ✅ (05/04/2026)
 - `prisma/schema.prisma`: enum `TipoDocumento` (TERMO_GERADO, TERMO_ASSINADO) + modelo `Documento`; migration `20260405201024_sisenccontas` aplicada
 - `MinioService` (`shared/minio/`): `@Global()`, S3Client com `forcePathStyle: true`, `upload()`, `gerarUrlPresignada()` (5 min TTL), criação automática de bucket no `onModuleInit()`
-- `PdfService` (`shared/pdf/`): `@Global()`, `gerarTermoEncerramento()` — PDF A4 com cabeçalho BNB azul (#003087), tabela de dados, texto legal, área de assinatura, marca d'água girada 35°
+- `PdfService` (`shared/pdf/`): `@Global()`, `gerarTermoEncerramento()` — PDF A4 com cabeçalho BRF azul (#003087), tabela de dados, texto legal, área de assinatura, marca d'água girada 35°
 - `DocumentosModule`: `DocumentosRepository` (sem expor `chaveObjeto`), `DocumentosService` (gerarTermo, receberTermoAssinado com validação magic bytes `%PDF`, listar, gerarUrlDownload), `DocumentosController` (`POST /api/publico/solicitacoes/:id/documentos/upload`)
 - `InternoController`: 3 novos endpoints — `GET /interno/solicitacoes/:id/documentos`, `POST /interno/solicitacoes/:id/documentos/gerar-termo`, `GET /interno/documentos/:docId/download`
 - `SolicitacoesService.criar()`: agora retorna `solicitacaoId` junto com `protocolo`
@@ -130,10 +130,10 @@
 
 ### Demo Visual — Página /demo ✅ (05/04/2026)
 - `frontend-cliente/src/app/demo/page.tsx` criado como rota standalone (sem header/footer do layout principal)
-- Route Group `(main)` criado para isolar o layout com header vermelho BNB e max-w-4xl
-- `(main)/layout.tsx`: header vermelho BNB + footer com link "Ver demonstração técnica"
+- Route Group `(main)` criado para isolar o layout com header vermelho BRF e max-w-4xl
+- `(main)/layout.tsx`: header vermelho BRF + footer com link "Ver demonstração técnica"
 - `(main)/page.tsx`: home com link para `/demo`
-- Página `/demo` contém: hero vermelho/laranja BNB, badges de conformidade, preview interativo do formulário (4 etapas clicáveis), preview do dashboard do operador (linhas selecionáveis), tabela de arquitetura técnica (7 camadas), diagrama de fluxo de dados, grid de segurança (10 controles OWASP/LGPD), roadmap visual (8 fases, 6✅ 2⏳)
+- Página `/demo` contém: hero vermelho/laranja BRF, badges de conformidade, preview interativo do formulário (4 etapas clicáveis), preview do dashboard do operador (linhas selecionáveis), tabela de arquitetura técnica (7 camadas), diagrama de fluxo de dados, grid de segurança (10 controles OWASP/LGPD), roadmap visual (8 fases, 6✅ 2⏳)
 - Link para `/demo` adicionado no footer de `(main)/layout.tsx` e na home page
 - **Commit 7251565 pushed para origin/main**
 
@@ -142,7 +142,7 @@
 - **Paginação real**: nova página criada automaticamente quando `y < 75`; rodapé vermelho renderizado em todas as páginas
 - **Quebra de linha por `font.widthOfTextAtSize()`**: largura real em pixel, eliminando sobreposição por contagem incorreta de caracteres
 - Espaçamentos corrigidos: `y -= 13/14/16` conforme tamanho da fonte (10/11/12pt)
-- Cabeçalho: faixa vermelha (#A6193C) + faixa laranja (#F68B1F); 14 seções obrigatórias do modelo oficial 3303-40-64; seção de Recibo do Banco; rodapé com referência `3303-40-64 v.020`
+- Cabeçalho: faixa vermelha (#A6193C) + faixa laranja (#F68B1F); 14 seções obrigatórias do modelo oficial BRF-3303-40-64; seção de Recibo do Banco; rodapé com referência `BRF-3303-40-64 v.020`
 - **Commit 14e1bdf pushed para origin/main**
 
 ---
@@ -161,7 +161,7 @@
 
 ## Próximos passos imediatos
 
-1. **Fase 8** — Autenticação corporativa real (OIDC/SAML SSO BNB) substituindo o mock dev
+1. **Fase 8** — Autenticação corporativa real (OIDC/SAML SSO BRF) substituindo o mock dev
 2. **Fase 9** — CI/CD GitHub Actions (lint + test + build + deploy + análise SAST)
 3. **Fase 10** — Hardening de produção (rate limiting, WAF, SIEM, revisão OWASP ASVS nível 2)
 4. Integração gov.br para assinatura digital do Termo de Encerramento
@@ -182,7 +182,7 @@
 
 ## Contexto de negócio resumido
 
-O sistema digitaliza o processo de encerramento de conta corrente do BNB, 
+O sistema digitaliza o processo de encerramento de conta corrente do BRF, 
 que hoje exige presença física na agência. O cliente preenche um formulário 
 ou usa um chatbot guiado, gera o Termo de Encerramento, assina via gov.br 
 e faz upload. O módulo interno permite que operadores do banco processem 

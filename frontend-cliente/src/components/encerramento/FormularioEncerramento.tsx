@@ -24,7 +24,7 @@ const schema = z.object({
     .min(3, 'Nome deve ter pelo menos 3 caracteres')
     .max(150, 'Nome muito longo'),
   motivoEncerramento: z.string().optional(),
-  // Etapa 2 — Informações complementares (3303-03-11)
+  // Etapa 2 — Informações complementares (BRF-3303-03-11)
   enderecoCliente: z.string().min(10, 'Informe seu endereço completo').max(200),
   emailCliente: z.string().email('E-mail inválido').optional().or(z.literal('')),
   possuiCheque: z.boolean(),
@@ -50,8 +50,8 @@ interface RespostaCriacao {
 
 const ETAPAS = ['Dados da Conta', 'Informações Complementares', 'Confirmar e Assinar'];
 
-/** Formulário multi-etapa de solicitação de encerramento de conta corrente BNB
- * conforme normativo 3303-03-11.
+/** Formulário multi-etapa de solicitação de encerramento de conta corrente BRF
+ * conforme normativo BRF-3303-03-11.
  */
 export function FormularioEncerramento() {
   const [etapaAtual, setEtapaAtual] = useState(0);
@@ -156,7 +156,7 @@ export function FormularioEncerramento() {
             <p className="text-sm text-gray-500">Número do protocolo</p>
             <p
               data-testid="protocolo"
-              className="text-3xl font-bold text-bnb-vermelho font-mono tracking-widest"
+              className="text-3xl font-bold text-brf-vermelho font-mono tracking-widest"
             >
               {protocolo}
             </p>
@@ -166,25 +166,25 @@ export function FormularioEncerramento() {
 
         {/* Etapa: Gerar PDF → Assinar → Upload */}
         <div className="bg-white border border-gray-200 rounded-xl p-6 space-y-5">
-          <h3 className="text-lg font-bold text-bnb-vermelho flex items-center gap-2">
+          <h3 className="text-lg font-bold text-brf-vermelho flex items-center gap-2">
             <FileText className="h-5 w-5" />
             Próximo passo: Assinar o Termo de Encerramento
           </h3>
 
           <ol className="space-y-3 text-sm text-gray-700">
             <li className="flex items-start gap-2">
-              <span className="flex-shrink-0 w-6 h-6 rounded-full bg-bnb-vermelho text-white text-xs font-bold flex items-center justify-center">1</span>
+              <span className="flex-shrink-0 w-6 h-6 rounded-full bg-brf-vermelho text-white text-xs font-bold flex items-center justify-center">1</span>
               <span>Gere o PDF do Termo de Encerramento abaixo e baixe o arquivo.</span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="flex-shrink-0 w-6 h-6 rounded-full bg-bnb-vermelho text-white text-xs font-bold flex items-center justify-center">2</span>
+              <span className="flex-shrink-0 w-6 h-6 rounded-full bg-brf-vermelho text-white text-xs font-bold flex items-center justify-center">2</span>
               <span>
                 Acesse o{' '}
                 <a
                   href="https://www.gov.br/iti/pt-br"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-bnb-laranja underline hover:text-bnb-vermelho inline-flex items-center gap-1"
+                  className="text-brf-laranja underline hover:text-brf-vermelho inline-flex items-center gap-1"
                 >
                   Verificador ICP-Brasil (gov.br) <ExternalLink className="h-3 w-3" />
                 </a>{' '}
@@ -192,7 +192,7 @@ export function FormularioEncerramento() {
               </span>
             </li>
             <li className="flex items-start gap-2">
-              <span className="flex-shrink-0 w-6 h-6 rounded-full bg-bnb-vermelho text-white text-xs font-bold flex items-center justify-center">3</span>
+              <span className="flex-shrink-0 w-6 h-6 rounded-full bg-brf-vermelho text-white text-xs font-bold flex items-center justify-center">3</span>
               <span>Faça o upload do PDF assinado no campo abaixo.</span>
             </li>
           </ol>
@@ -201,7 +201,7 @@ export function FormularioEncerramento() {
             type="button"
             onClick={gerarPdf}
             disabled={gerandoPdf}
-            className="flex items-center gap-2 bg-bnb-vermelho text-white px-6 py-3 rounded-lg font-medium hover:bg-bnb-vermelho-escuro transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="flex items-center gap-2 bg-brf-vermelho text-white px-6 py-3 rounded-lg font-medium hover:bg-brf-vermelho-escuro transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {gerandoPdf ? (
               <><Loader2 className="h-4 w-4 animate-spin" /> Gerando PDF...</>
@@ -233,7 +233,7 @@ export function FormularioEncerramento() {
         <div className="text-center space-y-2">
           <Link
             href={`/encerramento/status?protocolo=${protocolo}`}
-            className="inline-block border border-bnb-vermelho text-bnb-vermelho px-6 py-2 rounded-lg font-medium hover:bg-bnb-salmao transition-colors text-sm"
+            className="inline-block border border-brf-vermelho text-brf-vermelho px-6 py-2 rounded-lg font-medium hover:bg-brf-salmao transition-colors text-sm"
           >
             Consultar status da solicitação
           </Link>
@@ -260,20 +260,20 @@ export function FormularioEncerramento() {
                 <div
                   className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
                     concluida
-                      ? 'bg-bnb-laranja text-white'
+                      ? 'bg-brf-laranja text-white'
                       : ativa
-                      ? 'bg-bnb-vermelho text-white'
-                      : 'bg-bnb-cinza-claro border border-bnb-cinza text-bnb-cinza'
+                      ? 'bg-brf-vermelho text-white'
+                      : 'bg-brf-cinza-claro border border-brf-cinza text-brf-cinza'
                   }`}
                 >
                   {concluida ? '✓' : idx + 1}
                 </div>
-                <span className={`text-xs mt-1 text-center hidden sm:block ${ativa ? 'text-bnb-vermelho font-semibold' : 'text-gray-500'}`}>
+                <span className={`text-xs mt-1 text-center hidden sm:block ${ativa ? 'text-brf-vermelho font-semibold' : 'text-gray-500'}`}>
                   {nome}
                 </span>
               </div>
               {idx < ETAPAS.length - 1 && (
-                <div className={`h-0.5 flex-1 mx-1 ${idx < etapaAtual ? 'bg-bnb-laranja' : 'bg-gray-200'}`} />
+                <div className={`h-0.5 flex-1 mx-1 ${idx < etapaAtual ? 'bg-brf-laranja' : 'bg-gray-200'}`} />
               )}
             </li>
           );
@@ -298,7 +298,7 @@ export function FormularioEncerramento() {
               id="uf"
               {...register('uf')}
               disabled={carregandoUfs}
-              className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-bnb-vermelho focus:border-bnb-vermelho disabled:bg-gray-100 disabled:text-gray-400"
+              className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-brf-vermelho focus:border-brf-vermelho disabled:bg-gray-100 disabled:text-gray-400"
               aria-invalid={!!errors.uf}
             >
               <option value="">{carregandoUfs ? 'Carregando estados...' : 'Selecione um estado'}</option>
@@ -316,7 +316,7 @@ export function FormularioEncerramento() {
               id="agencia"
               {...register('agencia')}
               disabled={!ufSelecionada || carregandoAgencias}
-              className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-bnb-vermelho focus:border-bnb-vermelho disabled:bg-gray-100 disabled:text-gray-400"
+              className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-brf-vermelho focus:border-brf-vermelho disabled:bg-gray-100 disabled:text-gray-400"
               aria-invalid={!!errors.agencia}
             >
               <option value="">
@@ -341,7 +341,7 @@ export function FormularioEncerramento() {
               autoComplete="off"
               {...register('numeroConta')}
               placeholder="Ex: 12345-6"
-              className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-bnb-vermelho focus:border-bnb-vermelho"
+              className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-brf-vermelho focus:border-brf-vermelho"
               aria-invalid={!!errors.numeroConta}
             />
             {errors.numeroConta && <p className="text-red-600 text-sm mt-1" role="alert">{errors.numeroConta.message}</p>}
@@ -358,7 +358,7 @@ export function FormularioEncerramento() {
               autoComplete="name"
               {...register('titularNome')}
               placeholder="Nome completo conforme cadastro no banco"
-              className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-bnb-vermelho focus:border-bnb-vermelho"
+              className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-brf-vermelho focus:border-brf-vermelho"
               aria-invalid={!!errors.titularNome}
             />
             {errors.titularNome && <p className="text-red-600 text-sm mt-1" role="alert">{errors.titularNome.message}</p>}
@@ -373,7 +373,7 @@ export function FormularioEncerramento() {
               id="motivoEncerramento"
               {...register('motivoEncerramento')}
               disabled={carregandoMotivos}
-              className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-bnb-vermelho focus:border-bnb-vermelho disabled:bg-gray-100 disabled:text-gray-400"
+              className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-brf-vermelho focus:border-brf-vermelho disabled:bg-gray-100 disabled:text-gray-400"
             >
               <option value="">{carregandoMotivos ? 'Carregando...' : 'Selecione um motivo (opcional)'}</option>
               {motivos.map((m) => <option key={m.codigo} value={m.codigo}>{m.descricao}</option>)}
@@ -383,7 +383,7 @@ export function FormularioEncerramento() {
           <button
             type="button"
             onClick={avancarEtapa}
-            className="w-full bg-bnb-vermelho text-white font-semibold py-3 px-6 rounded-lg hover:bg-bnb-vermelho-escuro transition-colors flex items-center justify-center gap-2"
+            className="w-full bg-brf-vermelho text-white font-semibold py-3 px-6 rounded-lg hover:bg-brf-vermelho-escuro transition-colors flex items-center justify-center gap-2"
           >
             Continuar <ChevronRight className="h-5 w-5" />
           </button>
@@ -393,8 +393,8 @@ export function FormularioEncerramento() {
       {/* ── ETAPA 2 — Informações Complementares ─────────────────────────────── */}
       {etapaAtual === 1 && (
         <div className="space-y-5">
-          <p className="text-sm text-gray-600 bg-bnb-salmao border border-bnb-laranja/30 rounded-lg p-3">
-            Conforme normativo BNB 3303-03-11, estas informações são necessárias para o processamento do encerramento.
+          <p className="text-sm text-gray-600 bg-brf-salmao border border-brf-laranja/30 rounded-lg p-3">
+            Conforme normativo BRF-3303-03-11, estas informações são necessárias para o processamento do encerramento.
           </p>
 
           {/* Possui cheque */}
@@ -403,7 +403,7 @@ export function FormularioEncerramento() {
               <input
                 type="checkbox"
                 {...register('possuiCheque')}
-                className="h-4 w-4 rounded border-gray-300 text-bnb-vermelho focus:ring-bnb-vermelho"
+                className="h-4 w-4 rounded border-gray-300 text-brf-vermelho focus:ring-brf-vermelho"
               />
               <span className="text-sm text-gray-700 font-medium">Movimentei a conta através de cheque</span>
             </label>
@@ -417,7 +417,7 @@ export function FormularioEncerramento() {
                   type="text"
                   {...register('numeroChequeDevolvido')}
                   placeholder="Ex: 000123, 000124"
-                  className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-bnb-vermelho focus:border-bnb-vermelho text-sm"
+                  className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-brf-vermelho focus:border-brf-vermelho text-sm"
                 />
               </div>
             )}
@@ -429,7 +429,7 @@ export function FormularioEncerramento() {
               <input
                 type="checkbox"
                 {...register('possuiSaldoPositivo')}
-                className="h-4 w-4 rounded border-gray-300 text-bnb-vermelho focus:ring-bnb-vermelho"
+                className="h-4 w-4 rounded border-gray-300 text-brf-vermelho focus:ring-brf-vermelho"
               />
               <span className="text-sm text-gray-700 font-medium">A conta possui saldo positivo</span>
             </label>
@@ -442,7 +442,7 @@ export function FormularioEncerramento() {
                     type="text"
                     {...register('bancoTransferencia')}
                     placeholder="Nome ou código do banco"
-                    className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-bnb-vermelho focus:border-bnb-vermelho text-sm"
+                    className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-brf-vermelho focus:border-brf-vermelho text-sm"
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-3">
@@ -452,7 +452,7 @@ export function FormularioEncerramento() {
                       type="text"
                       {...register('agenciaTransferencia')}
                       placeholder="0000"
-                      className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-bnb-vermelho focus:border-bnb-vermelho text-sm"
+                      className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-brf-vermelho focus:border-brf-vermelho text-sm"
                     />
                   </div>
                   <div>
@@ -461,7 +461,7 @@ export function FormularioEncerramento() {
                       type="text"
                       {...register('contaTransferencia')}
                       placeholder="00000-0"
-                      className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-bnb-vermelho focus:border-bnb-vermelho text-sm"
+                      className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-brf-vermelho focus:border-brf-vermelho text-sm"
                     />
                   </div>
                 </div>
@@ -479,7 +479,7 @@ export function FormularioEncerramento() {
               type="text"
               {...register('enderecoCliente')}
               placeholder="Rua, número, bairro, cidade – UF, CEP"
-              className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-bnb-vermelho focus:border-bnb-vermelho"
+              className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-brf-vermelho focus:border-brf-vermelho"
               aria-invalid={!!errors.enderecoCliente}
             />
             {errors.enderecoCliente && <p className="text-red-600 text-sm mt-1" role="alert">{errors.enderecoCliente.message}</p>}
@@ -496,7 +496,7 @@ export function FormularioEncerramento() {
               autoComplete="email"
               {...register('emailCliente')}
               placeholder="seu@email.com.br"
-              className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-bnb-vermelho focus:border-bnb-vermelho"
+              className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-brf-vermelho focus:border-brf-vermelho"
               aria-invalid={!!errors.emailCliente}
             />
             {errors.emailCliente && <p className="text-red-600 text-sm mt-1" role="alert">{errors.emailCliente.message}</p>}
@@ -506,14 +506,14 @@ export function FormularioEncerramento() {
             <button
               type="button"
               onClick={() => setEtapaAtual(0)}
-              className="flex-1 border border-bnb-vermelho text-bnb-vermelho font-semibold py-3 px-6 rounded-lg hover:bg-bnb-salmao transition-colors flex items-center justify-center gap-2"
+              className="flex-1 border border-brf-vermelho text-brf-vermelho font-semibold py-3 px-6 rounded-lg hover:bg-brf-salmao transition-colors flex items-center justify-center gap-2"
             >
               <ChevronLeft className="h-5 w-5" /> Voltar
             </button>
             <button
               type="button"
               onClick={avancarEtapa}
-              className="flex-1 bg-bnb-vermelho text-white font-semibold py-3 px-6 rounded-lg hover:bg-bnb-vermelho-escuro transition-colors flex items-center justify-center gap-2"
+              className="flex-1 bg-brf-vermelho text-white font-semibold py-3 px-6 rounded-lg hover:bg-brf-vermelho-escuro transition-colors flex items-center justify-center gap-2"
             >
               Continuar <ChevronRight className="h-5 w-5" />
             </button>
@@ -530,14 +530,14 @@ export function FormularioEncerramento() {
               <input
                 type="checkbox"
                 {...register('aceitouTermos')}
-                className="mt-0.5 h-4 w-4 rounded border-gray-300 text-bnb-vermelho focus:ring-bnb-vermelho"
+                className="mt-0.5 h-4 w-4 rounded border-gray-300 text-brf-vermelho focus:ring-brf-vermelho"
                 aria-invalid={!!errors.aceitouTermos}
               />
               <span className="text-sm text-gray-700 leading-relaxed">
                 Li e aceito os termos do <strong>Termo de Encerramento de Conta Corrente</strong>,
-                conforme normativo BNB 3303-03-11. Declaro que as informações são verdadeiras
+                conforme normativo BRF-3303-03-11. Declaro que as informações são verdadeiras
                 e que sou o titular da conta informada. Concordo com a{' '}
-                <a href="#" className="text-bnb-laranja underline hover:text-bnb-vermelho">
+                <a href="#" className="text-brf-laranja underline hover:text-brf-vermelho">
                   Política de Privacidade
                 </a>.
               </span>
@@ -558,14 +558,14 @@ export function FormularioEncerramento() {
             <button
               type="button"
               onClick={() => setEtapaAtual(1)}
-              className="flex-1 border border-bnb-vermelho text-bnb-vermelho font-semibold py-3 px-6 rounded-lg hover:bg-bnb-salmao transition-colors flex items-center justify-center gap-2"
+              className="flex-1 border border-brf-vermelho text-brf-vermelho font-semibold py-3 px-6 rounded-lg hover:bg-brf-salmao transition-colors flex items-center justify-center gap-2"
             >
               <ChevronLeft className="h-5 w-5" /> Voltar
             </button>
             <button
               type="submit"
               disabled={enviando}
-              className="flex-1 bg-bnb-vermelho text-white font-semibold py-3 px-6 rounded-lg hover:bg-bnb-vermelho-escuro transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              className="flex-1 bg-brf-vermelho text-white font-semibold py-3 px-6 rounded-lg hover:bg-brf-vermelho-escuro transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             >
               {enviando ? (
                 <><Loader2 className="h-5 w-5 animate-spin" /> Enviando...</>
@@ -576,7 +576,7 @@ export function FormularioEncerramento() {
           </div>
 
           <p className="text-xs text-gray-400 text-center">
-            🔒 Seus dados são protegidos por criptografia AES-256. Apenas operadores autorizados do BNB têm acesso.
+            🔒 Seus dados são protegidos por criptografia AES-256. Apenas operadores autorizados do BRF têm acesso.
           </p>
         </div>
       )}

@@ -27,7 +27,7 @@ async function main() {
       numeroProtocolo: protocolo,
       agencia: '0081',
       numeroConta: criptografarCampo('99999-1', chave),
-      titularNome: criptografarCampo('Titular Seed BNB', chave),
+      titularNome: criptografarCampo('Titular Seed BRF', chave),
       motivoEncerramento: 'mudanca_banco',
       status: 'PENDENTE',
       aceiteTermosVersao: '1.0',

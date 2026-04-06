@@ -95,7 +95,7 @@ export class InternoService {
       motivoDescricao,
       dataAceite: new Date(solicitacao.aceiteTermosTimestamp),
       versaoTermos: solicitacao.aceiteTermosVersao,
-      // Novos campos — conformidade 3303-03-11
+      // Novos campos — conformidade BRF-3303-03-11
       enderecoCliente: solicitacao.enderecoCliente ?? undefined,
       emailCliente: solicitacao.emailCliente ? this.descriptografar(solicitacao.emailCliente) : undefined,
       possuiCheque: solicitacao.possuiCheque,

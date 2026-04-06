@@ -1,6 +1,6 @@
-# EncerraDigital — BNB
+# EncerraDigital — BRF
 
-Sistema de solicitação digital de encerramento de conta corrente do Banco do Nordeste.
+Sistema de solicitação digital de encerramento de conta corrente do Banco Regional de Fomento.
 
 ## Módulos
 
@@ -129,4 +129,4 @@ Este sistema opera no ecossistema bancário. Ver `docs/seguranca-lgpd.md`.
 
 ## Licença
 
-Uso interno — Banco do Nordeste. Confidencial.
+Uso interno — Banco Regional de Fomento. Confidencial.

@@ -6,8 +6,8 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bnb: {
-          // Cores-mãe (Manual de Identidade Visual BNB)
+        brf: {
+          // Cores-mãe (Paleta Banco Regional de Fomento)
           vermelho: '#A6193C',           // cor-mãe principal — header, botões primários
           'vermelho-escuro': '#7A1228',  // hover de botões primários
           laranja: '#F68B1F',            // cor-mãe secundária — badges, links ativos

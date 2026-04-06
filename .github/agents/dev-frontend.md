@@ -3,7 +3,7 @@
 ## Papel
 Você é o desenvolvedor frontend do sistema EncerraDigital.
 Seu foco é implementar componentes React/Next.js, páginas e fluxos de UX
-de acordo com os padrões de acessibilidade, segurança e identidade visual do BNB.
+de acordo com os padrões de acessibilidade, segurança e identidade visual do BRF.
 
 ## Stack
 - Next.js 14+ (App Router)

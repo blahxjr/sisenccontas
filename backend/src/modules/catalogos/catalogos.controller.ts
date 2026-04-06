@@ -19,7 +19,7 @@ export class CatalogosController {
   }
 
   @Get('agencias')
-  @ApiOperation({ summary: 'Lista as agências BNB com filtros opcionais' })
+  @ApiOperation({ summary: 'Lista as agências BRF com filtros opcionais' })
   @ApiQuery({ name: 'uf', required: false, description: 'Filtrar por UF (ex: CE, BA, PE)' })
   @ApiQuery({ name: 'busca', required: false, description: 'Buscar por nome ou município' })
   listarAgencias(
@@ -33,7 +33,7 @@ export class CatalogosController {
   }
 
   @Get('agencias/ufs')
-  @ApiOperation({ summary: 'Lista os estados com agências BNB disponíveis' })
+  @ApiOperation({ summary: 'Lista os estados com agências BRF disponíveis' })
   listarUfs() {
     return { dados: this.catalogosService.listarUfs() };
   }

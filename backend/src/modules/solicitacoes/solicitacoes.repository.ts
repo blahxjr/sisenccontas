@@ -12,7 +12,7 @@ interface CriarSolicitacaoInput {
   aceiteTermosVersao: string;
   aceiteTermosTimestamp: Date;
   ipOrigemMascarado?: string;
-  // Campos complementares — conformidade normativa 3303-03-11
+  // Campos complementares — conformidade normativa BRF-3303-03-11
   enderecoCliente?: string;
   emailCliente?: string;
   possuiCheque?: boolean;

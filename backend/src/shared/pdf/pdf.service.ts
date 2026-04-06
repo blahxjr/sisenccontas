@@ -11,7 +11,7 @@ export interface DadosTermoEncerramento {
   motivoDescricao: string;
   dataAceite: Date;
   versaoTermos: string;
-  // Novos campos — conformidade normativa 3303-03-11
+  // Novos campos — conformidade normativa BRF-3303-03-11
   enderecoCliente?: string;
   emailCliente?: string;
   possuiCheque?: boolean;
@@ -29,8 +29,8 @@ export interface DadosTermoEncerramento {
 @Injectable()
 export class PdfService {
   /**
-   * Gera o Termo de Encerramento de Conta Corrente conforme modelo oficial BNB 3303-40-64.
-   * 14 seções obrigatórias, cabeçalho vermelho BNB, faixa laranja, recibo e rodapé.
+   * Gera o Termo de Encerramento de Conta Corrente conforme modelo oficial BRF BRF-3303-40-64.
+   * 14 seções obrigatórias, cabeçalho vermelho BRF, faixa laranja, recibo e rodapé.
    * Suporta múltiplas páginas com quebra de linha baseada em largura real de pixel.
    * @param dados - Dados descriptografados da solicitação
    * @returns Buffer contendo o PDF gerado
@@ -45,7 +45,7 @@ export class PdfService {
     const MARGIN_L = 45;
     const CONTENT_W = PAGE_W - MARGIN_L - 40; // 510px utilizáveis
 
-    // Cores BNB oficiais
+    // Cores BRF oficiais
     const corVermelho = rgb(0.651, 0.098, 0.235);  // #A6193C
     const corLaranja  = rgb(0.965, 0.545, 0.122);  // #F68B1F
     const corCinza    = rgb(0.392, 0.392, 0.392);  // #646464
@@ -58,7 +58,7 @@ export class PdfService {
     const aplicarRodape = (pg: typeof page): void => {
       pg.drawRectangle({ x: 0, y: 0, width: PAGE_W, height: 18, color: corVermelho });
       pg.drawText(
-        `Documento gerado eletronicamente em ${new Date().toLocaleString('pt-BR')} | Protocolo: ${dados.protocolo} | 3303-40-64 v.020`,
+        `Documento gerado eletronicamente em ${new Date().toLocaleString('pt-BR')} | Protocolo: ${dados.protocolo} | BRF-3303-40-64 v.020`,
         { x: 40, y: 5, font: fontRegular, size: 7, color: rgb(1, 1, 1) },
       );
     };
@@ -243,7 +243,7 @@ export class PdfService {
     verificarEspaco(55);
     const reciboY = y - 44;
     page.drawRectangle({ x: 40, y: reciboY, width: CONTENT_W + 5, height: 44, borderColor: corVermelho, borderWidth: 1 });
-    page.drawText('Banco do Nordeste do Brasil S/A', {
+    page.drawText('Banco Regional de Fomento S.A.', {
       x: 50, y: reciboY + 29, font: fontBold, size: 9, color: corVermelho,
     });
     page.drawText('Recebido em: ____/____/____', {

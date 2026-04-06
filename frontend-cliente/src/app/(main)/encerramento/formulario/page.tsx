@@ -5,7 +5,7 @@ export default function FormularioPage() {
   return (
     <div className="max-w-xl mx-auto space-y-6">
       <nav className="text-sm text-gray-500">
-        <Link href="/" className="hover:text-bnb-vermelho">
+        <Link href="/" className="hover:text-brf-vermelho">
           Início
         </Link>
         {' › '}
@@ -13,7 +13,7 @@ export default function FormularioPage() {
       </nav>
 
       <div>
-        <h1 className="text-2xl font-bold text-bnb-vermelho">Solicitação de Encerramento</h1>
+        <h1 className="text-2xl font-bold text-brf-vermelho">Solicitação de Encerramento</h1>
         <p className="text-gray-600 mt-1 text-sm">
           Preencha os campos abaixo para registrar sua solicitação de encerramento de conta corrente.
         </p>

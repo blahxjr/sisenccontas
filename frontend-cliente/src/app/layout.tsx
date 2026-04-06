@@ -2,9 +2,9 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'Encerramento de Conta — Banco do Nordeste',
+  title: 'Encerramento de Conta — Banco Regional de Fomento',
   description:
-    'Solicite o encerramento da sua conta corrente no Banco do Nordeste de forma digital, rápida e segura.',
+    'Solicite o encerramento da sua conta corrente no Banco Regional de Fomento de forma digital, rápida e segura.',
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -31,7 +31,7 @@ async function bootstrap() {
   if (process.env.NODE_ENV !== 'production') {
     const config = new DocumentBuilder()
       .setTitle('EncerraDigital API')
-      .setDescription('Sistema de encerramento digital de conta corrente — BNB')
+      .setDescription('Sistema de encerramento digital de conta corrente — BRF')
       .setVersion('1.0')
       .addBearerAuth()
       .build();

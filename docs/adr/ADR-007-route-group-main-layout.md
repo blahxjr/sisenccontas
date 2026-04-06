@@ -8,7 +8,7 @@
 
 O `frontend-cliente` precisava suportar duas experiências visuais distintas:
 
-1. **Layout padrão** (`header vermelho BNB + footer + max-w-4xl`): usado nas páginas de negócio 
+1. **Layout padrão** (`header vermelho BRF + footer + max-w-4xl`): usado nas páginas de negócio 
    (`/`, `/encerramento/formulario`, `/encerramento/status`).
 2. **Layout standalone** (sem header/footer, tela cheia): usado exclusivamente pela página `/demo`, 
    criada para apresentação a stakeholders.
@@ -23,7 +23,7 @@ Utilizar **Route Groups** do Next.js App Router para segmentar as rotas por cont
 
 ```
 src/app/
-  (main)/           ← Route Group: layout com header/footer BNB
+  (main)/           ← Route Group: layout com header/footer BRF
     layout.tsx      ← Header vermelho + footer + max-w-4xl
     page.tsx        ← Rota: /
     encerramento/

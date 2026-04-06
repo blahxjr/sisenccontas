@@ -24,7 +24,7 @@ describe('CatalogosService', () => {
     });
   });
 
-  it('deve retornar 300 agências BNB no total', () => {
+  it('deve retornar 300 agências BRF no total', () => {
     const agencias = service.listarAgencias();
     expect(agencias.length).toBe(300);
   });
@@ -35,7 +35,7 @@ describe('CatalogosService', () => {
     agenciasMa.forEach((a) => expect(a.uf).toBe('MA'));
   });
 
-  it('deve retornar 13 UFs com agências BNB', () => {
+  it('deve retornar 13 UFs com agências BRF', () => {
     const ufs = service.listarUfs();
     expect(ufs).toHaveLength(13);
   });

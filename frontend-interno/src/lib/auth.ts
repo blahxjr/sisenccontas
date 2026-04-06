@@ -3,8 +3,8 @@ import CredentialsProvider from 'next-auth/providers/credentials';
 
 /** Operadores mock para desenvolvimento — substituir por OIDC/SAML corporativo em produção. */
 const OPERADORES_MOCK = [
-  { id: 'op001', nome: 'Ana Operadora', matricula: 'BNB0001', perfil: 'operador' as const },
-  { id: 'sup001', nome: 'Carlos Supervisor', matricula: 'BNB0002', perfil: 'supervisor' as const },
+  { id: 'op001', nome: 'Ana Operadora', matricula: 'BRF0001', perfil: 'operador' as const },
+  { id: 'sup001', nome: 'Carlos Supervisor', matricula: 'BRF0002', perfil: 'supervisor' as const },
 ];
 
 export type PerfilUsuario = 'operador' | 'supervisor';
@@ -19,9 +19,9 @@ export interface UsuarioInterno {
 export const authOptions: NextAuthOptions = {
   providers: [
     CredentialsProvider({
-      name: 'SSO BNB (Mock Dev)',
+      name: 'SSO BRF (Mock Dev)',
       credentials: {
-        matricula: { label: 'Matrícula', type: 'text', placeholder: 'BNB0001' },
+        matricula: { label: 'Matrícula', type: 'text', placeholder: 'BRF0001' },
         senha: { label: 'Senha (qualquer em dev)', type: 'password' },
       },
       async authorize(credentials) {

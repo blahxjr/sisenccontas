@@ -99,7 +99,7 @@ export function UploadTermoAssinado({ solicitacaoId }: Props) {
 
   return (
     <div className="bg-white border border-gray-200 rounded-xl p-6 space-y-4">
-      <h3 className="font-semibold text-bnb-vermelho flex items-center gap-2">
+      <h3 className="font-semibold text-brf-vermelho flex items-center gap-2">
         <Upload size={18} />
         Enviar Termo Assinado
       </h3>
@@ -111,7 +111,7 @@ export function UploadTermoAssinado({ solicitacaoId }: Props) {
 
       {/* Ãrea de seleÃ§Ã£o */}
       {estado === 'idle' && (
-        <label className="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-xl p-8 cursor-pointer hover:border-bnb-laranja hover:bg-gray-50 transition-colors">
+        <label className="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-xl p-8 cursor-pointer hover:border-brf-laranja hover:bg-gray-50 transition-colors">
           <Upload className="text-gray-400 mb-2" size={32} />
           <span className="text-sm font-medium text-gray-600">
             Clique para selecionar o PDF assinado
@@ -132,7 +132,7 @@ export function UploadTermoAssinado({ solicitacaoId }: Props) {
       {(estado === 'selecionado' || estado === 'enviando') && arquivo && (
         <div className="flex items-center justify-between bg-gray-50 border border-gray-200 rounded-lg px-4 py-3">
           <div className="flex items-center gap-3">
-            <FileText className="text-bnb-vermelho" size={20} />
+            <FileText className="text-brf-vermelho" size={20} />
             <div>
               <p className="text-sm font-medium text-gray-800 truncate max-w-xs">
                 {arquivo.name}
@@ -163,7 +163,7 @@ export function UploadTermoAssinado({ solicitacaoId }: Props) {
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
             <div
-              className="bg-bnb-laranja h-2 rounded-full transition-all duration-200"
+              className="bg-brf-laranja h-2 rounded-full transition-all duration-200"
               style={{ width: `${progresso}%` }}
               role="progressbar"
               aria-valuenow={progresso}
@@ -186,7 +186,7 @@ export function UploadTermoAssinado({ solicitacaoId }: Props) {
       {estado === 'selecionado' && (
         <button
           onClick={enviar}
-          className="w-full bg-bnb-vermelho text-white py-3 px-6 rounded-lg font-medium hover:bg-bnb-laranja transition-colors flex items-center justify-center gap-2"
+          className="w-full bg-brf-vermelho text-white py-3 px-6 rounded-lg font-medium hover:bg-brf-laranja transition-colors flex items-center justify-center gap-2"
         >
           <Upload size={18} />
           Enviar Termo Assinado
@@ -194,7 +194,7 @@ export function UploadTermoAssinado({ solicitacaoId }: Props) {
       )}
 
       {estado === 'enviando' && (
-        <button disabled className="w-full bg-bnb-vermelho/50 text-white py-3 px-6 rounded-lg font-medium flex items-center justify-center gap-2 cursor-not-allowed">
+        <button disabled className="w-full bg-brf-vermelho/50 text-white py-3 px-6 rounded-lg font-medium flex items-center justify-center gap-2 cursor-not-allowed">
           <Loader2 size={18} className="animate-spin" />
           Enviandoâ€¦
         </button>

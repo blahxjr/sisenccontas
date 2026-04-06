@@ -6,11 +6,11 @@ html_content = r'''
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Solicitação de Encerramento de Conta - Banco do Nordeste</title>
+  <title>Solicitação de Encerramento de Conta - Banco Regional de Fomento</title>
   <style>
     :root{
-      --bnb-vermelho:#A6193C; --bnb-laranja:#F68B1F; --bnb-amarelo:#FFCB05; --bnb-cinza:#646464;
-      --bnb-azul:#0996B6; --bnb-preto:#000; --bnb-branco:#FFF; --bnb-fundo:#FFE6CB;
+      --brf-vermelho:#A6193C; --brf-laranja:#F68B1F; --brf-amarelo:#FFCB05; --brf-cinza:#646464;
+      --brf-azul:#0996B6; --brf-preto:#000; --brf-branco:#FFF; --brf-fundo:#FFE6CB;
     }
     *{box-sizing:border-box}
     body{
@@ -20,14 +20,14 @@ html_content = r'''
       align-items:flex-start;
       min-height:100vh;
       margin:0;
-      background-color:var(--bnb-branco);
+      background-color:var(--brf-branco);
     }
     .main-wrapper{
       width:100%;
       max-width:900px;
       padding:20px;
-      background-color:var(--bnb-fundo);
-      border:1px solid var(--bnb-preto);
+      background-color:var(--brf-fundo);
+      border:1px solid var(--brf-preto);
       border-radius:6px;
       box-shadow:0 2px 5px rgba(0,0,0,.08);
       margin:18px;
@@ -41,7 +41,7 @@ html_content = r'''
     }
     .logo{ width:150px; }
     h1{
-      color:var(--bnb-vermelho);
+      color:var(--brf-vermelho);
       font-size:1.6rem;
       margin:.2rem 0 1rem;
     }
@@ -51,7 +51,7 @@ html_content = r'''
       padding: 40px 20px;
     }
     #mode-selector h2 {
-      color: var(--bnb-vermelho);
+      color: var(--brf-vermelho);
       margin-bottom: 25px;
     }
     .mode-buttons {
@@ -63,9 +63,9 @@ html_content = r'''
     .btn-mode {
       padding: 20px 30px;
       font-size: 1.1rem;
-      border: 2px solid var(--bnb-vermelho);
+      border: 2px solid var(--brf-vermelho);
       background: #fff;
-      color: var(--bnb-vermelho);
+      color: var(--brf-vermelho);
       cursor: pointer;
       border-radius: 8px;
       font-weight: bold;
@@ -73,7 +73,7 @@ html_content = r'''
       width: 250px;
     }
     .btn-mode:hover {
-      background: var(--bnb-vermelho);
+      background: var(--brf-vermelho);
       color: #fff;
     }
 
@@ -83,7 +83,7 @@ html_content = r'''
     #chatbot-window {
       height: 400px;
       overflow-y: auto;
-      border: 1px solid var(--bnb-preto);
+      border: 1px solid var(--brf-preto);
       background: #fff;
       padding: 15px;
       border-radius: 4px;
@@ -107,7 +107,7 @@ html_content = r'''
     }
     .msg-user {
       align-self: flex-end;
-      background: var(--bnb-vermelho);
+      background: var(--brf-vermelho);
       color: #fff;
       border-bottom-right-radius: 0;
     }
@@ -118,11 +118,11 @@ html_content = r'''
     #chat-input {
       flex: 1;
       padding: 10px;
-      border: 1px solid var(--bnb-preto);
+      border: 1px solid var(--brf-preto);
       border-radius: 4px;
     }
     #chat-send {
-      background: var(--bnb-laranja);
+      background: var(--brf-laranja);
       color: white;
       border: none;
       padding: 0 20px;
@@ -133,7 +133,7 @@ html_content = r'''
 
     /* Formulário */
     fieldset{
-      border:1px solid var(--bnb-preto);
+      border:1px solid var(--brf-preto);
       border-radius:6px;
       padding:14px;
       margin-bottom:12px;
@@ -141,7 +141,7 @@ html_content = r'''
     }
     legend{
       padding:0 .4rem;
-      color:var(--bnb-vermelho);
+      color:var(--brf-vermelho);
       font-weight:bold;
     }
     .grid{
@@ -159,13 +159,13 @@ html_content = r'''
     label{
       display:block;
       font-weight:600;
-      color:var(--bnb-vermelho);
+      color:var(--brf-vermelho);
       margin-bottom:5px;
     }
     input, textarea, select{
       width:100%;
       padding:8px;
-      border:1px solid var(--bnb-preto);
+      border:1px solid var(--brf-preto);
       border-radius:4px;
       background:#fff;
       color:#000;
@@ -188,13 +188,13 @@ html_content = r'''
       font-weight:bold;
       color:#fff;
     }
-    button[type="submit"]{ background-color:var(--bnb-laranja); }
+    button[type="submit"]{ background-color:var(--brf-laranja); }
     button[type="submit"]:hover{
-      background-color:var(--bnb-amarelo);
+      background-color:var(--brf-amarelo);
       color:#000;
     }
-    #export-pdf{ background-color:var(--bnb-cinza); }
-    #print-btn{ background-color:var(--bnb-azul); }
+    #export-pdf{ background-color:var(--brf-cinza); }
+    #print-btn{ background-color:var(--brf-azul); }
 
     #documento{
       display:none;
@@ -206,7 +206,7 @@ html_content = r'''
     }
     #documento h2 {
       text-align: center;
-      color: var(--bnb-vermelho);
+      color: var(--brf-vermelho);
     }
     .assinatura, .autorizacao { margin-top: 30px; }
 
@@ -216,17 +216,17 @@ html_content = r'''
       margin-top:20px;
       padding:16px;
       background:#fff;
-      border:1px solid var(--bnb-preto);
+      border:1px solid var(--brf-preto);
       border-radius:6px;
     }
     #assinatura-upload h3{
       margin-top:0;
-      color:var(--bnb-vermelho);
+      color:var(--brf-vermelho);
     }
     #upload-status{
       margin-top:8px;
       font-size:0.9rem;
-      color:var(--bnb-vermelho);
+      color:var(--brf-vermelho);
     }
     #assinatura-actions{
       margin:10px 0;
@@ -260,7 +260,7 @@ html_content = r'''
 <body>
   <div class="main-wrapper">
     <div class="header">
-      <img class="logo" alt="Logo" src="https://www.bnb.gov.br/o/bnb-dxp-theme/images/logo-bnb.svg"
+      <img class="logo" alt="Logo" src="https://www.bnb.gov.br/o/brf-dxp-theme/images/logo-bnb.svg"
            onclick="window.location.reload()" style="cursor:pointer" title="Voltar ao início"/>
       <h1>Solicitação de Encerramento</h1>
     </div>
@@ -275,14 +275,14 @@ html_content = r'''
 
     <div id="chatbot-container">
       <fieldset>
-        <legend>Assistente Virtual BNB</legend>
+        <legend>Assistente Virtual BRF</legend>
         <div id="chatbot-window"></div>
         <div class="chat-input-area">
           <input type="text" id="chat-input" placeholder="Digite sua resposta..." onkeypress="handleChatKey(event)">
           <button id="chat-send" onclick="processChatStep()">Enviar</button>
         </div>
         <button type="button" onclick="showInterface('select')"
-                style="background: var(--bnb-cinza); margin-top:10px">Voltar</button>
+                style="background: var(--brf-cinza); margin-top:10px">Voltar</button>
       </fieldset>
     </div>
 
@@ -391,7 +391,7 @@ html_content = r'''
         <button type="submit">Gerar Termo</button>
         <button type="button" id="export-pdf">PDF</button>
         <button type="button" id="print-btn">Imprimir</button>
-        <button type="button" onclick="showInterface('select')" style="background: var(--bnb-cinza)">Voltar</button>
+        <button type="button" onclick="showInterface('select')" style="background: var(--brf-cinza)">Voltar</button>
       </div>
     </form>
 
@@ -416,16 +416,16 @@ html_content = r'''
 
       <div id="assinatura-actions">
         <button type="button" id="btn-assinatura-pdf"
-                style="background: var(--bnb-cinza); color:#fff;">
+                style="background: var(--brf-cinza); color:#fff;">
           Gerar PDF novamente
         </button>
         <button type="button" id="btn-assinatura-print"
-                style="background: var(--bnb-azul); color:#fff;">
+                style="background: var(--brf-azul); color:#fff;">
           Imprimir / Salvar como PDF
         </button>
         <a href="https://www.gov.br/pt-br/servicos/assinatura-eletronica"
            target="_blank" rel="noopener"
-           style="padding:8px 12px; background:var(--bnb-vermelho); color:#fff; border-radius:4px; text-decoration:none; font-weight:bold; font-size:0.9rem;">
+           style="padding:8px 12px; background:var(--brf-vermelho); color:#fff; border-radius:4px; text-decoration:none; font-weight:bold; font-size:0.9rem;">
           Ir para assinatura gov.br
         </a>
       </div>
@@ -676,7 +676,7 @@ html_content = r'''
         }
 
         <div class="autorizacao" style="margin-top:24px;">
-          <em>Banco do Nordeste do Brasil S/A</em><br/>
+          <em>Banco Regional de Fomento S.A.</em><br/>
           Recebido em: ____/____/____<br/>
           Carimbo e assinatura
         </div>

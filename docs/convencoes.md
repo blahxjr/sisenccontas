@@ -1,4 +1,4 @@
-# Convenções de Código — EncerraDigital BNB
+# Convenções de Código — EncerraDigital BRF
 
 **Última atualização**: 2026-04-05
 

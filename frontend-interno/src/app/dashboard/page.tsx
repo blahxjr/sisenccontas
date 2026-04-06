@@ -38,7 +38,7 @@ const STATUS_CONFIG: Record<StatusSolicitacao, { label: string; classes: string 
   REJEITADO: { label: 'Rejeitado', classes: 'bg-red-100 text-red-700' },
 };
 
-/** Dashboard principal do operador interno BNB. */
+/** Dashboard principal do operador interno BRF. */
 export default function DashboardPage() {
   const { data: sessao } = useSession();
   const usuario = sessao?.user as UsuarioSessao | undefined;
@@ -74,12 +74,12 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-bnb-vermelho text-white shadow-md">
+      <header className="bg-brf-vermelho text-white shadow-md">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="bg-white rounded px-3 py-1">
-              <span className="text-bnb-vermelho font-bold text-lg">
-                BN<span className="text-bnb-amarelo">B</span>
+              <span className="text-brf-vermelho font-bold text-lg">
+                BN<span className="text-brf-amarelo">B</span>
               </span>
             </div>
             <span className="font-semibold text-lg">EncerraDigital â€” Painel Interno</span>
@@ -104,7 +104,7 @@ export default function DashboardPage() {
       </header>
 
       <main className="max-w-7xl mx-auto px-6 py-8">
-        <h1 className="text-2xl font-bold text-bnb-vermelho mb-6">SolicitaÃ§Ãµes de Encerramento</h1>
+        <h1 className="text-2xl font-bold text-brf-vermelho mb-6">SolicitaÃ§Ãµes de Encerramento</h1>
 
         {/* Cards de resumo */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
@@ -156,7 +156,7 @@ export default function DashboardPage() {
                     const cfg = STATUS_CONFIG[sol.status] ?? STATUS_CONFIG.PENDENTE;
                     return (
                       <tr key={sol.id} className="hover:bg-gray-50 transition-colors">
-                        <td className="px-6 py-4 font-mono font-medium text-bnb-vermelho">
+                        <td className="px-6 py-4 font-mono font-medium text-brf-vermelho">
                           {sol.numeroProtocolo}
                         </td>
                         <td className="px-6 py-4">{sol.agencia}</td>
@@ -173,7 +173,7 @@ export default function DashboardPage() {
                         <td className="px-6 py-4">
                           <Link
                             href={`/dashboard/solicitacoes/${sol.id}`}
-                            className="text-bnb-laranja hover:underline font-medium"
+                            className="text-brf-laranja hover:underline font-medium"
                           >
                             Ver detalhe
                           </Link>

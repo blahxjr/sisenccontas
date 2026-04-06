@@ -1,4 +1,4 @@
-# Backlog Técnico — EncerraDigital BNB
+# Backlog Técnico — EncerraDigital BRF
 
 **Última atualização**: 2026-04-06
 
@@ -19,7 +19,7 @@
 
 ## Fase 1 — Frontend Cliente (migração do HTML)
 
-- [x] **TEC-011** — Criar layout base com identidade visual BNB
+- [x] **TEC-011** — Criar layout base com identidade visual BRF
 - [ ] **TEC-012** — Migrar chatbot do HTML para componente React com máquina de estados *(chatbot desabilitado; formulário multi-etapa implementado como substituto)*
 - [x] **TEC-013** — Migrar formulário manual para React Hook Form + Zod
 - [x] **TEC-014** — Criar endpoint de catálogos no backend (motivos, agências)
@@ -35,7 +35,7 @@
 
 ## Fase 8 — Auth Corporativo + CI/CD + Produção
 
-- [ ] **TEC-016** — Substituir auth mock por OIDC/SAML SSO corporativo BNB real no `frontend-interno`
+- [ ] **TEC-016** — Substituir auth mock por OIDC/SAML SSO corporativo BRF real no `frontend-interno`
 - [ ] **TEC-017** — Configurar pipeline CI/CD no GitHub Actions: lint → test (Jest + Playwright) → build → deploy
 - [ ] **TEC-018** — Adicionar análise SAST (CodeQL ou Semgrep) no pipeline CI/CD
 - [ ] **TEC-019** — Configurar rate limiting nas rotas públicas do backend (express-rate-limit ou NestJS throttler)

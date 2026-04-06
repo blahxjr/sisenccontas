@@ -43,7 +43,7 @@ function quebrarTexto(font: PDFFont, texto: string, maxWidth: number, size: numb
 ```
 
 **Paginação real** também implementada: nova página criada automaticamente quando `y < 75` 
-(margem inferior de 75pt), com rodapé vermelho BNB renderizado em todas as páginas.
+(margem inferior de 75pt), com rodapé vermelho BRF renderizado em todas as páginas.
 
 **Espaçamentos corrigidos** por tamanho de fonte:
 - Fonte 10pt → `y -= 13`
@@ -54,7 +54,7 @@ function quebrarTexto(font: PDFFont, texto: string, maxWidth: number, size: numb
 
 - ✅ Texto nunca extrapola as margens do PDF, independentemente do comprimento
 - ✅ Paginação automática elimina corte de conteúdo em documentos longos
-- ✅ Rodapé aparece em todas as páginas (requisito do modelo oficial 3303-40-64)
+- ✅ Rodapé aparece em todas as páginas (requisito do modelo oficial BRF-3303-40-64)
 - ✅ Espaçamento proporcional ao tamanho de fonte evita sobreposição entre linhas
 - ⚠️ Pequena sobrecarga de processamento: para cada palavra, `widthOfTextAtSize` é chamado — aceitável dado o tamanho típico do Termo de Encerramento
 

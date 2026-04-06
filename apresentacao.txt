@@ -1,5 +1,5 @@
 # 📌 Proposta de Melhoria da Jornada do Cliente
-## Encerramento de Conta Corrente — Banco do Nordeste
+## Encerramento de Conta Corrente — Banco Regional de Fomento
 
 ---
 
@@ -49,7 +49,7 @@ Transformar o pedido de encerramento em um **processo digital, simples e autôno
 ## 💡 Solução Proposta  
 ### Implantação de um Chatbot no Site Institucional
 
-Um chatbot simples e intuitivo, hospedado no site do Banco do Nordeste, com as seguintes funções:
+Um chatbot simples e intuitivo, hospedado no site do Banco Regional de Fomento, com as seguintes funções:
 
 - ✅ Orientar o cliente passo a passo  
 - ✅ Coletar apenas as informações necessárias para o termo  
@@ -65,7 +65,7 @@ Um chatbot simples e intuitivo, hospedado no site do Banco do Nordeste, com as s
 
 ### Jornada Digital Simplificada
 
-1. Cliente acessa o site do Banco do Nordeste  
+1. Cliente acessa o site do Banco Regional de Fomento  
 2. Seleciona a opção **“Encerrar Conta Corrente”**  
 3. Escolhe a forma de preenchimento:
    - Formulário manual  
@@ -130,7 +130,7 @@ O assistente conduz o diálogo de forma guiada, coletando:
 ## 🧪 Demonstração Prática — Protótipo
 
 ### O que o protótipo já entrega
-- ✅ Interface com identidade visual do BNB  
+- ✅ Interface com identidade visual do BRF  
 - ✅ Escolha entre formulário e chatbot  
 - ✅ Chatbot guiado por perguntas sequenciais  
 - ✅ Geração automática do termo conforme normas  
@@ -142,7 +142,7 @@ O assistente conduz o diálogo de forma guiada, coletando:
 
 ---
 
-## 📈 Benefícios para o Banco do Nordeste
+## 📈 Benefícios para o Banco Regional de Fomento
 - 📉 Redução de atendimentos presenciais  
 - ⏱️ Economia de tempo operacional  
 - 🙂 Melhoria da experiência do cliente  
@@ -176,7 +176,7 @@ Ele qualifica e organiza a entrada da solicitação.**
 4. Nova Jornada do Cliente (Proposta)
 Jornada Digital Simplificada
 
-Cliente acessa o site do Banco do Nordeste
+Cliente acessa o site do Banco Regional de Fomento
 Seleciona a opção “Encerrar Conta Corrente”
 Escolhe como deseja preencher:
 
@@ -242,7 +242,7 @@ Não exige autenticação bancária
 
 7. Demonstração Prática (Protótipo)
 O que o protótipo já entrega
-✅ Interface com identidade visual do BNB
+✅ Interface com identidade visual do BRF
 ✅ Escolha entre formulário e chatbot
 ✅ Chatbot guiado por perguntas sequenciais
 ✅ Geração automática do termo conforme normas
@@ -251,7 +251,7 @@ O que o protótipo já entrega
 ✅ Simulação de upload do documento assinado
 📌 Desenvolvido em Python (Google Colab) com HTML integrado, ideal para fins didáticos.
 
-8. Benefícios para o Banco do Nordeste
+8. Benefícios para o Banco Regional de Fomento
 
 📉 Redução de atendimentos presenciais
 ⏱️ Economia de tempo operacional

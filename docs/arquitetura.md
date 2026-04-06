@@ -1,4 +1,4 @@
-# Arquitetura do Sistema — EncerraDigital BNB
+# Arquitetura do Sistema — EncerraDigital BRF
 
 **Última atualização**: 2026-04-05  
 **Responsável**: Arquiteto de Software  
@@ -9,7 +9,7 @@
 ## Visão Geral
 
 O EncerraDigital é um sistema web para digitalização da jornada de encerramento de conta corrente 
-do Banco do Nordeste, composto por dois módulos independentes integrados por uma API backend.
+do Banco Regional de Fomento, composto por dois módulos independentes integrados por uma API backend.
 
 ```
 [Cliente Final]
@@ -21,7 +21,7 @@ do Banco do Nordeste, composto por dois módulos independentes integrados por um
 [backend — API BFF]  (NestJS — restrito)
       |         \
       ↓          ↓
-[PostgreSQL]  [MinIO/S3]   [CSVs de catálogo]   [Sistemas internos BNB]
+[PostgreSQL]  [MinIO/S3]   [CSVs de catálogo]   [Sistemas internos BRF]
       ↑
 [frontend-interno]  (Next.js — rede interna / VPN)
       ↑
@@ -41,7 +41,7 @@ do Banco do Nordeste, composto por dois módulos independentes integrados por um
 
 ### frontend-interno
 - **Tipo**: Aplicação Next.js restrita
-- **Usuário**: Operadores internos do BNB
+- **Usuário**: Operadores internos do BRF
 - **Função**: Listar e tratar solicitações, verificar documentos, integrar com sistemas internos
 - **Acesso**: Somente via rede interna / VPN + autenticação OIDC/SAML corporativo
 
@@ -52,7 +52,7 @@ do Banco do Nordeste, composto por dois módulos independentes integrados por um
   - Servir catálogos (motivos, agências) a partir de CSVs  
   - Armazenar solicitações e documentos (PostgreSQL + MinIO)  
   - Expor endpoints protegidos para o módulo interno  
-  - Integrar com sistemas internos do BNB (via adapters isolados)
+  - Integrar com sistemas internos do BRF (via adapters isolados)
 - **Nunca**: Expõe dados internos ao frontend-cliente
 
 ---

@@ -1,4 +1,4 @@
-# Segurança e LGPD — EncerraDigital BNB
+# Segurança e LGPD — EncerraDigital BRF
 
 **Última atualização**: 2026-04-05  
 **Referências**: OWASP ASVS v4.0, OWASP Top 10 2021, LGPD Lei 13.709/2018, Resolução BCB 85/2021

@@ -23,7 +23,7 @@ export interface IAgencia {
  * Serviço de catálogos — carrega dados dos CSVs de referência na inicialização.
  * Dados oficiais de agências obtidos via API pública do Banco Central (ODbL).
  * Fonte: https://olinda.bcb.gov.br/olinda/servico/Informes_Agencias/versao/v1
- * Total de agências BNB: 300 | Atualizado em: 05/04/2026
+ * Total de agências BRF: 300 | Atualizado em: 05/04/2026
  */
 @Injectable()
 export class CatalogosService implements OnModuleInit {
@@ -68,7 +68,7 @@ export class CatalogosService implements OnModuleInit {
       'codigo', 'nome', 'municipio', 'uf', 'cep', 'endereco', 'bairro', 'ddd', 'telefone',
     ]);
     this.logger.log(
-      `✅ Catálogos carregados — Motivos: ${this.motivos.length} | Agências BNB: ${this.agencias.length}`,
+      `✅ Catálogos carregados — Motivos: ${this.motivos.length} | Agências BRF: ${this.agencias.length}`,
     );
   }
 

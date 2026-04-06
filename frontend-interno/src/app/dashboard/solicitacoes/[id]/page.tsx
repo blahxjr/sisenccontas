@@ -146,7 +146,7 @@ export default function DetalhesSolicitacaoPage({ params }: Props) {
   if (carregando) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <Loader2 className="animate-spin text-bnb-vermelho" size={40} />
+        <Loader2 className="animate-spin text-brf-vermelho" size={40} />
       </div>
     );
   }
@@ -156,7 +156,7 @@ export default function DetalhesSolicitacaoPage({ params }: Props) {
       <div className="min-h-screen flex flex-col items-center justify-center gap-4">
         <AlertCircle className="text-red-500" size={48} />
         <p className="text-red-600 font-medium">{erro || 'Solicitação não encontrada.'}</p>
-        <Link href="/dashboard" className="text-bnb-laranja hover:underline">
+        <Link href="/dashboard" className="text-brf-laranja hover:underline">
           ← Voltar ao Dashboard
         </Link>
       </div>
@@ -168,7 +168,7 @@ export default function DetalhesSolicitacaoPage({ params }: Props) {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-bnb-vermelho text-white shadow-md">
+      <header className="bg-brf-vermelho text-white shadow-md">
         <div className="max-w-5xl mx-auto px-6 py-4 flex items-center gap-4">
           <Link
             href="/dashboard"
@@ -185,13 +185,13 @@ export default function DetalhesSolicitacaoPage({ params }: Props) {
         <div className="bg-white rounded-xl shadow-sm p-6 flex items-center justify-between">
           <div>
             <p className="text-xs text-gray-400 uppercase tracking-wide">Protocolo</p>
-            <p className="text-2xl font-mono font-bold text-bnb-vermelho">
+            <p className="text-2xl font-mono font-bold text-brf-vermelho">
               {solicitacao.numeroProtocolo}
             </p>
           </div>
           <div className="text-right">
             <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">Status</p>
-            <span className="inline-block bg-bnb-vermelho text-white px-4 py-1.5 rounded-full font-semibold text-sm">
+            <span className="inline-block bg-brf-vermelho text-white px-4 py-1.5 rounded-full font-semibold text-sm">
               {STATUS_LABEL[solicitacao.status]}
             </span>
           </div>
@@ -199,8 +199,8 @@ export default function DetalhesSolicitacaoPage({ params }: Props) {
 
         {/* Dados descritografados */}
         <div className="bg-white rounded-xl shadow-sm p-6">
-          <h2 className="font-bold text-bnb-vermelho mb-4 flex items-center gap-2">
-            <span className="w-1.5 h-5 bg-bnb-amarelo rounded-full inline-block" />
+          <h2 className="font-bold text-brf-vermelho mb-4 flex items-center gap-2">
+            <span className="w-1.5 h-5 bg-brf-amarelo rounded-full inline-block" />
             Dados do Titular
             <span className="text-xs font-normal text-red-600 ml-2 bg-red-50 px-2 py-0.5 rounded">
               CONFIDENCIAL — Uso interno
@@ -216,7 +216,7 @@ export default function DetalhesSolicitacaoPage({ params }: Props) {
 
         {/* Histórico / Datas */}
         <div className="bg-white rounded-xl shadow-sm p-6">
-          <h2 className="font-bold text-bnb-vermelho mb-4">Histórico</h2>
+          <h2 className="font-bold text-brf-vermelho mb-4">Histórico</h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <Campo
               label="Solicitado em"
@@ -235,7 +235,7 @@ export default function DetalhesSolicitacaoPage({ params }: Props) {
 
         {/* Ações de status */}
         <div className="bg-white rounded-xl shadow-sm p-6">
-          <h2 className="font-bold text-bnb-vermelho mb-4">Ações</h2>
+          <h2 className="font-bold text-brf-vermelho mb-4">Ações</h2>
           {!podeAlterar && (
             <p className="text-sm text-gray-400 mb-4">
               Apenas supervisores podem alterar o status da solicitação.
@@ -280,14 +280,14 @@ export default function DetalhesSolicitacaoPage({ params }: Props) {
         {/* Seção de Documentos */}
         <div className="bg-white rounded-xl shadow-sm p-6">
           <div className="flex items-center justify-between mb-4">
-            <h2 className="font-bold text-bnb-vermelho flex items-center gap-2">
+            <h2 className="font-bold text-brf-vermelho flex items-center gap-2">
               <FileText size={18} />
               Documentos
             </h2>
             <button
               onClick={gerarTermo}
               disabled={gerandoTermo}
-              className="flex items-center gap-2 bg-bnb-vermelho text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-bnb-laranja disabled:opacity-50 transition-colors"
+              className="flex items-center gap-2 bg-brf-vermelho text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-brf-laranja disabled:opacity-50 transition-colors"
             >
               {gerandoTermo ? (
                 <Loader2 size={14} className="animate-spin" />
@@ -354,7 +354,7 @@ export default function DetalhesSolicitacaoPage({ params }: Props) {
                     <td className="px-4 py-3">
                       <button
                         onClick={() => baixarDocumento(doc.id)}
-                        className="flex items-center gap-1 text-bnb-laranja hover:underline text-sm"
+                        className="flex items-center gap-1 text-brf-laranja hover:underline text-sm"
                       >
                         <Download size={14} /> Baixar
                       </button>

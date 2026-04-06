@@ -3,7 +3,7 @@ import './globals.css';
 import { Providers } from './providers';
 
 export const metadata: Metadata = {
-  title: 'EncerraDigital — Painel Interno BNB',
+  title: 'EncerraDigital — Painel Interno BRF',
   description: 'Painel interno de gestão de solicitações de encerramento de conta',
   robots: 'noindex, nofollow',
 };

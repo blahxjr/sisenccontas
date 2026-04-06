@@ -31,7 +31,7 @@ export function useMotivos() {
   return { motivos, carregando };
 }
 
-/** Carrega a lista de UFs com agências BNB disponíveis. */
+/** Carrega a lista de UFs com agências BRF disponíveis. */
 export function useUfs() {
   const [ufs, setUfs] = useState<string[]>([]);
   const [carregando, setCarregando] = useState(true);
@@ -48,7 +48,7 @@ export function useUfs() {
 }
 
 /**
- * Carrega agências BNB filtradas pela UF selecionada.
+ * Carrega agências BRF filtradas pela UF selecionada.
  * Retorna lista vazia se nenhuma UF for fornecida.
  */
 export function useAgencias(uf?: string) {

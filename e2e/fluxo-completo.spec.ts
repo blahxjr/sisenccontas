@@ -25,7 +25,7 @@ test.describe('Fluxo completo — EncerraDigital', () => {
 
   test('03 — Operador faz login no painel interno', async ({ page }) => {
     const dashboard = new DashboardPage(page);
-    await dashboard.fazerLogin('BNB0001');
+    await dashboard.fazerLogin('BRF0001');
     await expect(page).toHaveURL(/dashboard/);
     // Confirmar que o dashboard carregou com o título principal
     await expect(page.getByText('Solicitações de Encerramento')).toBeVisible();
@@ -34,14 +34,14 @@ test.describe('Fluxo completo — EncerraDigital', () => {
   test('04 — Operador vê a solicitação criada no dashboard', async ({ page }) => {
     test.skip(!protocoloCriado, 'Depende do teste 01');
     const dashboard = new DashboardPage(page);
-    await dashboard.fazerLogin('BNB0001');
+    await dashboard.fazerLogin('BRF0001');
     await dashboard.buscarProtocoloNaTabela(protocoloCriado);
   });
 
   test('05 — Operador abre detalhe e gera o Termo de Encerramento', async ({ page }) => {
     test.skip(!protocoloCriado, 'Depende do teste 01');
     const dashboard = new DashboardPage(page);
-    await dashboard.fazerLogin('BNB0001');
+    await dashboard.fazerLogin('BRF0001');
     await dashboard.buscarProtocoloNaTabela(protocoloCriado);
     await dashboard.abrirDetalhe(protocoloCriado);
     await dashboard.gerarTermo();
