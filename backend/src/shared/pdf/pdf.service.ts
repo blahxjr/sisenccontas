@@ -32,13 +32,13 @@ export class PdfService {
     const fontBold = await doc.embedFont(StandardFonts.HelveticaBold);
     const { height } = page.getSize();
 
-    // Cabeçalho BNB
+    // Cabeçalho BNB — Vermelho oficial (#A6193C)
     page.drawRectangle({
       x: 0,
       y: height - 80,
       width: 595,
       height: 80,
-      color: rgb(0, 0.188, 0.529), // #003087
+      color: rgb(0.651, 0.098, 0.235), // #A6193C — Vermelho BNB
     });
     page.drawText('BANCO DO NORDESTE DO BRASIL', {
       x: 40,
@@ -52,7 +52,7 @@ export class PdfService {
       y: height - 58,
       font: fontRegular,
       size: 11,
-      color: rgb(0.961, 0.659, 0),
+      color: rgb(0.965, 0.545, 0.122), // #F68B1F — Laranja BNB
     });
 
     // Protocolo em destaque

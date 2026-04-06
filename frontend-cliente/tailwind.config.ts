@@ -7,10 +7,16 @@ const config: Config = {
     extend: {
       colors: {
         bnb: {
-          amarelo: '#F5A800',
-          azul: '#003087',
-          'azul-claro': '#0055B8',
-          cinza: '#F5F5F5',
+          // Cores-mãe (Manual de Identidade Visual BNB)
+          vermelho: '#A6193C',     // cor-mãe principal — header, botões primários
+          laranja: '#F68B1F',      // cor-mãe secundária — badges, links ativos
+          // Cores de apoio
+          amarelo: '#FFCB05',      // análoga — avisos, highlights
+          salmao: '#FFE6CB',       // análoga/neutra — fundos suaves
+          cinza: '#646464',        // neutra — textos secundários, bordas
+          // Cores complementares
+          verde: '#07A684',        // sucesso, status concluído
+          'azul-info': '#0996B6',  // informações, links
         },
       },
       fontFamily: {

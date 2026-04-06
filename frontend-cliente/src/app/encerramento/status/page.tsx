@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { Suspense, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
@@ -61,7 +61,7 @@ function ConsultaStatusContent() {
         <p className="text-gray-500">
           Nenhum protocolo informado. Acesse o link enviado por e-mail ou volte ao formulário.
         </p>
-        <Link href="/encerramento/formulario" className="text-bnb-azul-claro underline text-sm">
+        <Link href="/encerramento/formulario" className="text-bnb-laranja underline text-sm">
           Ir para o formulário
         </Link>
       </div>
@@ -71,7 +71,7 @@ function ConsultaStatusContent() {
   if (carregando) {
     return (
       <div className="flex justify-center py-12">
-        <Loader2 className="h-8 w-8 text-bnb-azul animate-spin" />
+        <Loader2 className="h-8 w-8 text-bnb-vermelho animate-spin" />
       </div>
     );
   }
@@ -127,7 +127,7 @@ function ConsultaStatusContent() {
       </div>
 
       <div className="text-center">
-        <Link href="/" className="text-sm text-bnb-azul-claro underline hover:text-bnb-azul">
+        <Link href="/" className="text-sm text-bnb-laranja underline hover:text-bnb-vermelho">
           ← Voltar ao início
         </Link>
       </div>
@@ -148,19 +148,19 @@ export default function StatusPage() {
   return (
     <div className="max-w-xl mx-auto space-y-6">
       <nav className="text-sm text-gray-500">
-        <Link href="/" className="hover:text-bnb-azul">
+        <Link href="/" className="hover:text-bnb-vermelho">
           Início
         </Link>
         {' › '}
         <span className="text-gray-700">Consultar Status</span>
       </nav>
 
-      <h1 className="text-2xl font-bold text-bnb-azul">Consultar Solicitação</h1>
+      <h1 className="text-2xl font-bold text-bnb-vermelho">Consultar Solicitação</h1>
 
       <Suspense
         fallback={
           <div className="flex justify-center py-12">
-            <Loader2 className="h-8 w-8 text-bnb-azul animate-spin" />
+            <Loader2 className="h-8 w-8 text-bnb-vermelho animate-spin" />
           </div>
         }
       >

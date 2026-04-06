@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useEffect, useState, useCallback } from 'react';
 import { signOut, useSession } from 'next-auth/react';
@@ -32,8 +32,8 @@ interface ListagemResponse {
 /** Mapeamento de cores para badges de status. */
 const STATUS_CONFIG: Record<StatusSolicitacao, { label: string; classes: string }> = {
   PENDENTE: { label: 'Pendente', classes: 'bg-yellow-100 text-yellow-800' },
-  EM_ANALISE: { label: 'Em Análise', classes: 'bg-blue-100 text-blue-800' },
-  CONCLUIDO: { label: 'Concluído', classes: 'bg-green-100 text-green-800' },
+  EM_ANALISE: { label: 'Em AnÃ¡lise', classes: 'bg-blue-100 text-blue-800' },
+  CONCLUIDO: { label: 'ConcluÃ­do', classes: 'bg-green-100 text-green-800' },
   CANCELADO: { label: 'Cancelado', classes: 'bg-gray-100 text-gray-600' },
   REJEITADO: { label: 'Rejeitado', classes: 'bg-red-100 text-red-700' },
 };
@@ -57,7 +57,7 @@ export default function DashboardPage() {
       );
       setDados(resp.data);
     } catch (e: unknown) {
-      setErro(e instanceof Error ? e.message : 'Erro ao carregar solicitações.');
+      setErro(e instanceof Error ? e.message : 'Erro ao carregar solicitaÃ§Ãµes.');
     } finally {
       setCarregando(false);
     }
@@ -74,21 +74,21 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <header className="bg-bnb-azul text-white shadow-md">
+      <header className="bg-bnb-vermelho text-white shadow-md">
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="bg-white rounded px-3 py-1">
-              <span className="text-bnb-azul font-bold text-lg">
+              <span className="text-bnb-vermelho font-bold text-lg">
                 BN<span className="text-bnb-amarelo">B</span>
               </span>
             </div>
-            <span className="font-semibold text-lg">EncerraDigital — Painel Interno</span>
+            <span className="font-semibold text-lg">EncerraDigital â€” Painel Interno</span>
           </div>
           <div className="flex items-center gap-4">
             <div className="text-right">
               <p className="text-sm font-medium">{usuario?.name ?? 'Operador'}</p>
               <p className="text-xs text-blue-200 capitalize">
-                {(usuario as UsuarioSessao)?.perfil ?? 'operador'} ·{' '}
+                {(usuario as UsuarioSessao)?.perfil ?? 'operador'} Â·{' '}
                 {(usuario as UsuarioSessao)?.matricula}
               </p>
             </div>
@@ -104,28 +104,28 @@ export default function DashboardPage() {
       </header>
 
       <main className="max-w-7xl mx-auto px-6 py-8">
-        <h1 className="text-2xl font-bold text-bnb-azul mb-6">Solicitações de Encerramento</h1>
+        <h1 className="text-2xl font-bold text-bnb-vermelho mb-6">SolicitaÃ§Ãµes de Encerramento</h1>
 
         {/* Cards de resumo */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
           <div className="bg-white rounded-xl shadow-sm p-5 flex items-center gap-4 border-l-4 border-yellow-400">
             <Clock className="text-yellow-500" size={32} />
             <div>
-              <p className="text-sm text-gray-500">Pendentes (pág. atual)</p>
+              <p className="text-sm text-gray-500">Pendentes (pÃ¡g. atual)</p>
               <p className="text-3xl font-bold text-gray-800">{pendentes}</p>
             </div>
           </div>
           <div className="bg-white rounded-xl shadow-sm p-5 flex items-center gap-4 border-l-4 border-blue-500">
             <FileText className="text-blue-500" size={32} />
             <div>
-              <p className="text-sm text-gray-500">Em Análise (pág. atual)</p>
+              <p className="text-sm text-gray-500">Em AnÃ¡lise (pÃ¡g. atual)</p>
               <p className="text-3xl font-bold text-gray-800">{emAnalise}</p>
             </div>
           </div>
           <div className="bg-white rounded-xl shadow-sm p-5 flex items-center gap-4 border-l-4 border-green-500">
             <CheckCircle className="text-green-500" size={32} />
             <div>
-              <p className="text-sm text-gray-500">Concluídos (pág. atual)</p>
+              <p className="text-sm text-gray-500">ConcluÃ­dos (pÃ¡g. atual)</p>
               <p className="text-3xl font-bold text-gray-800">{concluidos}</p>
             </div>
           </div>
@@ -134,21 +134,21 @@ export default function DashboardPage() {
         {/* Tabela */}
         <div className="bg-white rounded-xl shadow-sm overflow-hidden">
           {carregando ? (
-            <div className="p-12 text-center text-gray-400">Carregando solicitações…</div>
+            <div className="p-12 text-center text-gray-400">Carregando solicitaÃ§Ãµesâ€¦</div>
           ) : erro ? (
             <div className="p-12 text-center text-red-500">{erro}</div>
           ) : !dados || dados.itens.length === 0 ? (
-            <div className="p-12 text-center text-gray-400">Nenhuma solicitação encontrada.</div>
+            <div className="p-12 text-center text-gray-400">Nenhuma solicitaÃ§Ã£o encontrada.</div>
           ) : (
             <>
               <table className="w-full text-sm">
                 <thead className="bg-gray-100 text-gray-600 uppercase text-xs">
                   <tr>
                     <th className="text-left px-6 py-3">Protocolo</th>
-                    <th className="text-left px-6 py-3">Agência</th>
+                    <th className="text-left px-6 py-3">AgÃªncia</th>
                     <th className="text-left px-6 py-3">Status</th>
                     <th className="text-left px-6 py-3">Data</th>
-                    <th className="text-left px-6 py-3">Ação</th>
+                    <th className="text-left px-6 py-3">AÃ§Ã£o</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-100">
@@ -156,7 +156,7 @@ export default function DashboardPage() {
                     const cfg = STATUS_CONFIG[sol.status] ?? STATUS_CONFIG.PENDENTE;
                     return (
                       <tr key={sol.id} className="hover:bg-gray-50 transition-colors">
-                        <td className="px-6 py-4 font-mono font-medium text-bnb-azul">
+                        <td className="px-6 py-4 font-mono font-medium text-bnb-vermelho">
                           {sol.numeroProtocolo}
                         </td>
                         <td className="px-6 py-4">{sol.agencia}</td>
@@ -173,7 +173,7 @@ export default function DashboardPage() {
                         <td className="px-6 py-4">
                           <Link
                             href={`/dashboard/solicitacoes/${sol.id}`}
-                            className="text-bnb-azul-claro hover:underline font-medium"
+                            className="text-bnb-laranja hover:underline font-medium"
                           >
                             Ver detalhe
                           </Link>
@@ -184,18 +184,18 @@ export default function DashboardPage() {
                 </tbody>
               </table>
 
-              {/* Paginação */}
+              {/* PaginaÃ§Ã£o */}
               {dados.totalPaginas > 1 && (
                 <div className="flex items-center justify-between px-6 py-4 border-t border-gray-100">
                   <p className="text-sm text-gray-500">
-                    {dados.total} solicitações · Página {dados.pagina} de {dados.totalPaginas}
+                    {dados.total} solicitaÃ§Ãµes Â· PÃ¡gina {dados.pagina} de {dados.totalPaginas}
                   </p>
                   <div className="flex gap-2">
                     <button
                       onClick={() => setPagina((p) => Math.max(1, p - 1))}
                       disabled={pagina === 1}
                       className="p-2 rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-40"
-                      aria-label="Página anterior"
+                      aria-label="PÃ¡gina anterior"
                     >
                       <ChevronLeft size={16} />
                     </button>
@@ -203,7 +203,7 @@ export default function DashboardPage() {
                       onClick={() => setPagina((p) => Math.min(dados.totalPaginas, p + 1))}
                       disabled={pagina === dados.totalPaginas}
                       className="p-2 rounded-lg border border-gray-200 hover:bg-gray-50 disabled:opacity-40"
-                      aria-label="Próxima página"
+                      aria-label="PrÃ³xima pÃ¡gina"
                     >
                       <ChevronRight size={16} />
                     </button>

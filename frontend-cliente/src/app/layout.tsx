@@ -11,9 +11,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="pt-BR">
       <body className="bg-gray-50 min-h-screen font-sans antialiased">
-        <header className="bg-bnb-azul text-white shadow-md">
+        <header className="bg-bnb-vermelho text-white shadow-md">
           <div className="max-w-4xl mx-auto px-4 py-4 flex items-center gap-3">
-            <div className="w-8 h-8 bg-bnb-amarelo rounded-full flex items-center justify-center font-bold text-bnb-azul text-sm">
+            <div className="w-8 h-8 bg-bnb-amarelo rounded-full flex items-center justify-center font-bold text-bnb-vermelho text-sm">
               BNB
             </div>
             <span className="font-semibold text-lg tracking-wide">Banco do Nordeste</span>

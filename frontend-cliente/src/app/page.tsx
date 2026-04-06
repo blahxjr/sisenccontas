@@ -4,7 +4,7 @@ export default function HomePage() {
   return (
     <div className="space-y-10">
       <section className="text-center space-y-3">
-        <h1 className="text-3xl font-bold text-bnb-azul">
+        <h1 className="text-3xl font-bold text-bnb-vermelho">
           Encerramento de Conta Corrente
         </h1>
         <p className="text-gray-600 max-w-xl mx-auto">
@@ -17,18 +17,18 @@ export default function HomePage() {
         {/* Formulário */}
         <Link
           href="/encerramento/formulario"
-          className="group block bg-white border-2 border-bnb-azul rounded-xl p-8 hover:bg-bnb-azul hover:text-white transition-all duration-200 shadow-sm hover:shadow-lg"
+          className="group block bg-white border-2 border-bnb-vermelho rounded-xl p-8 hover:bg-bnb-vermelho hover:text-white transition-all duration-200 shadow-sm hover:shadow-lg"
         >
           <div className="space-y-3">
             <div className="text-4xl">📋</div>
-            <h2 className="text-xl font-semibold text-bnb-azul group-hover:text-white">
+            <h2 className="text-xl font-semibold text-bnb-vermelho group-hover:text-white">
               Formulário Digital
             </h2>
             <p className="text-gray-600 group-hover:text-blue-100 text-sm">
               Preencha os campos com suas informações e solicite o encerramento diretamente.
               Ideal para quem prefere preencher no próprio ritmo.
             </p>
-            <span className="inline-block mt-2 text-sm font-medium text-bnb-azul-claro group-hover:text-white">
+            <span className="inline-block mt-2 text-sm font-medium text-bnb-laranja group-hover:text-white">
               Acessar formulário →
             </span>
           </div>
@@ -52,8 +52,8 @@ export default function HomePage() {
         </div>
       </div>
 
-      <section className="bg-blue-50 border border-blue-100 rounded-xl p-6 text-sm text-gray-700 space-y-2">
-        <p className="font-semibold text-bnb-azul">ℹ️ Como funciona o processo?</p>
+      <section className="bg-bnb-salmao border border-bnb-laranja/30 rounded-xl p-6 text-sm text-gray-700 space-y-2">
+        <p className="font-semibold text-bnb-vermelho">ℹ️ Como funciona o processo?</p>
         <ol className="list-decimal list-inside space-y-1 text-gray-600">
           <li>Preencha o formulário com os dados da sua conta</li>
           <li>Aceite os termos de uso e política de privacidade</li>

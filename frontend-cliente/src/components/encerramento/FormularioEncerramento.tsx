@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -12,12 +12,12 @@ import { UploadTermoAssinado } from './UploadTermoAssinado';
 
 const schema = z.object({
   uf: z.string().min(2, 'Selecione um estado'),
-  agencia: z.string().regex(/^\d+$/, 'Selecione uma agência'),
+  agencia: z.string().regex(/^\d+$/, 'Selecione uma agÃªncia'),
   numeroConta: z
     .string()
-    .min(3, 'Número de conta muito curto')
-    .max(20, 'Número de conta muito longo')
-    .regex(/^[\d-]+$/, 'Apenas números e traço são permitidos'),
+    .min(3, 'NÃºmero de conta muito curto')
+    .max(20, 'NÃºmero de conta muito longo')
+    .regex(/^[\d-]+$/, 'Apenas nÃºmeros e traÃ§o sÃ£o permitidos'),
   titularNome: z
     .string()
     .min(3, 'Nome deve ter pelo menos 3 caracteres')
@@ -37,7 +37,7 @@ interface RespostaCriacao {
   mensagem: string;
 }
 
-/** Formulário de solicitação de encerramento de conta corrente BNB. */
+/** FormulÃ¡rio de solicitaÃ§Ã£o de encerramento de conta corrente BNB. */
 export function FormularioEncerramento() {
   const [protocolo, setProtocolo] = useState<string | null>(null);
   const [solicitacaoId, setSolicitacaoId] = useState<string | null>(null);
@@ -60,7 +60,7 @@ export function FormularioEncerramento() {
   const ufSelecionada = watch('uf');
   const { agencias, carregando: carregandoAgencias } = useAgencias(ufSelecionada);
 
-  // Limpa a agência selecionada ao trocar o estado
+  // Limpa a agÃªncia selecionada ao trocar o estado
   useEffect(() => {
     setValue('agencia', '');
   }, [ufSelecionada, setValue]);
@@ -91,43 +91,43 @@ export function FormularioEncerramento() {
     }
   };
 
-  // Tela de sucesso pós-submit
+  // Tela de sucesso pÃ³s-submit
   if (protocolo) {
     return (
       <div className="space-y-6">
         <div className="bg-green-50 border border-green-200 rounded-xl p-8 text-center space-y-5">
           <CheckCircle className="h-14 w-14 text-green-600 mx-auto" />
-          <h2 className="text-2xl font-bold text-green-800">Solicitação Registrada!</h2>
+          <h2 className="text-2xl font-bold text-green-800">SolicitaÃ§Ã£o Registrada!</h2>
           <div className="bg-white border border-green-300 rounded-lg p-5 space-y-1">
-            <p className="text-sm text-gray-500">Número do protocolo</p>
+            <p className="text-sm text-gray-500">NÃºmero do protocolo</p>
             <p
               data-testid="protocolo"
-              className="text-3xl font-bold text-bnb-azul font-mono tracking-widest"
+              className="text-3xl font-bold text-bnb-vermelho font-mono tracking-widest"
             >
               {protocolo}
             </p>
             <p className="text-xs text-gray-400">
-              Guarde este número para acompanhar sua solicitação
+              Guarde este nÃºmero para acompanhar sua solicitaÃ§Ã£o
             </p>
           </div>
           <p className="text-gray-700 text-sm max-w-md mx-auto">
-            <strong>Próximo passo:</strong> Nossa equipe gerará o Termo de Encerramento.
-            Após assinar via <strong>gov.br</strong>, envie o documento abaixo.
+            <strong>PrÃ³ximo passo:</strong> Nossa equipe gerarÃ¡ o Termo de Encerramento.
+            ApÃ³s assinar via <strong>gov.br</strong>, envie o documento abaixo.
           </p>
           <Link
             href={`/encerramento/status?protocolo=${protocolo}`}
-            className="inline-block bg-bnb-azul text-white px-8 py-3 rounded-lg font-medium hover:bg-bnb-azul-claro transition-colors"
+            className="inline-block bg-bnb-vermelho text-white px-8 py-3 rounded-lg font-medium hover:bg-bnb-laranja transition-colors"
           >
-            Consultar status da solicitação
+            Consultar status da solicitaÃ§Ã£o
           </Link>
           <p>
             <Link href="/" className="text-sm text-gray-500 underline hover:text-gray-700">
-              Voltar ao início
+              Voltar ao inÃ­cio
             </Link>
           </p>
         </div>
 
-        {/* Upload do termo assinado — exibido apenas quando temos o solicitacaoId */}
+        {/* Upload do termo assinado â€” exibido apenas quando temos o solicitacaoId */}
         {solicitacaoId && (
           <UploadTermoAssinado solicitacaoId={solicitacaoId} />
         )}
@@ -146,7 +146,7 @@ export function FormularioEncerramento() {
           id="uf"
           {...register('uf')}
           disabled={carregandoUfs}
-          className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-bnb-azul focus:border-bnb-azul disabled:bg-gray-100 disabled:text-gray-400"
+          className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-bnb-vermelho focus:border-bnb-vermelho disabled:bg-gray-100 disabled:text-gray-400"
           aria-invalid={!!errors.uf}
           aria-describedby={errors.uf ? 'uf-erro' : undefined}
         >
@@ -166,16 +166,16 @@ export function FormularioEncerramento() {
         )}
       </div>
 
-      {/* Agência */}
+      {/* AgÃªncia */}
       <div>
         <label htmlFor="agencia" className="block text-sm font-medium text-gray-700 mb-1">
-          Agência <span className="text-red-500">*</span>
+          AgÃªncia <span className="text-red-500">*</span>
         </label>
         <select
           id="agencia"
           {...register('agencia')}
           disabled={!ufSelecionada || carregandoAgencias}
-          className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-bnb-azul focus:border-bnb-azul disabled:bg-gray-100 disabled:text-gray-400"
+          className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-bnb-vermelho focus:border-bnb-vermelho disabled:bg-gray-100 disabled:text-gray-400"
           aria-invalid={!!errors.agencia}
           aria-describedby={errors.agencia ? 'agencia-erro' : undefined}
         >
@@ -183,12 +183,12 @@ export function FormularioEncerramento() {
             {!ufSelecionada
               ? 'Selecione um estado primeiro'
               : carregandoAgencias
-              ? 'Carregando agências...'
-              : 'Selecione uma agência'}
+              ? 'Carregando agÃªncias...'
+              : 'Selecione uma agÃªncia'}
           </option>
           {agencias.map((ag) => (
             <option key={ag.codigo} value={ag.codigo}>
-              {ag.nome} — {ag.municipio}
+              {ag.nome} â€” {ag.municipio}
             </option>
           ))}
         </select>
@@ -199,10 +199,10 @@ export function FormularioEncerramento() {
         )}
       </div>
 
-      {/* Número da conta */}
+      {/* NÃºmero da conta */}
       <div>
         <label htmlFor="numeroConta" className="block text-sm font-medium text-gray-700 mb-1">
-          Número da Conta <span className="text-red-500">*</span>
+          NÃºmero da Conta <span className="text-red-500">*</span>
         </label>
         <input
           id="numeroConta"
@@ -211,7 +211,7 @@ export function FormularioEncerramento() {
           autoComplete="off"
           {...register('numeroConta')}
           placeholder="Ex: 12345-6"
-          className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-bnb-azul focus:border-bnb-azul"
+          className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-bnb-vermelho focus:border-bnb-vermelho"
           aria-invalid={!!errors.numeroConta}
           aria-describedby={errors.numeroConta ? 'conta-erro' : undefined}
         />
@@ -233,7 +233,7 @@ export function FormularioEncerramento() {
           autoComplete="name"
           {...register('titularNome')}
           placeholder="Nome completo conforme cadastro no banco"
-          className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-bnb-azul focus:border-bnb-azul"
+          className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-bnb-vermelho focus:border-bnb-vermelho"
           aria-invalid={!!errors.titularNome}
           aria-describedby={errors.titularNome ? 'nome-erro' : undefined}
         />
@@ -257,7 +257,7 @@ export function FormularioEncerramento() {
           id="motivoEncerramento"
           {...register('motivoEncerramento')}
           disabled={carregandoMotivos}
-          className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-bnb-azul focus:border-bnb-azul disabled:bg-gray-100 disabled:text-gray-400"
+          className="w-full border-gray-300 rounded-lg shadow-sm focus:ring-bnb-vermelho focus:border-bnb-vermelho disabled:bg-gray-100 disabled:text-gray-400"
         >
           <option value="">
             {carregandoMotivos ? 'Carregando...' : 'Selecione um motivo (opcional)'}
@@ -276,20 +276,20 @@ export function FormularioEncerramento() {
           <input
             type="checkbox"
             {...register('aceitouTermos')}
-            className="mt-0.5 h-4 w-4 rounded border-gray-300 text-bnb-azul focus:ring-bnb-azul"
+            className="mt-0.5 h-4 w-4 rounded border-gray-300 text-bnb-vermelho focus:ring-bnb-vermelho"
             aria-invalid={!!errors.aceitouTermos}
             aria-describedby={errors.aceitouTermos ? 'termos-erro' : undefined}
           />
           <span className="text-sm text-gray-700 leading-relaxed">
             Li e concordo com os{' '}
-            <a href="#" className="text-bnb-azul-claro underline hover:text-bnb-azul">
+            <a href="#" className="text-bnb-laranja underline hover:text-bnb-vermelho">
               Termos de Uso
             </a>{' '}
             e a{' '}
-            <a href="#" className="text-bnb-azul-claro underline hover:text-bnb-azul">
-              Política de Privacidade
+            <a href="#" className="text-bnb-laranja underline hover:text-bnb-vermelho">
+              PolÃ­tica de Privacidade
             </a>
-            . Declaro que as informações acima são verdadeiras e que sou o titular
+            . Declaro que as informaÃ§Ãµes acima sÃ£o verdadeiras e que sou o titular
             da conta informada.
           </span>
         </label>
@@ -316,12 +316,12 @@ export function FormularioEncerramento() {
       <button
         type="submit"
         disabled={enviando}
-        className="w-full bg-bnb-azul text-white font-semibold py-3 px-6 rounded-lg hover:bg-bnb-azul-claro transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-base"
+        className="w-full bg-bnb-vermelho text-white font-semibold py-3 px-6 rounded-lg hover:bg-bnb-laranja transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 text-base"
       >
         {enviando ? (
           <>
             <Loader2 className="h-5 w-5 animate-spin" />
-            Enviando solicitação...
+            Enviando solicitaÃ§Ã£o...
           </>
         ) : (
           'Solicitar Encerramento de Conta'
@@ -329,7 +329,7 @@ export function FormularioEncerramento() {
       </button>
 
       <p className="text-xs text-gray-400 text-center">
-        🔒 Seus dados são protegidos por criptografia. Nenhuma informação é armazenada sem seu consentimento.
+        ðŸ”’ Seus dados sÃ£o protegidos por criptografia. Nenhuma informaÃ§Ã£o Ã© armazenada sem seu consentimento.
       </p>
     </form>
   );

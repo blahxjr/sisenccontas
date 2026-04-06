@@ -1,9 +1,9 @@
-'use client';
+﻿'use client';
 
 import { useState } from 'react';
 import { signIn } from 'next-auth/react';
 
-/** Página de login do painel interno BNB com autenticação mock SSO. */
+/** PÃ¡gina de login do painel interno BNB com autenticaÃ§Ã£o mock SSO. */
 export default function LoginPage() {
   const [matricula, setMatricula] = useState('');
   const [senha, setSenha] = useState('');
@@ -25,30 +25,30 @@ export default function LoginPage() {
     setCarregando(false);
 
     if (resultado?.error) {
-      setErro('Matrícula não encontrada. Use BNB0001 ou BNB0002.');
+      setErro('MatrÃ­cula nÃ£o encontrada. Use BNB0001 ou BNB0002.');
     } else if (resultado?.url) {
       window.location.href = resultado.url;
     }
   }
 
   return (
-    <div className="min-h-screen bg-bnb-azul flex items-center justify-center px-4">
+    <div className="min-h-screen bg-bnb-vermelho flex items-center justify-center px-4">
       <div className="bg-white rounded-xl shadow-2xl w-full max-w-md p-8">
         {/* Logo BNB */}
         <div className="text-center mb-8">
-          <div className="inline-block bg-bnb-azul rounded-lg px-6 py-3 mb-4">
+          <div className="inline-block bg-bnb-vermelho rounded-lg px-6 py-3 mb-4">
             <span className="text-white text-2xl font-bold tracking-wider">
               BN<span className="text-bnb-amarelo">B</span>
             </span>
           </div>
-          <h1 className="text-xl font-bold text-bnb-azul">EncerraDigital</h1>
-          <p className="text-sm text-gray-500 mt-1">Painel Interno — Acesso Restrito</p>
+          <h1 className="text-xl font-bold text-bnb-vermelho">EncerraDigital</h1>
+          <p className="text-sm text-gray-500 mt-1">Painel Interno â€” Acesso Restrito</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label htmlFor="matricula" className="block text-sm font-medium text-gray-700 mb-1">
-              Matrícula BNB
+              MatrÃ­cula BNB
             </label>
             <input
               id="matricula"
@@ -57,7 +57,7 @@ export default function LoginPage() {
               onChange={(e) => setMatricula(e.target.value)}
               placeholder="BNB0001"
               required
-              className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-bnb-azul-claro"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-bnb-laranja"
             />
           </div>
 
@@ -70,9 +70,9 @@ export default function LoginPage() {
               type="password"
               value={senha}
               onChange={(e) => setSenha(e.target.value)}
-              placeholder="••••••••"
+              placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
               required
-              className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-bnb-azul-claro"
+              className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-bnb-laranja"
             />
           </div>
 
@@ -85,17 +85,17 @@ export default function LoginPage() {
           <button
             type="submit"
             disabled={carregando}
-            className="w-full bg-bnb-azul text-white py-3 rounded-lg font-semibold text-sm hover:bg-bnb-azul-claro transition-colors disabled:opacity-60"
+            className="w-full bg-bnb-vermelho text-white py-3 rounded-lg font-semibold text-sm hover:bg-bnb-laranja transition-colors disabled:opacity-60"
           >
-            {carregando ? 'Autenticando…' : 'Entrar com SSO BNB'}
+            {carregando ? 'Autenticandoâ€¦' : 'Entrar com SSO BNB'}
           </button>
         </form>
 
         <div className="mt-6 p-3 bg-amber-50 border border-amber-200 rounded-lg">
           <p className="text-xs text-amber-800 font-medium">Ambiente de desenvolvimento</p>
           <p className="text-xs text-amber-700 mt-1">
-            Use matrícula <strong>BNB0001</strong> (operador) ou <strong>BNB0002</strong>{' '}
-            (supervisor). Qualquer senha é aceita.
+            Use matrÃ­cula <strong>BNB0001</strong> (operador) ou <strong>BNB0002</strong>{' '}
+            (supervisor). Qualquer senha Ã© aceita.
           </p>
         </div>
       </div>

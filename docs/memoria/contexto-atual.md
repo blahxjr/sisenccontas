@@ -4,7 +4,7 @@
 > Ele representa o estado atual real do projeto.
 
 **Atualizado em**: 2026-04-05  
-**Fase atual**: Fase 7 — Testes Jest + Playwright E2E ✅
+**Fase atual**: Fase 7 — Testes Jest + Playwright E2E ✅ | Conformidade Visual BNB ✅
 
 ---
 
@@ -58,6 +58,14 @@
 - Tela de detalhe: dados descriptografados (titularNome, numeroConta) + ações por perfil
 - E2E validado: POST /publico/solicitacoes ✅ | GET /interno/solicitacoes ✅ | GET /interno/solicitacoes/:id (decrypt) ✅
 - `tsc --noEmit` ✅ em backend e frontend-interno (zero erros)
+
+### Conformidade Visual BNB — Paleta Oficial ✅ (05/04/2026)
+- Substituição completa do azul (#003087/#0055B8) pela paleta oficial do Manual de Identidade Visual BNB
+- **Tokens novos** (Tailwind): `bnb-vermelho` (#A6193C), `bnb-laranja` (#F68B1F), `bnb-amarelo` (#FFCB05), `bnb-salmao` (#FFE6CB), `bnb-cinza` (#646464), `bnb-verde` (#07A684), `bnb-azul-info` (#0996B6)
+- `tailwind.config.ts` (cliente) e `tailwind.config.mjs` (interno) atualizados com novos tokens
+- Todos os componentes/páginas migrados: `bnb-azul` → `bnb-vermelho`, `bnb-azul-claro` → `bnb-laranja`
+- `pdf.service.ts`: cabeçalho do Termo de Encerramento agora usa `rgb(0.651, 0.098, 0.235)` (Vermelho BNB) e `rgb(0.965, 0.545, 0.122)` (Laranja BNB)
+- `tsc --noEmit` ✅ nos 3 módulos (zero erros)
 
 ### Fase 7 — Testes Jest + Playwright E2E ✅ (05/04/2026)
 - `backend/jest.config.ts`: ts-jest v29, moduleNameMapper `@shared/` e `@modules/`, rootDir `src`

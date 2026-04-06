@@ -4,9 +4,16 @@ const config = {
   theme: {
     extend: {
       colors: {
-        'bnb-azul': '#003087',
-        'bnb-azul-claro': '#0055B8',
-        'bnb-amarelo': '#F5A800',
+        // Cores-mãe (Manual de Identidade Visual BNB)
+        'bnb-vermelho': '#A6193C',     // cor-mãe principal
+        'bnb-laranja': '#F68B1F',      // cor-mãe secundária
+        // Cores de apoio
+        'bnb-amarelo': '#FFCB05',
+        'bnb-salmao': '#FFE6CB',
+        'bnb-cinza': '#646464',
+        // Cores complementares
+        'bnb-verde': '#07A684',
+        'bnb-azul-info': '#0996B6',
       },
     },
   },

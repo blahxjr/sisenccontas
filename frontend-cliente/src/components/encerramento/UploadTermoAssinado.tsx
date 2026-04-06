@@ -1,4 +1,4 @@
-'use client';
+﻿'use client';
 
 import { useState, useRef } from 'react';
 import { Upload, CheckCircle, AlertCircle, FileText, Loader2, X } from 'lucide-react';
@@ -7,7 +7,7 @@ import { apiClient } from '@lib/api-client';
 type Estado = 'idle' | 'selecionado' | 'enviando' | 'sucesso' | 'erro';
 
 interface Props {
-  /** ID (UUID) da solicitação — necessário para montar a URL de upload. */
+  /** ID (UUID) da solicitaÃ§Ã£o â€” necessÃ¡rio para montar a URL de upload. */
   solicitacaoId: string;
 }
 
@@ -33,11 +33,11 @@ export function UploadTermoAssinado({ solicitacaoId }: Props) {
     setErro(null);
 
     if (file.type !== 'application/pdf') {
-      setErro('Apenas arquivos PDF são aceitos.');
+      setErro('Apenas arquivos PDF sÃ£o aceitos.');
       return;
     }
     if (file.size > TAMANHO_MAX_BYTES) {
-      setErro(`O arquivo excede o tamanho máximo de ${TAMANHO_MAX_MB} MB.`);
+      setErro(`O arquivo excede o tamanho mÃ¡ximo de ${TAMANHO_MAX_MB} MB.`);
       return;
     }
 
@@ -89,7 +89,7 @@ export function UploadTermoAssinado({ solicitacaoId }: Props) {
       <div className="bg-green-50 border border-green-200 rounded-xl p-6 text-center space-y-3">
         <CheckCircle className="h-10 w-10 text-green-600 mx-auto" />
         <p className="font-semibold text-green-800">Termo recebido com sucesso!</p>
-        <p className="text-sm text-gray-600">Aguarde a análise da nossa equipe.</p>
+        <p className="text-sm text-gray-600">Aguarde a anÃ¡lise da nossa equipe.</p>
         {documentoId && (
           <p className="text-xs text-gray-400 font-mono">ID: {documentoId}</p>
         )}
@@ -99,24 +99,24 @@ export function UploadTermoAssinado({ solicitacaoId }: Props) {
 
   return (
     <div className="bg-white border border-gray-200 rounded-xl p-6 space-y-4">
-      <h3 className="font-semibold text-bnb-azul flex items-center gap-2">
+      <h3 className="font-semibold text-bnb-vermelho flex items-center gap-2">
         <Upload size={18} />
         Enviar Termo Assinado
       </h3>
 
       <p className="text-sm text-gray-600">
-        Após assinar o termo via <strong>gov.br</strong>, faça o upload do PDF assinado aqui.
-        Apenas PDF, máximo de {TAMANHO_MAX_MB} MB.
+        ApÃ³s assinar o termo via <strong>gov.br</strong>, faÃ§a o upload do PDF assinado aqui.
+        Apenas PDF, mÃ¡ximo de {TAMANHO_MAX_MB} MB.
       </p>
 
-      {/* Área de seleção */}
+      {/* Ãrea de seleÃ§Ã£o */}
       {estado === 'idle' && (
-        <label className="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-xl p-8 cursor-pointer hover:border-bnb-azul-claro hover:bg-gray-50 transition-colors">
+        <label className="flex flex-col items-center justify-center border-2 border-dashed border-gray-300 rounded-xl p-8 cursor-pointer hover:border-bnb-laranja hover:bg-gray-50 transition-colors">
           <Upload className="text-gray-400 mb-2" size={32} />
           <span className="text-sm font-medium text-gray-600">
             Clique para selecionar o PDF assinado
           </span>
-          <span className="text-xs text-gray-400 mt-1">Máximo {TAMANHO_MAX_MB} MB</span>
+          <span className="text-xs text-gray-400 mt-1">MÃ¡ximo {TAMANHO_MAX_MB} MB</span>
           <input
             ref={inputRef}
             type="file"
@@ -132,7 +132,7 @@ export function UploadTermoAssinado({ solicitacaoId }: Props) {
       {(estado === 'selecionado' || estado === 'enviando') && arquivo && (
         <div className="flex items-center justify-between bg-gray-50 border border-gray-200 rounded-lg px-4 py-3">
           <div className="flex items-center gap-3">
-            <FileText className="text-bnb-azul" size={20} />
+            <FileText className="text-bnb-vermelho" size={20} />
             <div>
               <p className="text-sm font-medium text-gray-800 truncate max-w-xs">
                 {arquivo.name}
@@ -158,12 +158,12 @@ export function UploadTermoAssinado({ solicitacaoId }: Props) {
       {estado === 'enviando' && (
         <div className="space-y-1">
           <div className="flex justify-between text-xs text-gray-500">
-            <span>Enviando…</span>
+            <span>Enviandoâ€¦</span>
             <span>{progresso}%</span>
           </div>
           <div className="w-full bg-gray-200 rounded-full h-2">
             <div
-              className="bg-bnb-azul-claro h-2 rounded-full transition-all duration-200"
+              className="bg-bnb-laranja h-2 rounded-full transition-all duration-200"
               style={{ width: `${progresso}%` }}
               role="progressbar"
               aria-valuenow={progresso}
@@ -182,11 +182,11 @@ export function UploadTermoAssinado({ solicitacaoId }: Props) {
         </div>
       )}
 
-      {/* Botão de enviar */}
+      {/* BotÃ£o de enviar */}
       {estado === 'selecionado' && (
         <button
           onClick={enviar}
-          className="w-full bg-bnb-azul text-white py-3 px-6 rounded-lg font-medium hover:bg-bnb-azul-claro transition-colors flex items-center justify-center gap-2"
+          className="w-full bg-bnb-vermelho text-white py-3 px-6 rounded-lg font-medium hover:bg-bnb-laranja transition-colors flex items-center justify-center gap-2"
         >
           <Upload size={18} />
           Enviar Termo Assinado
@@ -194,9 +194,9 @@ export function UploadTermoAssinado({ solicitacaoId }: Props) {
       )}
 
       {estado === 'enviando' && (
-        <button disabled className="w-full bg-bnb-azul/50 text-white py-3 px-6 rounded-lg font-medium flex items-center justify-center gap-2 cursor-not-allowed">
+        <button disabled className="w-full bg-bnb-vermelho/50 text-white py-3 px-6 rounded-lg font-medium flex items-center justify-center gap-2 cursor-not-allowed">
           <Loader2 size={18} className="animate-spin" />
-          Enviando…
+          Enviandoâ€¦
         </button>
       )}
 
