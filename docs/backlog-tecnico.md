@@ -20,16 +20,17 @@
 ## Fase 1 — Frontend Cliente (migração do HTML)
 
 - [x] **TEC-011** — Criar layout base com identidade visual BRF
-- [ ] **TEC-012** — Migrar chatbot do HTML para componente React com máquina de estados *(chatbot desabilitado; formulário multi-etapa implementado como substituto)*
+- [ ] **TEC-012** — Migrar chatbot do HTML para componente React com máquina de estados _(chatbot desabilitado; formulário multi-etapa implementado como substituto)_
 - [x] **TEC-013** — Migrar formulário manual para React Hook Form + Zod
 - [x] **TEC-014** — Criar endpoint de catálogos no backend (motivos, agências)
 - [x] **TEC-015** — Conectar formulário/chatbot com dados do catálogo (via API)
 
 ## Débitos de segurança (a implementar conforme avanço)
 
-- [x] **SEC-001** — Implementar headers HTTP de segurança no backend *(Helmet + CSP/HSTS/X-Frame-Options)*
-- [x] **SEC-002** — Implementar mascaramento de dados pessoais nos logs *(IP mascarado; dados sensíveis não logados)*
-- [x] **SEC-003** — Configurar criptografia em repouso para campos sensíveis *(AES-256-CBC: numeroConta, titularNome, emailCliente, contaTransferencia)*
+- [x] **SEC-001** — Implementar headers HTTP de segurança no backend _(Helmet + CSP/HSTS/X-Frame-Options)_
+- [x] **SEC-002** — Implementar mascaramento de dados pessoais nos logs _(IP mascarado; dados sensíveis não logados)_
+- [x] **SEC-003** — Configurar criptografia em repouso para campos sensíveis _(AES-256-CBC: numeroConta, titularNome, emailCliente, contaTransferencia)_
+- [x] **SEC-006** — Remover dados sensíveis (CNPJ) hardcoded em artefatos estáticos do repositório _(conformidade LGPD — csv, pdf.service.ts, layout.tsx, demo/page.tsx)_ **[CONCLUÍDO]**
 - [ ] **SEC-004** — Implementar rate limiting nas rotas públicas
 - [ ] **SEC-005** — Revisar todos os DTOs com checklist OWASP ASVS V5
 
@@ -46,6 +47,7 @@
 ---
 
 ## Legenda
+
 - [ ] Não iniciado
 - [x] Concluído
 - [~] Em andamento

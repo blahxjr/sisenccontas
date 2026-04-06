@@ -2,7 +2,7 @@
 # Fonte: Banco Central do Brasil — API Informes_Agencias (ODbL)
 # URL: https://olinda.bcb.gov.br/olinda/servico/Informes_Agencias/versao/v1
 # Atualizado em: 05/04/2026 | Total: 300 agências
-# CNPJ BRF: 07.237.373/0001-20 | Código COMPE: 004
+# Código COMPE: 004
 #
 codigo,nome,municipio,uf,cep,endereco,bairro,ddd,telefone
 6,Arapiraca,Arapiraca,AL,57300-070,Rua Fernandes Lima,Centro,82,35228550

@@ -48,3 +48,5 @@ uploads/
 # Coverage
 coverage/
 .nyc_output/
+frontend-cliente/package-lock.json
+frontend-interno/package-lock.json

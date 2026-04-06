@@ -4,6 +4,18 @@
 
 ---
 
+## [não-versionado] — 2026-04-06
+
+### Segurança / LGPD
+
+- Removido CNPJ de todos os artefatos do repositório (conformidade LGPD): `data/agencias.csv`, `backend/src/shared/pdf/pdf.service.ts`, `frontend-cliente/src/app/demo/page.tsx`, `frontend-cliente/src/app/(main)/layout.tsx`.
+
+### Refatoração
+
+- Schema Zod e tipo `FormData` extraídos para `frontend-cliente/src/lib/encerramento-schema.ts` (preparação para componente ChatbotEncerramento). `FormularioEncerramento.tsx` atualizado para importar `encerramentoSchema` e `EnccerramentoFormData` do novo módulo.
+
+---
+
 ## 2026-04-06
 
 - `[FIX]` — `pdf.service.ts` reescrito: paginação real com nova página quando `y < 75`, quebra de linha por `font.widthOfTextAtSize()` (largura real de pixel), espaçamentos corrigidos por tamanho de fonte — elimina sobreposição de texto no Termo de Encerramento.
@@ -13,6 +25,7 @@
 ## 2026-04-05
 
 ### Conformidade Normativa — Termo BRF-3303-40-64 + Fluxo BRF-3303-03-11
+
 - `[FEAT]` — `pdf.service.ts` substituído: 14 seções obrigatórias do modelo oficial BRF-3303-40-64, faixa laranja, seção de Recibo do Banco, rodapé com referência `BRF-3303-40-64 v.020`.
 - `[FEAT]` — Interface `DadosTermoEncerramento` expandida: `enderecoCliente`, `emailCliente`, `possuiCheque`, `numeroChequeDevolvido`, `possuiSaldoPositivo`, `bancoTransferencia`, `agenciaTransferencia`, `contaTransferencia`.
 - `[FEAT]` — Formulário multi-etapa 3 etapas + tela de sucesso: Etapa 1 (Agência em cascata por UF), Etapa 2 (Dados da Conta), Etapa 3 (Complementar com cheque, saldo, endereço, email).
@@ -24,12 +37,14 @@
 - `[COMMIT]` — `c6af89a feat: conformidade normativa BRF — paleta oficial, termo BRF-3303-40-64, fluxo BRF-3303-03-11`
 
 ### Demo Visual — Página /demo
+
 - `[FEAT]` — `frontend-cliente/src/app/demo/page.tsx`: página standalone para apresentação a stakeholders, sem header/footer do layout principal.
 - `[FEAT]` — Route Group `(main)` criado para isolar o layout do frontend-cliente (header vermelho BRF + footer com link `/demo`).
 - `[FEAT]` — Conteúdo da `/demo`: hero vermelho/laranja BRF, badges de conformidade, preview interativo do formulário (4 etapas), preview do dashboard do operador, tabela de arquitetura (7 camadas), diagrama de fluxo, grid de segurança (10 controles OWASP/LGPD), roadmap visual (8 fases).
 - `[COMMIT]` — `7251565 feat(frontend-cliente): pagina de demonstracao visual do sistema (/demo)`
 
 ### Conformidade Visual BRF — Paleta Oficial
+
 - `[STYLE]` — Azul (#003087/#0055B8) substituído pela paleta oficial do Paleta Banco Regional de Fomento em todos os módulos.
 - `[STYLE]` — Tokens Tailwind novos: `brf-vermelho` (#A6193C), `brf-vermelho-escuro` (#7A1228), `brf-laranja` (#F68B1F), `brf-laranja-escuro` (#C96D0A), `brf-amarelo` (#FFCB05), `brf-salmao` (#FFE6CB), `brf-cinza` (#646464), `brf-cinza-claro` (#F5F5F5), `brf-verde` (#07A684), `brf-azul` (#0996B6).
 - `[STYLE]` — `tailwind.config.ts` (cliente) e `tailwind.config.mjs` (interno) atualizados.
@@ -37,6 +52,7 @@
 - `[COMMIT]` — `c207061 style: paleta de cores oficial BRF — vermelho/laranja substituem azul`
 
 ### Fase 7 — Testes Jest + Playwright E2E
+
 - `[TEST]` — `backend/jest.config.ts`: ts-jest v29, moduleNameMapper para `@shared/` e `@modules/`.
 - `[TEST]` — `seguranca.util.spec.ts`: 10 testes (AES-256-CBC, SHA-256, protocolo, mascaramento IP).
 - `[TEST]` — `catalogos.service.spec.ts`: 8 testes (catálogos, filtros, mock readFileSync).
@@ -53,6 +69,7 @@
 - `[COMMIT]` — `a782594 test: fase 7 — corrigir testes E2E Playwright (6/6 passando)`
 
 ### Fase 6 — Upload de Documentos + PDF do Termo
+
 - `[DB]` — `prisma/schema.prisma`: enum `TipoDocumento` + modelo `Documento`; migration `20260405201024_sisenccontas` aplicada.
 - `[FEAT]` — `MinioService` (`shared/minio/`): `@Global()`, S3Client com `forcePathStyle: true`, `upload()`, `gerarUrlPresignada()` (5 min TTL), criação automática de bucket no `onModuleInit()`.
 - `[FEAT]` — `PdfService` (`shared/pdf/`): `gerarTermoEncerramento()` — PDF A4 com cabeçalho BRF, tabela de dados, texto legal, área de assinatura.
@@ -64,6 +81,7 @@
 - `[COMMIT]` — `07ebd64 feat: fase 6 — upload de documentos, geracao de PDF e integracao MinIO`
 
 ### Fase 5 — Frontend Interno + Auth Mock
+
 - `[INFRA]` — Docker Compose ativado (postgres, minio, redis) — todos healthy.
 - `[DB]` — Migration `20260405195603_sisenccontas` aplicada + seed ENC-2026-000001 criado.
 - `[FEAT]` — `InternoModule`: `GET /interno/solicitacoes` (paginado), `GET /interno/solicitacoes/:id` (descriptografado), `PATCH /interno/solicitacoes/:id/status`.
@@ -77,6 +95,7 @@
 - `[COMMIT]` — `fece5aa feat: fase 5 -- frontend interno, auth mock e modulo backend interno`
 
 ### Fases 1–4 — Catálogos, Scaffold Backend, Solicitações e Frontend Cliente
+
 - `[FEAT]` — `data/agencias.csv` com 300 agências BRF reais (fonte BCB/ODbL).
 - `[FEAT]` — `data/motivos_encerramento.csv` com 7 motivos de encerramento.
 - `[FEAT]` — `CatalogosModule`: endpoints `/agencias`, `/agencias?uf=`, `/agencias?busca=`, `/agencias/ufs`.
@@ -93,6 +112,7 @@
 - `[COMMIT]` — `eb21b9d feat: fases 1-4 — catalogo agencias, scaffold backend, solicitacoes e frontend cliente`
 
 ## 2026-04-05 (inicial)
+
 - `[INICIO]` — Criação da estrutura inicial de documentação e ambiente de desenvolvimento.
 - `[DOCS]` — Arquivos criados: `arquitetura.md`, `seguranca-lgpd.md`, `convencoes.md`, `backlog-produto.md`, `backlog-tecnico.md`.
 - `[DOCS]` — Agentes de IA criados em `.github/agents/`: arquiteto, dev-backend, dev-frontend, seguranca, testes, documentador.
