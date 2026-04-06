@@ -61,6 +61,15 @@ export default function HomePage() {
           <li>Nossa equipe processará sua solicitação em até 5 dias úteis</li>
         </ol>
       </section>
+
+      <div className="text-center">
+        <Link
+          href="/demo"
+          className="text-xs text-bnb-cinza hover:text-bnb-vermelho underline transition-colors"
+        >
+          Ver demonstração técnica do sistema →
+        </Link>
+      </div>
     </div>
   );
 }
