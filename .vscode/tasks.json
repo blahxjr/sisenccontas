@@ -1,0 +1,139 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    // ── Infraestrutura ──────────────────────────────────────────────────────
+    {
+      "label": "🐳 Docker: Subir infraestrutura",
+      "type": "shell",
+      "command": "docker compose -f infra/docker-compose.dev.yml up -d",
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "group": "encerradigital"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "🛑 Docker: Parar infraestrutura",
+      "type": "shell",
+      "command": "docker compose -f infra/docker-compose.dev.yml down",
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "group": "encerradigital"
+      },
+      "problemMatcher": []
+    },
+
+    // ── Servidores de desenvolvimento ───────────────────────────────────────
+    {
+      "label": "⚙️ Backend: NestJS (porta 3333)",
+      "type": "shell",
+      "command": "pnpm dev:backend",
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "group": "encerradigital"
+      },
+      "problemMatcher": {
+        "pattern": { "regexp": "." },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "Starting Nest application",
+          "endsPattern": "Nest application successfully started"
+        }
+      }
+    },
+    {
+      "label": "🌐 Frontend Cliente: Next.js (porta 3000)",
+      "type": "shell",
+      "command": "pnpm dev:cliente",
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "group": "encerradigital"
+      },
+      "problemMatcher": {
+        "pattern": { "regexp": "." },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "starting|Compiling",
+          "endsPattern": "Ready in"
+        }
+      }
+    },
+    {
+      "label": "🏦 Frontend Interno: Next.js (porta 3001)",
+      "type": "shell",
+      "command": "pnpm dev:interno",
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "build",
+      "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "new",
+        "group": "encerradigital"
+      },
+      "problemMatcher": {
+        "pattern": { "regexp": "." },
+        "background": {
+          "activeOnStart": true,
+          "beginsPattern": "starting|Compiling",
+          "endsPattern": "Ready in"
+        }
+      }
+    },
+
+    // ── Tarefa composta: iniciar tudo ───────────────────────────────────────
+    {
+      "label": "▶ EncerraDigital: Iniciar tudo",
+      "dependsOrder": "sequence",
+      "dependsOn": [
+        "🐳 Docker: Subir infraestrutura",
+        "⚙️ Backend: NestJS (porta 3333)",
+        "🌐 Frontend Cliente: Next.js (porta 3000)",
+        "🏦 Frontend Interno: Next.js (porta 3001)"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "shared",
+        "group": "encerradigital"
+      },
+      "problemMatcher": []
+    },
+
+    // ── Testes ──────────────────────────────────────────────────────────────
+    {
+      "label": "🧪 Testes: Unitários (Jest)",
+      "type": "shell",
+      "command": "pnpm test",
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "test",
+      "presentation": { "reveal": "always", "panel": "new" },
+      "problemMatcher": []
+    },
+    {
+      "label": "🎭 Testes: E2E (Playwright)",
+      "type": "shell",
+      "command": "pnpm test:e2e",
+      "options": { "cwd": "${workspaceFolder}" },
+      "group": "test",
+      "presentation": { "reveal": "always", "panel": "new" },
+      "problemMatcher": []
+    }
+  ]
+}

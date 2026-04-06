@@ -19,27 +19,83 @@ Sistema de solicitação digital de encerramento de conta corrente do Banco do N
 
 ## Início rápido
 
-```bash
-# 1. Clonar o repositório
-git clone <repo-url> EncerraDigital
-cd EncerraDigital
+### Opção A — Script automático (recomendado)
 
-# 2. Copiar variáveis de ambiente
-cp .env.example .env
-# Edite o .env com os valores corretos
+```powershell
+.\start-dev.ps1
+```
 
-# 3. Abrir no VS Code com Dev Container
-code .
-# VS Code perguntará se quer abrir no container — confirme
+O script verifica pré-requisitos, sobe o Docker e abre os servidores em janelas separadas automaticamente.
 
-# 4. Subir serviços de infraestrutura
+**Flags opcionais:**
+
+```powershell
+.\start-dev.ps1 -SemInterno   # não sobe o frontend-interno
+.\start-dev.ps1 -SoDocker     # sobe apenas PostgreSQL, Redis e MinIO
+```
+
+---
+
+### Opção B — VS Code Tasks (Ctrl+Shift+B)
+
+Com o projeto aberto no VS Code, pressione **`Ctrl+Shift+B`** e selecione:
+
+> **▶ EncerraDigital: Iniciar tudo**
+
+Isso roda Docker + Backend + Frontend Cliente + Frontend Interno em terminais separados dentro do VS Code.
+
+Outras tarefas disponíveis via **`Ctrl+Shift+P` → "Tasks: Run Task"**:
+
+| Tarefa | O que faz |
+|---|---|
+| `▶ EncerraDigital: Iniciar tudo` | Sobe tudo (padrão `Ctrl+Shift+B`) |
+| `🐳 Docker: Subir infraestrutura` | Só PostgreSQL, Redis e MinIO |
+| `🛑 Docker: Parar infraestrutura` | Para os containers |
+| `⚙️ Backend: NestJS (porta 3333)` | Só o backend |
+| `🌐 Frontend Cliente: Next.js (porta 3000)` | Só o frontend público |
+| `🏦 Frontend Interno: Next.js (porta 3001)` | Só o painel interno |
+| `🧪 Testes: Unitários (Jest)` | Suite completa de testes |
+| `🎭 Testes: E2E (Playwright)` | Testes end-to-end |
+
+---
+
+### Opção C — Manual
+
+```powershell
+# 1. Subir infraestrutura
 docker compose -f infra/docker-compose.dev.yml up -d
 
-# 5. Instalar dependências
+# 2. Instalar dependências (só na primeira vez)
 pnpm install
 
-# 6. Iniciar em desenvolvimento
+# 3. Backend + Frontend Cliente juntos
 pnpm dev
+
+# 4. Frontend Interno (outro terminal)
+pnpm dev:interno
+```
+
+---
+
+### URLs disponíveis
+
+| Serviço | URL |
+|---|---|
+| Frontend Cliente | http://localhost:3000 |
+| Página Demo | http://localhost:3000/demo |
+| Frontend Interno | http://localhost:3001 |
+| Backend API | http://localhost:3333 |
+| Swagger | http://localhost:3333/api/docs |
+| MinIO Console | http://localhost:9001 |
+
+---
+
+### Encerrar o ambiente
+
+```powershell
+# Para os servidores Node.js: Ctrl+C nos terminais
+# Para o Docker:
+docker compose -f infra/docker-compose.dev.yml down
 ```
 
 ## Documentação
