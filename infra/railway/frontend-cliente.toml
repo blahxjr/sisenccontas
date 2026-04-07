@@ -1,0 +1,14 @@
+# Railway — Configuração do serviço Frontend Cliente (Next.js)
+# Como usar: Railway dashboard → Service → Settings → Config As Code → Path: infra/railway/frontend-cliente.toml
+# Root Directory (no dashboard): /
+
+[build]
+builder = "nixpacks"
+buildCommand = "pnpm install --frozen-lockfile && pnpm --filter ./frontend-cliente build"
+
+[deploy]
+startCommand = "pnpm --filter ./frontend-cliente exec next start"
+healthcheckPath = "/"
+healthcheckTimeout = 300
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 10
