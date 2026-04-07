@@ -14,9 +14,11 @@
     "test:e2e:report": "pnpm --filter=./e2e test:e2e:report",
     "typecheck": "pnpm --recursive typecheck"
   },
+  "dependencies": {
+    "next": "^14.2.35"
+  },
   "devDependencies": {
     "@playwright/test": "^1.52.0",
-    "next": "^14.2.35",
     "prettier": "^3.3.0",
     "eslint": "^9.0.0",
     "typescript": "^5.5.0"

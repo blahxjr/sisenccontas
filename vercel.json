@@ -1,4 +1,5 @@
 {
+  "framework": "nextjs",
   "buildCommand": "pnpm install --frozen-lockfile && pnpm --filter @encerradigital/frontend-cliente build",
   "outputDirectory": "frontend-cliente/.next",
   "installCommand": "pnpm install --frozen-lockfile"
