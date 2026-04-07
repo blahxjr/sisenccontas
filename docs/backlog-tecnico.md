@@ -46,6 +46,15 @@
 
 ---
 
+## Próximos passos — Chatbot
+
+- [ ] **BOT-001** — Adicionar testes unitários para ChatbotEncerramento (passos, validações, condicoes)
+- [ ] **BOT-002** — Adicionar teste E2E (Playwright) cobrindo o fluxo completo do chatbot até a tela de sucesso
+- [ ] **BOT-003** — Avaliar persistência de rascunho via sessionStorage (atenção: ambiente de produção pode ter restrições — ver ADR)
+- [ ] **BOT-004** — Internacionalização (i18n) dos textos do chatbot
+
+---
+
 ## Legenda
 
 - [ ] Não iniciado

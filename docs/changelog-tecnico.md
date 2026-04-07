@@ -4,6 +4,32 @@
 
 ---
 
+## [chatbot-v1] — 2026-04-07
+
+### Novas funcionalidades
+
+- **ChatbotEncerramento**: componente de conversa guiada por cliques para solicitação de encerramento de conta corrente
+  - 10 passos configuráveis via array de `PassoChatbot`
+  - Suporte a: button-group, select, text, checkbox-group, confirm
+  - Passos condicionais (cheque, saldo) com propriedade `condicao`
+  - Edição de respostas anteriores via ✏️ nas bolhas
+  - Animação de "digitando" (500ms) entre respostas do bot
+  - Auto-scroll para o final após cada nova mensagem
+  - Tela de sucesso reutilizada de FormularioEncerramento
+  - Ajustes mobile: touch targets ≥44px, font-size ≥16px em inputs
+- **Toggle chatbot/formulário** na página de encerramento (`/encerramento/formulario`) — padrão: modo chatbot
+
+### Refatoração
+
+- Schema Zod extraído para `frontend-cliente/src/lib/encerramento-schema.ts`
+
+### Segurança / LGPD
+
+- CNPJ removido de todos os artefatos do repositório
+- Número da conta exibido apenas com últimos 3 dígitos no card de resumo
+
+---
+
 ## [não-versionado] — 2026-04-06
 
 ### Segurança / LGPD
