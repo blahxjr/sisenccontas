@@ -1,6 +1,10 @@
 # Railway — Configuração do serviço Backend (NestJS)
 # Como usar: Railway dashboard → Service → Settings → Config As Code → Path: infra/railway/backend.toml
 # Root Directory (no dashboard): /
+#
+# Banco de dados: usar Neon (gratuito) → https://neon.tech
+# Redis: NÃO necessário — não utilizado pela aplicação
+# Storage: Cloudflare R2 (gratuito) — configurar variáveis MINIO_* no Railway
 
 [build]
 builder = "nixpacks"
