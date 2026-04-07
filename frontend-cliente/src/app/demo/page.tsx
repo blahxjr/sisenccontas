@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import {
   ShieldCheck,
@@ -14,16 +14,143 @@ import {
   CheckCircle,
   Github,
   Shield,
-  Server,
   Globe,
   ArrowRight,
   Check,
   BookOpen,
   Bot,
   Settings2,
+  MessageCircle,
+  Loader2,
+  Play,
+  RefreshCw,
+  User,
+  KeyRound,
 } from "lucide-react";
 
-// ─── Dados estáticos de demonstração ───────────────────────────────────────
+// ─── Dados estáticos de demonstração (standalone — sem API) ───────────────────
+
+const MOTIVOS_DEMO = [
+  { codigo: "01", descricao: "Mudança para outra instituição financeira" },
+  { codigo: "02", descricao: "Insatisfação com tarifas e encargos" },
+  { codigo: "03", descricao: "Pouca utilização da conta" },
+  {
+    codigo: "04",
+    descricao: "Dificuldade de acesso a agências e canais digitais",
+  },
+  {
+    codigo: "05",
+    descricao: "Encerramento de atividade profissional ou empresarial",
+  },
+  {
+    codigo: "06",
+    descricao: "Falecimento do titular (solicitação por herdeiro)",
+  },
+  { codigo: "07", descricao: "Outros motivos" },
+];
+
+const UFS_DEMO = [
+  "AL",
+  "BA",
+  "CE",
+  "MA",
+  "MG",
+  "PA",
+  "PB",
+  "PE",
+  "PI",
+  "RJ",
+  "RN",
+  "SE",
+  "SP",
+];
+
+const AGENCIAS_DEMO: Record<
+  string,
+  { codigo: string; nome: string; municipio: string }[]
+> = {
+  AL: [
+    { codigo: "0031", nome: "Maceió Centro", municipio: "Maceió" },
+    { codigo: "0006", nome: "Arapiraca", municipio: "Arapiraca" },
+    { codigo: "0229", nome: "Maceió Antares", municipio: "Maceió" },
+  ],
+  BA: [
+    { codigo: "0100", nome: "Salvador Centro", municipio: "Salvador" },
+    { codigo: "0112", nome: "Feira de Santana", municipio: "Feira de Santana" },
+    {
+      codigo: "0115",
+      nome: "Vitória da Conquista",
+      municipio: "Vitória da Conquista",
+    },
+  ],
+  CE: [
+    { codigo: "0210", nome: "Fortaleza Centro", municipio: "Fortaleza" },
+    {
+      codigo: "0213",
+      nome: "Juazeiro do Norte",
+      municipio: "Juazeiro do Norte",
+    },
+    { codigo: "0218", nome: "Sobral", municipio: "Sobral" },
+    { codigo: "0221", nome: "Crato", municipio: "Crato" },
+  ],
+  MA: [
+    { codigo: "0081", nome: "Imperatriz", municipio: "Imperatriz" },
+    { codigo: "0500", nome: "São Luís Centro", municipio: "São Luís" },
+    { codigo: "0082", nome: "Caxias", municipio: "Caxias" },
+    { codigo: "0085", nome: "Bacabal", municipio: "Bacabal" },
+  ],
+  MG: [
+    {
+      codigo: "0301",
+      nome: "Belo Horizonte Centro",
+      municipio: "Belo Horizonte",
+    },
+    { codigo: "0312", nome: "Uberlândia", municipio: "Uberlândia" },
+    { codigo: "0318", nome: "Montes Claros", municipio: "Montes Claros" },
+  ],
+  PA: [
+    { codigo: "0401", nome: "Belém Centro", municipio: "Belém" },
+    { codigo: "0410", nome: "Marabá", municipio: "Marabá" },
+    { codigo: "0415", nome: "Santarém", municipio: "Santarém" },
+  ],
+  PB: [
+    { codigo: "0501", nome: "João Pessoa Centro", municipio: "João Pessoa" },
+    { codigo: "0510", nome: "Campina Grande", municipio: "Campina Grande" },
+    { codigo: "0515", nome: "Patos", municipio: "Patos" },
+  ],
+  PE: [
+    { codigo: "0601", nome: "Recife Centro", municipio: "Recife" },
+    { codigo: "0612", nome: "Caruaru", municipio: "Caruaru" },
+    { codigo: "0615", nome: "Petrolina", municipio: "Petrolina" },
+    { codigo: "0620", nome: "Olinda", municipio: "Olinda" },
+  ],
+  PI: [
+    { codigo: "0701", nome: "Teresina Centro", municipio: "Teresina" },
+    { codigo: "0710", nome: "Parnaíba", municipio: "Parnaíba" },
+    { codigo: "0715", nome: "Picos", municipio: "Picos" },
+  ],
+  RJ: [
+    {
+      codigo: "0801",
+      nome: "Rio de Janeiro Centro",
+      municipio: "Rio de Janeiro",
+    },
+    { codigo: "0815", nome: "Niterói", municipio: "Niterói" },
+  ],
+  RN: [
+    { codigo: "0901", nome: "Natal Centro", municipio: "Natal" },
+    { codigo: "0910", nome: "Mossoró", municipio: "Mossoró" },
+    { codigo: "0915", nome: "Caicó", municipio: "Caicó" },
+  ],
+  SE: [
+    { codigo: "1001", nome: "Aracaju Centro", municipio: "Aracaju" },
+    { codigo: "1010", nome: "Lagarto", municipio: "Lagarto" },
+  ],
+  SP: [
+    { codigo: "1101", nome: "São Paulo Centro", municipio: "São Paulo" },
+    { codigo: "1115", nome: "Campinas", municipio: "Campinas" },
+  ],
+};
 
 const FASES = [
   {
@@ -50,7 +177,7 @@ const FASES = [
   {
     num: "4",
     titulo: "Frontend Cliente",
-    desc: "Next.js 14, formulário multi-etapa, consulta de status",
+    desc: "Next.js 14, formulário multi-etapa + chatbot, consulta de status",
     concluida: true,
     data: "05/04/2026",
   },
@@ -64,16 +191,16 @@ const FASES = [
   {
     num: "6",
     titulo: "Documentos + PDF",
-    desc: "MinIO, PDF Termo BRF-3303-40-64 oficial, upload seguro",
+    desc: "MinIO, PDF Termo BRF-3303-40-64 oficial (14 seções), upload seguro",
     concluida: true,
-    data: "05/04/2026",
+    data: "06/04/2026",
   },
   {
     num: "7",
     titulo: "Testes",
     desc: "Jest unitários (22 testes), Playwright E2E (6 fluxos)",
     concluida: true,
-    data: "05/04/2026",
+    data: "06/04/2026",
   },
   {
     num: "8",
@@ -231,242 +358,830 @@ const AGENTES = [
   },
 ];
 
-// ─── Componente: Abas do Formulário ──────────────────────────────────────────
+// ─── Componente: Formulário Multi-Etapa (standalone) ─────────────────────────
 
-/** Preview interativo com abas clicáveis do formulário multi-etapa */
+/** Preview interativo do formulário de 3 etapas conforme normativo BRF-3303-03-11.
+ * Completamente autossuficiente — sem chamadas à API. */
 function PreviewFormulario() {
-  const [aba, setAba] = useState(0);
-  const abas = [
-    "Etapa 1 · Agência",
-    "Etapa 2 · Dados",
-    "Etapa 3 · Complementar",
-    "Etapa 4 · Confirmar",
+  const [etapa, setEtapa] = useState(0);
+  const [uf, setUf] = useState("");
+  const [agencia, setAgencia] = useState("");
+  const [conta, setConta] = useState("");
+  const [titular, setTitular] = useState("");
+  const [motivo, setMotivo] = useState("");
+  const [cheque, setCheque] = useState(false);
+  const [saldo, setSaldo] = useState(false);
+  const [endereco, setEndereco] = useState("");
+  const [aceite, setAceite] = useState(false);
+  const [enviando, setEnviando] = useState(false);
+  const [protocolo, setProtocolo] = useState<string | null>(null);
+
+  const agenciasFiltradas = uf ? (AGENCIAS_DEMO[uf] ?? []) : [];
+  const nomeAgencia =
+    agenciasFiltradas.find((a) => a.codigo === agencia)?.nome ?? "";
+  const municipioAgencia =
+    agenciasFiltradas.find((a) => a.codigo === agencia)?.municipio ?? "";
+
+  const podeAvancar1 =
+    uf !== "" && agencia !== "" && conta.length >= 3 && titular.length >= 3;
+  const podeAvancar2 = endereco.length >= 10;
+
+  const ETAPAS = [
+    "Dados da Conta",
+    "Informações Complementares",
+    "Confirmar e Assinar",
   ];
 
-  const conteudo = [
-    <div key="e1" className="space-y-3">
-      <p className="text-xs text-gray-500 font-medium uppercase tracking-wide">
-        Selecione a Agência
-      </p>
-      <div className="grid grid-cols-2 gap-3">
-        <div>
-          <label className="text-xs text-brf-cinza font-semibold block mb-1">
-            Estado (UF)
-          </label>
-          <select className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
-            <option>Maranhão (MA)</option>
-            <option>Ceará (CE)</option>
-            <option>Piauí (PI)</option>
-          </select>
-        </div>
-        <div>
-          <label className="text-xs text-brf-cinza font-semibold block mb-1">
-            Agência
-          </label>
-          <select className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
-            <option>0081 — Imperatriz</option>
-            <option>0500 — São Luís</option>
-          </select>
-        </div>
-      </div>
-      <div className="bg-brf-salmao rounded-lg p-3 text-xs text-gray-600">
-        📍 <strong>300 agências BRF</strong> em 13 estados. Fonte: API oficial
-        BCB.
-      </div>
-    </div>,
+  const handleEnviar = () => {
+    setEnviando(true);
+    const timer = setTimeout(() => {
+      const num = String(Math.floor(100000 + Math.random() * 900000));
+      setProtocolo(`ENC-2026-${num}`);
+      setEnviando(false);
+    }, 1500);
+    return () => clearTimeout(timer);
+  };
 
-    <div key="e2" className="space-y-3">
-      <p className="text-xs text-gray-500 font-medium uppercase tracking-wide">
-        Dados da Conta Corrente
-      </p>
-      <div className="grid grid-cols-2 gap-3">
-        <div>
-          <label className="text-xs text-brf-cinza font-semibold block mb-1">
-            Número com DV
-          </label>
-          <input
-            type="text"
-            placeholder="12345-6"
-            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm"
-          />
-        </div>
-        <div>
-          <label className="text-xs text-brf-cinza font-semibold block mb-1">
-            Nome do Titular
-          </label>
-          <input
-            type="text"
-            placeholder="Nome completo"
-            className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm"
-          />
-        </div>
-      </div>
-      <div>
-        <label className="text-xs text-brf-cinza font-semibold block mb-1">
-          Motivo (facultativo)
-        </label>
-        <select className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm">
-          <option>Mudança de banco</option>
-          <option>Dificuldades financeiras</option>
-          <option>Falecimento do titular</option>
-        </select>
-      </div>
-    </div>,
+  const handleReset = () => {
+    setEtapa(0);
+    setUf("");
+    setAgencia("");
+    setConta("");
+    setTitular("");
+    setMotivo("");
+    setCheque(false);
+    setSaldo(false);
+    setEndereco("");
+    setAceite(false);
+    setProtocolo(null);
+    setEnviando(false);
+  };
 
-    <div key="e3" className="space-y-3">
-      <p className="text-xs text-gray-500 font-medium uppercase tracking-wide">
-        Informações Complementares — Normativo BRF-3303-03-11
-      </p>
-      <div className="space-y-2">
-        <label className="flex items-center gap-2 text-sm cursor-pointer">
-          <input type="checkbox" className="accent-brf-vermelho w-4 h-4" />
-          <span>Movimentei a conta através de cheque</span>
-        </label>
-        <label className="flex items-center gap-2 text-sm cursor-pointer">
-          <input type="checkbox" className="accent-brf-vermelho w-4 h-4" />
-          <span>A conta possui saldo positivo</span>
-        </label>
-      </div>
-      <input
-        type="text"
-        placeholder="Endereço atualizado completo"
-        className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm"
-      />
-      <input
-        type="email"
-        placeholder="E-mail (opcional)"
-        className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm"
-      />
-    </div>,
+  const HeaderBar = () => (
+    <div className="bg-brf-vermelho px-4 py-2.5 flex items-center justify-between">
+      <span className="text-white font-bold text-sm">
+        Encerramento de Conta Corrente
+      </span>
+      <span className="text-white/60 text-xs">BRF Digital</span>
+    </div>
+  );
 
-    <div key="e4" className="space-y-3">
-      <p className="text-xs text-gray-500 font-medium uppercase tracking-wide">
-        Confirmar e Assinar via gov.br
-      </p>
-      <label className="flex items-start gap-2 text-xs cursor-pointer">
-        <input type="checkbox" className="accent-brf-vermelho w-4 h-4 mt-0.5" />
-        <span className="text-gray-600">
-          Li e aceito os termos conforme{" "}
-          <strong>normativo BRF-3303-03-11</strong> e modelo BRF-3303-40-64.
-        </span>
-      </label>
-      <div className="bg-brf-salmao rounded-lg p-3 space-y-1">
-        <p className="text-xs font-semibold text-brf-vermelho">
-          📄 Próximos passos:
-        </p>
-        <ol className="text-xs text-gray-600 list-decimal list-inside space-y-0.5">
-          <li>Clique em &quot;Gerar PDF&quot; e baixe o Termo</li>
-          <li>Assine digitalmente via gov.br (ICP-Brasil)</li>
-          <li>Faça upload do documento assinado</li>
-        </ol>
+  // ── Tela de Sucesso ──────────────────────────────────────────────────────
+  if (protocolo) {
+    return (
+      <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
+        <HeaderBar />
+        <div className="p-6 space-y-5 text-center">
+          <CheckCircle className="h-12 w-12 text-brf-verde mx-auto" />
+          <h3 className="text-lg font-bold text-green-800">
+            Solicitação Registrada!
+          </h3>
+          <div className="bg-green-50 border border-green-200 rounded-xl p-4 space-y-1">
+            <p className="text-xs text-gray-500">Número do protocolo</p>
+            <p className="text-2xl font-bold text-brf-vermelho font-mono tracking-widest">
+              {protocolo}
+            </p>
+            <p className="text-xs text-gray-400">
+              Guarde este número para acompanhar sua solicitação
+            </p>
+          </div>
+          <div className="bg-brf-salmao rounded-lg p-3 text-xs text-gray-600 text-left space-y-1">
+            <p className="font-semibold text-brf-vermelho">
+              📄 Próximos passos:
+            </p>
+            <ol className="list-decimal list-inside space-y-0.5">
+              <li>Gere o PDF do Termo de Encerramento</li>
+              <li>
+                Assine digitalmente via{" "}
+                <strong>gov.br (ICP-Brasil)</strong>
+              </li>
+              <li>Faça upload do PDF assinado no portal</li>
+            </ol>
+          </div>
+          <div className="flex gap-3 justify-center">
+            <button
+              onClick={handleReset}
+              className="text-xs border border-brf-vermelho text-brf-vermelho px-4 py-2 rounded-lg hover:bg-brf-salmao transition-colors flex items-center gap-1"
+            >
+              <RefreshCw className="w-3 h-3" /> Reiniciar demo
+            </button>
+          </div>
+        </div>
       </div>
-      <button className="w-full bg-brf-vermelho text-white font-semibold py-2 rounded-lg text-sm">
-        📄 Gerar PDF para Assinatura
-      </button>
-    </div>,
-  ];
+    );
+  }
+
+  // ── Indicador de Etapas ─────────────────────────────────────────────────
+  const IndicadorEtapas = () => (
+    <div className="flex bg-white border-b">
+      {ETAPAS.map((nome, i) => (
+        <div
+          key={i}
+          className={`flex-1 py-2 px-1 text-center border-b-2 transition-all ${
+            i === etapa
+              ? "border-brf-vermelho"
+              : i < etapa
+                ? "border-brf-laranja"
+                : "border-transparent"
+          }`}
+        >
+          <div
+            className={`w-5 h-5 rounded-full mx-auto flex items-center justify-center text-xs font-bold mb-0.5 ${
+              i < etapa
+                ? "bg-brf-laranja text-white"
+                : i === etapa
+                  ? "bg-brf-vermelho text-white"
+                  : "bg-gray-100 text-gray-400"
+            }`}
+          >
+            {i < etapa ? "✓" : i + 1}
+          </div>
+          <p
+            className={`text-[9px] leading-tight hidden sm:block ${
+              i === etapa
+                ? "text-brf-vermelho font-semibold"
+                : i < etapa
+                  ? "text-brf-laranja"
+                  : "text-gray-400"
+            }`}
+          >
+            {nome.split(" ")[0]}
+          </p>
+        </div>
+      ))}
+    </div>
+  );
 
   return (
     <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
-      <div className="bg-brf-vermelho px-4 py-2.5 flex items-center justify-between">
-        <span className="text-white font-bold text-sm">
-          Encerramento de Conta Corrente
-        </span>
-        <span className="text-white/60 text-xs">BRF Digital</span>
-      </div>
-      <div className="flex border-b overflow-x-auto">
-        {abas.map((nome, i) => (
+      <HeaderBar />
+      <IndicadorEtapas />
+
+      {/* ── Etapa 1: Dados da Conta ── */}
+      {etapa === 0 && (
+        <div className="p-5 space-y-3">
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="text-xs font-semibold text-gray-600 block mb-1">
+                Estado (UF) *
+              </label>
+              <select
+                value={uf}
+                onChange={(e) => {
+                  setUf(e.target.value);
+                  setAgencia("");
+                }}
+                className="w-full border border-gray-200 rounded-lg px-2 py-2 text-sm focus:ring-2 focus:ring-brf-vermelho focus:outline-none"
+              >
+                <option value="">Selecione...</option>
+                {UFS_DEMO.map((u) => (
+                  <option key={u} value={u}>
+                    {u}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div>
+              <label className="text-xs font-semibold text-gray-600 block mb-1">
+                Agência *
+              </label>
+              <select
+                value={agencia}
+                onChange={(e) => setAgencia(e.target.value)}
+                disabled={!uf}
+                className="w-full border border-gray-200 rounded-lg px-2 py-2 text-sm disabled:bg-gray-50 disabled:text-gray-400 focus:ring-2 focus:ring-brf-vermelho focus:outline-none"
+              >
+                <option value="">
+                  {uf ? "Selecione..." : "Selecione o UF primeiro"}
+                </option>
+                {agenciasFiltradas.map((ag) => (
+                  <option key={ag.codigo} value={ag.codigo}>
+                    {ag.codigo} — {ag.nome}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-3">
+            <div>
+              <label className="text-xs font-semibold text-gray-600 block mb-1">
+                Número da Conta *
+              </label>
+              <input
+                value={conta}
+                onChange={(e) => setConta(e.target.value)}
+                placeholder="12345-6"
+                className="w-full border border-gray-200 rounded-lg px-2 py-2 text-sm focus:ring-2 focus:ring-brf-vermelho focus:outline-none"
+              />
+            </div>
+            <div>
+              <label className="text-xs font-semibold text-gray-600 block mb-1">
+                Nome do Titular *
+              </label>
+              <input
+                value={titular}
+                onChange={(e) => setTitular(e.target.value)}
+                placeholder="Nome completo"
+                className="w-full border border-gray-200 rounded-lg px-2 py-2 text-sm focus:ring-2 focus:ring-brf-vermelho focus:outline-none"
+              />
+            </div>
+          </div>
+          <div>
+            <label className="text-xs font-semibold text-gray-600 block mb-1">
+              Motivo do encerramento
+            </label>
+            <select
+              value={motivo}
+              onChange={(e) => setMotivo(e.target.value)}
+              className="w-full border border-gray-200 rounded-lg px-2 py-2 text-sm focus:ring-2 focus:ring-brf-vermelho focus:outline-none"
+            >
+              <option value="">Prefiro não informar</option>
+              {MOTIVOS_DEMO.map((m) => (
+                <option key={m.codigo} value={m.codigo}>
+                  {m.descricao}
+                </option>
+              ))}
+            </select>
+          </div>
+          {uf && agencia && (
+            <div className="bg-brf-salmao rounded-lg p-2 text-xs text-gray-600">
+              📍 Agência <strong>{agencia}</strong> — {nomeAgencia},{" "}
+              {municipioAgencia}
+            </div>
+          )}
           <button
-            key={i}
-            onClick={() => setAba(i)}
-            aria-selected={i === aba}
-            role="tab"
-            className={`flex-shrink-0 px-3 py-2 text-xs font-medium border-b-2 transition-all ${
-              i === aba
-                ? "border-brf-vermelho bg-brf-salmao text-brf-vermelho"
-                : "border-transparent text-gray-400 hover:text-gray-600"
-            }`}
+            onClick={() => setEtapa(1)}
+            disabled={!podeAvancar1}
+            className="w-full bg-brf-vermelho text-white py-2 rounded-lg font-semibold text-sm hover:bg-brf-vermelho-escuro transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
           >
-            {nome}
+            Próximo →
           </button>
-        ))}
-      </div>
-      <div className="p-5 min-h-[200px]">{conteudo[aba]}</div>
+          {!podeAvancar1 && (
+            <p className="text-[10px] text-gray-400 text-center">
+              * Preencha UF, agência, conta e nome para continuar
+            </p>
+          )}
+        </div>
+      )}
+
+      {/* ── Etapa 2: Informações Complementares ── */}
+      {etapa === 1 && (
+        <div className="p-5 space-y-3">
+          <p className="text-xs text-gray-400 uppercase font-semibold tracking-wide">
+            Normativo BRF-3303-03-11
+          </p>
+          <div className="space-y-2">
+            <label className="flex items-center gap-2 text-sm cursor-pointer">
+              <input
+                type="checkbox"
+                checked={cheque}
+                onChange={(e) => setCheque(e.target.checked)}
+                className="accent-brf-vermelho w-4 h-4"
+              />
+              <span>Movimentei esta conta através de cheque</span>
+            </label>
+            <label className="flex items-center gap-2 text-sm cursor-pointer">
+              <input
+                type="checkbox"
+                checked={saldo}
+                onChange={(e) => setSaldo(e.target.checked)}
+                className="accent-brf-vermelho w-4 h-4"
+              />
+              <span>A conta possui saldo positivo a ser transferido</span>
+            </label>
+          </div>
+          <div>
+            <label className="text-xs font-semibold text-gray-600 block mb-1">
+              Endereço completo *
+            </label>
+            <input
+              value={endereco}
+              onChange={(e) => setEndereco(e.target.value)}
+              placeholder="Rua, nº, bairro, cidade — UF, CEP"
+              className="w-full border border-gray-200 rounded-lg px-2 py-2 text-sm focus:ring-2 focus:ring-brf-vermelho focus:outline-none"
+            />
+          </div>
+          <div>
+            <label className="text-xs font-semibold text-gray-600 block mb-1">
+              E-mail (opcional)
+            </label>
+            <input
+              type="email"
+              placeholder="seu@email.com"
+              className="w-full border border-gray-200 rounded-lg px-2 py-2 text-sm focus:ring-2 focus:ring-brf-vermelho focus:outline-none"
+            />
+          </div>
+          <div className="flex gap-2">
+            <button
+              onClick={() => setEtapa(0)}
+              className="flex-1 border border-gray-300 text-gray-500 py-2 rounded-lg font-semibold text-sm hover:bg-gray-50 transition-colors"
+            >
+              ← Voltar
+            </button>
+            <button
+              onClick={() => setEtapa(2)}
+              disabled={!podeAvancar2}
+              className="flex-1 bg-brf-vermelho text-white py-2 rounded-lg font-semibold text-sm hover:bg-brf-vermelho-escuro transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
+            >
+              Próximo →
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* ── Etapa 3: Confirmar e Assinar ── */}
+      {etapa === 2 && (
+        <div className="p-5 space-y-3">
+          <p className="text-xs text-gray-400 uppercase font-semibold tracking-wide">
+            Resumo da Solicitação
+          </p>
+          <div className="bg-gray-50 rounded-xl p-3 text-xs space-y-1.5 border border-gray-100">
+            {(
+              [
+                ["Estado", uf],
+                ["Agência", `${agencia} — ${nomeAgencia}`],
+                ["Conta", `***${conta.slice(-3)}`],
+                ["Titular", titular],
+                [
+                  "Motivo",
+                  motivo
+                    ? (MOTIVOS_DEMO.find((m) => m.codigo === motivo)
+                        ?.descricao ?? motivo)
+                    : "Não informado",
+                ],
+                ["Cheque", cheque ? "Sim" : "Não"],
+                ["Saldo a transferir", saldo ? "Sim" : "Não"],
+              ] as [string, string][]
+            ).map(([label, valor]) => (
+              <div key={label} className="flex justify-between gap-2">
+                <span className="text-gray-400">{label}</span>
+                <span className="font-medium text-gray-700 text-right break-all">
+                  {valor}
+                </span>
+              </div>
+            ))}
+          </div>
+          <label className="flex items-start gap-2 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={aceite}
+              onChange={(e) => setAceite(e.target.checked)}
+              className="accent-brf-vermelho w-4 h-4 mt-0.5"
+            />
+            <span className="text-xs text-gray-600 leading-relaxed">
+              Li e aceito o Termo de Encerramento conforme{" "}
+              <strong>normativo BRF-3303-03-11</strong> e modelo BRF-3303-40-64.
+            </span>
+          </label>
+          <div className="flex gap-2">
+            <button
+              onClick={() => setEtapa(1)}
+              className="flex-1 border border-gray-300 text-gray-500 py-2 rounded-lg font-semibold text-sm hover:bg-gray-50 transition-colors"
+            >
+              ← Voltar
+            </button>
+            <button
+              onClick={handleEnviar}
+              disabled={!aceite || enviando}
+              className="flex-1 bg-brf-vermelho text-white py-2 rounded-lg font-semibold text-sm hover:bg-brf-vermelho-escuro transition-colors disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center gap-1"
+            >
+              {enviando ? (
+                <>
+                  <Loader2 className="w-3 h-3 animate-spin" /> Enviando...
+                </>
+              ) : (
+                "Confirmar e Enviar"
+              )}
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
-// ─── Componente: Dashboard do Operador ───────────────────────────────────────
+// ─── Componente: Chatbot (simulação animada standalone) ────────────────────────
 
-/** Preview do painel interno com header, métricas e row cards estilizados */
-function PreviewDashboard() {
-  const solicitacoes = [
-    {
-      protocolo: "ENC-2026-855271",
-      agencia: "0081 — Imperatriz",
-      status: "PENDENTE",
-      data: "05/04/2026",
-    },
-    {
-      protocolo: "ENC-2026-312044",
-      agencia: "0500 — São Luís",
-      status: "EM_ANALISE",
-      data: "04/04/2026",
-    },
-    {
-      protocolo: "ENC-2026-198023",
-      agencia: "0210 — Fortaleza",
-      status: "CONCLUIDO",
-      data: "03/04/2026",
-    },
-    {
-      protocolo: "ENC-2026-077891",
-      agencia: "0081 — Imperatriz",
-      status: "PENDENTE",
-      data: "02/04/2026",
-    },
-  ];
+type MsgChat = { origem: "bot" | "user"; texto: string };
 
-  const statusCfg: Record<string, { bg: string; text: string; label: string }> =
-    {
-      PENDENTE: {
-        bg: "bg-yellow-50",
-        text: "text-amber-700",
-        label: "Pendente",
-      },
-      EM_ANALISE: {
-        bg: "bg-blue-50",
-        text: "text-brf-azul",
-        label: "Em Análise",
-      },
-      CONCLUIDO: {
-        bg: "bg-green-50",
-        text: "text-brf-verde",
-        label: "Concluído",
-      },
-      CANCELADO: {
-        bg: "bg-gray-100",
-        text: "text-gray-500",
-        label: "Cancelado",
-      },
-      REJEITADO: {
-        bg: "bg-red-50",
-        text: "text-brf-vermelho-escuro",
-        label: "Rejeitado",
-      },
+const SCRIPT_CHATBOT: MsgChat[] = [
+  {
+    origem: "bot",
+    texto:
+      "Olá! Sou o assistente digital de encerramento de conta do BRF. Vou te guiar pelo processo em poucos passos. Podemos começar?",
+  },
+  { origem: "user", texto: "Sim, vamos lá! 👍" },
+  { origem: "bot", texto: "Em qual estado fica sua agência?" },
+  { origem: "user", texto: "MA — Maranhão" },
+  { origem: "bot", texto: "Qual é a sua agência no Maranhão?" },
+  { origem: "user", texto: "0081 — Imperatriz" },
+  { origem: "bot", texto: "Qual é o número da sua conta corrente?" },
+  { origem: "user", texto: "12345-6" },
+  { origem: "bot", texto: "Confirme o nome completo do titular da conta:" },
+  { origem: "user", texto: "Maria Silva Santos" },
+  { origem: "bot", texto: "Qual o motivo do encerramento?" },
+  { origem: "user", texto: "Mudança para outra instituição financeira" },
+  {
+    origem: "bot",
+    texto: "Você movimentou essa conta através de cheque?",
+  },
+  { origem: "user", texto: "Não" },
+  {
+    origem: "bot",
+    texto: "Sua conta tem saldo positivo a ser transferido?",
+  },
+  { origem: "user", texto: "Não, pode fechar" },
+  {
+    origem: "bot",
+    texto: "Informe seu endereço completo e atualizado:",
+  },
+  {
+    origem: "user",
+    texto: "Av. Getúlio Vargas, 100, Centro — Imperatriz/MA, 65900-000",
+  },
+  {
+    origem: "bot",
+    texto:
+      "Seu e-mail de contato (opcional):",
+  },
+  { origem: "user", texto: "maria.silva@email.com" },
+  {
+    origem: "bot",
+    texto:
+      "✅ Solicitação registrada com sucesso!\n\nProtocolo: ENC-2026-347891\n\nGuarde esse número para acompanhar sua solicitação.",
+  },
+];
+
+/** Simulação animada do chatbot de encerramento — standalone, sem API. */
+function PreviewChatbot() {
+  const [fase, setFase] = useState<"idle" | "playing" | "done">("idle");
+  const [visiveis, setVisiveis] = useState<MsgChat[]>([]);
+  const [digitando, setDigitando] = useState(false);
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const resetar = () => {
+    setFase("idle");
+    setVisiveis([]);
+    setDigitando(false);
+    if (timerRef.current) clearTimeout(timerRef.current);
+  };
+
+  const iniciar = () => {
+    setFase("playing");
+    setVisiveis([]);
+    setDigitando(false);
+    let i = 0;
+
+    const revelarProximo = () => {
+      if (i >= SCRIPT_CHATBOT.length) {
+        setDigitando(false);
+        setFase("done");
+        return;
+      }
+      const msg = SCRIPT_CHATBOT[i];
+      i++;
+      if (msg.origem === "bot") {
+        setDigitando(true);
+        timerRef.current = setTimeout(() => {
+          setDigitando(false);
+          setVisiveis((prev) => [...prev, msg]);
+          timerRef.current = setTimeout(revelarProximo, 500);
+        }, 900);
+      } else {
+        setVisiveis((prev) => [...prev, msg]);
+        timerRef.current = setTimeout(revelarProximo, 600);
+      }
     };
+    revelarProximo();
+  };
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [visiveis, digitando]);
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) clearTimeout(timerRef.current);
+    };
+  }, []);
 
   return (
     <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
-      {/* Header com avatar */}
+      {/* Header */}
+      <div className="bg-brf-vermelho px-4 py-2.5 flex items-center justify-between">
+        <div className="flex items-center gap-2">
+          <div className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center">
+            <MessageCircle className="w-4 h-4 text-white" />
+          </div>
+          <span className="text-white font-bold text-sm">Assistente BRF</span>
+        </div>
+        <div className="flex items-center gap-2">
+          {fase !== "idle" && (
+            <button
+              onClick={resetar}
+              title="Reiniciar"
+              className="text-white/60 hover:text-white transition-colors"
+            >
+              <RefreshCw className="w-3.5 h-3.5" />
+            </button>
+          )}
+          <div
+            className={`w-2 h-2 rounded-full ${
+              fase === "playing"
+                ? "bg-brf-amarelo animate-pulse"
+                : fase === "done"
+                  ? "bg-brf-verde"
+                  : "bg-gray-400"
+            }`}
+          />
+          <span className="text-white/60 text-xs">
+            {fase === "idle"
+              ? "aguardando"
+              : fase === "playing"
+                ? "conversando..."
+                : "concluído"}
+          </span>
+        </div>
+      </div>
+
+      {/* Área de chat */}
+      <div
+        ref={scrollRef}
+        className="h-64 overflow-y-auto p-4 space-y-3 bg-gray-50"
+      >
+        {fase === "idle" && (
+          <div className="h-full flex flex-col items-center justify-center text-center gap-3">
+            <MessageCircle className="w-10 h-10 text-gray-300" />
+            <p className="text-sm text-gray-500 font-medium">
+              Simulação do Chatbot Guiado
+            </p>
+            <p className="text-xs text-gray-300 max-w-[200px]">
+              Clique em &quot;Iniciar demo&quot; para ver o fluxo completo de
+              encerramento via chatbot
+            </p>
+          </div>
+        )}
+        {visiveis.map((msg, i) =>
+          msg.origem === "bot" ? (
+            <div key={i} className="flex items-end gap-2">
+              <div className="w-6 h-6 rounded-full bg-brf-vermelho flex items-center justify-center flex-shrink-0">
+                <MessageCircle className="w-3 h-3 text-white" />
+              </div>
+              <div className="bg-white border border-gray-200 rounded-2xl rounded-bl-sm px-3 py-2 text-xs text-gray-800 max-w-[80%] whitespace-pre-line shadow-sm">
+                {msg.texto}
+              </div>
+            </div>
+          ) : (
+            <div key={i} className="flex justify-end">
+              <div className="bg-brf-salmao border border-brf-laranja/20 rounded-2xl rounded-br-sm px-3 py-2 text-xs text-gray-800 max-w-[80%]">
+                {msg.texto}
+              </div>
+            </div>
+          ),
+        )}
+        {digitando && (
+          <div className="flex items-end gap-2">
+            <div className="w-6 h-6 rounded-full bg-brf-vermelho flex items-center justify-center flex-shrink-0">
+              <MessageCircle className="w-3 h-3 text-white" />
+            </div>
+            <div className="bg-white border border-gray-200 rounded-2xl rounded-bl-sm px-3 py-2 shadow-sm">
+              <div className="flex gap-1 items-center h-4">
+                {([0, 150, 300] as const).map((delay, idx) => (
+                  <span
+                    key={idx}
+                    className="w-1.5 h-1.5 bg-gray-400 rounded-full animate-bounce"
+                    style={{ animationDelay: `${delay}ms` }}
+                  />
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Controles */}
+      <div className="px-4 py-3 border-t bg-white flex items-center gap-3">
+        {fase === "idle" ? (
+          <button
+            onClick={iniciar}
+            className="flex-1 bg-brf-vermelho text-white text-xs font-semibold py-2 rounded-lg flex items-center justify-center gap-1.5 hover:bg-brf-vermelho-escuro transition-colors"
+          >
+            <Play className="w-3 h-3" /> Iniciar demo do chatbot
+          </button>
+        ) : fase === "done" ? (
+          <button
+            onClick={resetar}
+            className="flex-1 border border-brf-vermelho text-brf-vermelho text-xs font-semibold py-2 rounded-lg flex items-center justify-center gap-1.5 hover:bg-brf-salmao transition-colors"
+          >
+            <RefreshCw className="w-3 h-3" /> Reiniciar demo
+          </button>
+        ) : (
+          <div className="flex-1 flex items-center gap-2 text-xs text-gray-400">
+            <Loader2 className="w-3 h-3 animate-spin text-brf-vermelho" />
+            Reproduzindo conversa...
+            <span className="ml-auto text-brf-laranja font-semibold">
+              {visiveis.length}/{SCRIPT_CHATBOT.length}
+            </span>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ─── Componente: Dashboard do Operador ────────────────────────────────────────
+
+interface SolicitacaoMock {
+  id: string;
+  protocolo: string;
+  agencia: string;
+  titular: string;
+  conta: string;
+  status: string;
+  data: string;
+  uf: string;
+}
+
+const SOLICITACOES_MOCK: SolicitacaoMock[] = [
+  {
+    id: "s1",
+    protocolo: "ENC-2026-855271",
+    agencia: "0081 — Imperatriz",
+    titular: "Maria Silva Santos",
+    conta: "12345-6",
+    status: "PENDENTE",
+    data: "07/04/2026",
+    uf: "MA",
+  },
+  {
+    id: "s2",
+    protocolo: "ENC-2026-312044",
+    agencia: "0500 — São Luís Centro",
+    titular: "João Carlos Mendes",
+    conta: "98765-3",
+    status: "EM_ANALISE",
+    data: "06/04/2026",
+    uf: "MA",
+  },
+  {
+    id: "s3",
+    protocolo: "ENC-2026-198023",
+    agencia: "0210 — Fortaleza Centro",
+    titular: "Ana Beatriz Ferreira",
+    conta: "45678-9",
+    status: "CONCLUIDO",
+    data: "05/04/2026",
+    uf: "CE",
+  },
+  {
+    id: "s4",
+    protocolo: "ENC-2026-077891",
+    agencia: "0081 — Imperatriz",
+    titular: "Carlos Eduardo Lima",
+    conta: "32109-7",
+    status: "PENDENTE",
+    data: "04/04/2026",
+    uf: "MA",
+  },
+];
+
+const STATUS_CFG: Record<string, { bg: string; text: string; label: string }> =
+  {
+    PENDENTE: { bg: "bg-yellow-50", text: "text-amber-700", label: "Pendente" },
+    EM_ANALISE: {
+      bg: "bg-blue-50",
+      text: "text-brf-azul",
+      label: "Em Análise",
+    },
+    CONCLUIDO: {
+      bg: "bg-green-50",
+      text: "text-brf-verde",
+      label: "Concluído",
+    },
+    CANCELADO: { bg: "bg-gray-100", text: "text-gray-500", label: "Cancelado" },
+    REJEITADO: {
+      bg: "bg-red-50",
+      text: "text-brf-vermelho-escuro",
+      label: "Rejeitado",
+    },
+  };
+
+/** Preview do painel interno com dashboard e detalhe de solicitação interativo.
+ * Completamente standalone — sem chamadas à API. */
+function PreviewDashboard() {
+  const [selecionado, setSelecionado] = useState<string | null>(null);
+
+  const detalheSol = SOLICITACOES_MOCK.find((s) => s.id === selecionado);
+
+  const contadores = {
+    PENDENTE: SOLICITACOES_MOCK.filter((s) => s.status === "PENDENTE").length,
+    EM_ANALISE: SOLICITACOES_MOCK.filter((s) => s.status === "EM_ANALISE")
+      .length,
+    CONCLUIDO: SOLICITACOES_MOCK.filter((s) => s.status === "CONCLUIDO").length,
+  };
+
+  // ── Painel de Detalhe ──────────────────────────────────────────────────────
+  if (selecionado && detalheSol) {
+    const cfg = STATUS_CFG[detalheSol.status];
+    return (
+      <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
+        <div className="bg-brf-vermelho px-4 py-2.5 flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => setSelecionado(null)}
+              className="text-white/70 hover:text-white transition-colors text-xs flex items-center gap-1"
+            >
+              ← Voltar
+            </button>
+            <span className="text-white/30 text-xs">|</span>
+            <span className="text-white font-bold text-xs font-mono">
+              {detalheSol.protocolo}
+            </span>
+          </div>
+          <span
+            className={`px-2 py-0.5 rounded-full text-xs font-semibold ${cfg.bg} ${cfg.text}`}
+          >
+            {cfg.label}
+          </span>
+        </div>
+        <div className="p-5 space-y-4">
+          {/* Dados descriptografados (visível apenas para autenticados) */}
+          <div className="bg-brf-salmao/50 border border-brf-laranja/30 rounded-xl p-3 space-y-2">
+            <p className="text-xs font-semibold text-brf-vermelho flex items-center gap-1">
+              <KeyRound className="w-3 h-3" /> Dados Descriptografados
+            </p>
+            <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
+              <div>
+                <span className="text-gray-400">Titular</span>
+                <p className="font-semibold text-gray-700">
+                  {detalheSol.titular}
+                </p>
+              </div>
+              <div>
+                <span className="text-gray-400">Conta</span>
+                <p className="font-semibold text-gray-700 font-mono">
+                  {detalheSol.conta}
+                </p>
+              </div>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 gap-x-4 gap-y-1.5 text-xs">
+            {[
+              ["Agência", detalheSol.agencia],
+              ["UF", detalheSol.uf],
+              ["Data solicitação", detalheSol.data],
+              ["Status atual", cfg.label],
+            ].map(([label, valor]) => (
+              <div key={label}>
+                <span className="text-gray-400">{label}</span>
+                <p className="font-medium text-gray-700">{valor}</p>
+              </div>
+            ))}
+          </div>
+          {/* Ações do operador */}
+          <div className="pt-2 border-t border-gray-100">
+            <p className="text-xs text-gray-400 mb-2 uppercase tracking-wide">
+              Ações do Operador
+            </p>
+            <div className="flex gap-2 flex-wrap">
+              <button className="text-xs bg-brf-azul text-white px-3 py-1.5 rounded-lg hover:opacity-80 transition-opacity">
+                Em Análise
+              </button>
+              <button className="text-xs bg-brf-verde text-white px-3 py-1.5 rounded-lg hover:opacity-80 transition-opacity">
+                Concluir
+              </button>
+              <button className="text-xs border border-gray-300 text-gray-500 px-3 py-1.5 rounded-lg hover:bg-gray-50 transition-colors">
+                Rejeitar
+              </button>
+            </div>
+          </div>
+          {/* Log de auditoria */}
+          <div className="bg-gray-900 rounded-lg p-3 text-xs font-mono">
+            <p className="text-green-400">
+              [AUDITORIA] operador=BRF0001 acessou id={detalheSol.id}
+            </p>
+            <p className="text-gray-500 text-[10px] mt-0.5">
+              {detalheSol.data} | IP: 10.0.10.xxx
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // ── Dashboard Principal ────────────────────────────────────────────────────
+  return (
+    <div className="bg-white rounded-xl shadow-lg overflow-hidden border border-gray-100">
+      {/* Header */}
       <div className="bg-brf-vermelho px-4 py-2.5 flex items-center justify-between">
         <div className="flex items-center gap-2">
           <div className="w-7 h-7 rounded-full bg-brf-amarelo flex items-center justify-center text-xs font-bold text-gray-800">
             AO
           </div>
-          <span className="text-white font-bold text-sm">
-            Painel Interno BRF
-          </span>
+          <span className="text-white font-bold text-sm">Painel Interno BRF</span>
         </div>
         <div className="flex items-center gap-3">
           <span className="text-white/70 text-xs hidden sm:block">
@@ -477,26 +1192,26 @@ function PreviewDashboard() {
           </button>
         </div>
       </div>
-      {/* 3 Metric cards */}
+      {/* Métricas */}
       <div className="grid grid-cols-3 gap-px bg-gray-100">
         {[
           {
             label: "Pendentes",
-            valor: "2",
+            valor: contadores.PENDENTE,
             cor: "text-amber-600",
             bg: "bg-yellow-50",
             Icon: Clock,
           },
           {
             label: "Em Análise",
-            valor: "1",
+            valor: contadores.EM_ANALISE,
             cor: "text-brf-azul",
             bg: "bg-blue-50",
             Icon: Activity,
           },
           {
             label: "Concluídos",
-            valor: "1",
+            valor: contadores.CONCLUIDO,
             cor: "text-brf-verde",
             bg: "bg-green-50",
             Icon: CheckCircle,
@@ -509,14 +1224,15 @@ function PreviewDashboard() {
           </div>
         ))}
       </div>
-      {/* Row cards */}
+      {/* Lista de solicitações */}
       <div className="divide-y">
-        {solicitacoes.map((s) => {
-          const cfg = statusCfg[s.status];
+        {SOLICITACOES_MOCK.map((s) => {
+          const cfg = STATUS_CFG[s.status];
           return (
-            <div
-              key={s.protocolo}
-              className="px-4 py-2.5 flex items-center justify-between hover:bg-gray-50 transition-colors cursor-pointer"
+            <button
+              key={s.id}
+              onClick={() => setSelecionado(s.id)}
+              className="w-full px-4 py-2.5 flex items-center justify-between hover:bg-gray-50 transition-colors text-left"
             >
               <div>
                 <p className="font-mono text-xs font-semibold text-brf-vermelho">
@@ -534,10 +1250,13 @@ function PreviewDashboard() {
                 </span>
                 <span className="text-brf-azul text-xs">→</span>
               </div>
-            </div>
+            </button>
           );
         })}
       </div>
+      <p className="text-center text-[10px] text-gray-300 py-2">
+        Clique em uma linha para ver o detalhe ↑
+      </p>
     </div>
   );
 }
@@ -770,64 +1489,73 @@ export default function DemoPage() {
               </code>
             </p>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+          {/* Previews interativos — Formulário e Chatbot lado a lado */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start mb-10">
             <div>
               <p className="text-xs font-semibold text-gray-500 mb-3 uppercase tracking-wide">
-                Preview interativo — clique nas abas
+                Formulário multi-etapa — interativo
               </p>
               <PreviewFormulario />
             </div>
             <div>
               <p className="text-xs font-semibold text-gray-500 mb-3 uppercase tracking-wide">
-                Funcionalidades
+                Chatbot guiado — simulação ao vivo
               </p>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {[
-                  {
-                    Icon: Globe,
-                    titulo: "Seleção em cascata",
-                    desc: "UF → 300 agências BRF (fonte BCB)",
-                  },
-                  {
-                    Icon: Lock,
-                    titulo: "Dados cifrados",
-                    desc: "AES-256-CBC em trânsito e repouso",
-                  },
-                  {
-                    Icon: FileText,
-                    titulo: "PDF oficial BRF-3303-40-64",
-                    desc: "14 seções obrigatórias, layout BRF",
-                  },
-                  {
-                    Icon: Check,
-                    titulo: "Assinatura gov.br",
-                    desc: "Suporte A1 e A3 (ICP-Brasil)",
-                  },
-                  {
-                    Icon: Upload,
-                    titulo: "Upload seguro",
-                    desc: "Magic bytes, SHA-256, max 10 MB",
-                  },
-                  {
-                    Icon: Eye,
-                    titulo: "Status por protocolo",
-                    desc: "Sem exposição de dados (LGPD)",
-                  },
-                ].map(({ Icon, titulo, desc }) => (
-                  <div
-                    key={titulo}
-                    className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm flex gap-3 items-start"
-                  >
-                    <Icon className="w-5 h-5 text-brf-vermelho mt-0.5 flex-shrink-0" />
-                    <div>
-                      <p className="font-semibold text-sm text-gray-700">
-                        {titulo}
-                      </p>
-                      <p className="text-xs text-gray-400 mt-0.5">{desc}</p>
-                    </div>
+              <PreviewChatbot />
+            </div>
+          </div>
+
+          {/* Funcionalidades da interface pública */}
+          <div>
+            <p className="text-xs font-semibold text-gray-500 mb-3 uppercase tracking-wide">
+              Funcionalidades da interface pública
+            </p>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              {[
+                {
+                  Icon: Globe,
+                  titulo: "Seleção em cascata",
+                  desc: "UF → 300 agências BRF (fonte BCB)",
+                },
+                {
+                  Icon: Lock,
+                  titulo: "Dados cifrados",
+                  desc: "AES-256-CBC em trânsito e repouso",
+                },
+                {
+                  Icon: FileText,
+                  titulo: "PDF oficial BRF-3303-40-64",
+                  desc: "14 seções obrigatórias, layout BRF",
+                },
+                {
+                  Icon: Check,
+                  titulo: "Assinatura gov.br",
+                  desc: "Suporte A1 e A3 (ICP-Brasil)",
+                },
+                {
+                  Icon: Upload,
+                  titulo: "Upload seguro",
+                  desc: "Magic bytes, SHA-256, max 10 MB",
+                },
+                {
+                  Icon: Eye,
+                  titulo: "Status por protocolo",
+                  desc: "Sem exposição de dados (LGPD)",
+                },
+              ].map(({ Icon, titulo, desc }) => (
+                <div
+                  key={titulo}
+                  className="bg-white rounded-xl p-4 border border-gray-100 shadow-sm flex gap-3 items-start"
+                >
+                  <Icon className="w-5 h-5 text-brf-vermelho mt-0.5 flex-shrink-0" />
+                  <div>
+                    <p className="font-semibold text-sm text-gray-700">
+                      {titulo}
+                    </p>
+                    <p className="text-xs text-gray-400 mt-0.5">{desc}</p>
                   </div>
-                ))}
-              </div>
+                </div>
+              ))}
             </div>
           </div>
         </div>

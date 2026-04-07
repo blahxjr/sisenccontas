@@ -1,0 +1,2265 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EncerraDigital BRF — Apresentação do Sistema</title>
+    <style>
+      /* ── Reset e Fonte ──────────────────────────────────────────── */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+
+      :root {
+        --vermelho: #a6193c;
+        --vermelho-esc: #7a1228;
+        --laranja: #f68b1f;
+        --laranja-esc: #c96d0a;
+        --amarelo: #ffcb05;
+        --salmao: #ffe6cb;
+        --cinza: #646464;
+        --cinza-claro: #f5f5f5;
+        --verde: #07a684;
+        --azul: #0996b6;
+        --branco: #ffffff;
+        --preto: #1a1a1a;
+      }
+
+      body {
+        font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+        background: #e5e7eb;
+        color: var(--preto);
+      }
+
+      /* ── Instrução de impressão ─────────────────────────────────── */
+      .print-tip {
+        background: var(--azul);
+        color: white;
+        text-align: center;
+        padding: 12px 20px;
+        font-size: 14px;
+        font-weight: 600;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        letter-spacing: 0.02em;
+      }
+      .print-tip strong {
+        color: var(--amarelo);
+      }
+
+      /* ── Slide base ─────────────────────────────────────────────── */
+      .slide {
+        width: 297mm;
+        min-height: 167mm;
+        margin: 24px auto;
+        background: white;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+        page-break-after: always;
+        page-break-inside: avoid;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+      }
+
+      /* ── Cabeçalho padrão ───────────────────────────────────────── */
+      .slide-header {
+        background: var(--vermelho);
+        color: white;
+        padding: 16px 32px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 52px;
+      }
+      .slide-header .logo-area {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .slide-header .logo-box {
+        width: 36px;
+        height: 36px;
+        background: white;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 900;
+        font-size: 12px;
+        color: var(--vermelho);
+        letter-spacing: -0.5px;
+        flex-shrink: 0;
+      }
+      .slide-header .logo-text {
+        font-size: 13px;
+        font-weight: 700;
+        opacity: 0.95;
+        letter-spacing: 0.02em;
+      }
+      .slide-header .slide-title {
+        font-size: 15px;
+        font-weight: 700;
+        letter-spacing: 0.01em;
+      }
+      .slide-header .slide-num {
+        font-size: 11px;
+        opacity: 0.7;
+        font-weight: 600;
+      }
+
+      /* ── Rodapé padrão ──────────────────────────────────────────── */
+      .slide-footer {
+        background: var(--cinza-claro);
+        border-top: 2px solid var(--laranja);
+        padding: 8px 32px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 10px;
+        color: var(--cinza);
+        margin-top: auto;
+      }
+      .slide-footer .normativos {
+        font-weight: 600;
+        color: var(--vermelho);
+      }
+
+      /* ── Corpo do slide ─────────────────────────────────────────── */
+      .slide-body {
+        padding: 28px 32px;
+        flex: 1;
+      }
+
+      /* ── Utilitários ────────────────────────────────────────────── */
+      .tag {
+        display: inline-block;
+        padding: 3px 10px;
+        border-radius: 20px;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+      .tag-vermelho {
+        background: #fce4e9;
+        color: var(--vermelho);
+      }
+      .tag-laranja {
+        background: #fef0dc;
+        color: var(--laranja-esc);
+      }
+      .tag-verde {
+        background: #d1f5ed;
+        color: #055a47;
+      }
+      .tag-azul {
+        background: #d0f0f7;
+        color: #065a6a;
+      }
+      .tag-amarelo {
+        background: #fff8d4;
+        color: #7a5c00;
+      }
+      .tag-cinza {
+        background: #f0f0f0;
+        color: var(--cinza);
+      }
+
+      .pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 5px;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 11px;
+        font-weight: 600;
+      }
+      .pill-ok {
+        background: #d1f5ed;
+        color: #055a47;
+      }
+      .pill-warn {
+        background: #fff8d4;
+        color: #7a5c00;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+      .grid-3 {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 16px;
+      }
+      .grid-4 {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        gap: 14px;
+      }
+
+      .card {
+        background: var(--cinza-claro);
+        border-radius: 10px;
+        padding: 16px;
+        border: 1px solid #e5e7eb;
+      }
+      .card-vermelho {
+        border-left: 4px solid var(--vermelho);
+      }
+      .card-laranja {
+        border-left: 4px solid var(--laranja);
+      }
+      .card-verde {
+        border-left: 4px solid var(--verde);
+      }
+      .card-azul {
+        border-left: 4px solid var(--azul);
+      }
+      .card-amarelo {
+        border-left: 4px solid var(--amarelo);
+      }
+
+      .icon-circle {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        flex-shrink: 0;
+      }
+
+      h1 {
+        font-size: 32px;
+        font-weight: 900;
+      }
+      h2 {
+        font-size: 20px;
+        font-weight: 800;
+      }
+      h3 {
+        font-size: 15px;
+        font-weight: 700;
+      }
+      h4 {
+        font-size: 13px;
+        font-weight: 600;
+      }
+      p {
+        font-size: 12px;
+        line-height: 1.6;
+      }
+      small {
+        font-size: 10.5px;
+        color: var(--cinza);
+      }
+
+      ul {
+        list-style: none;
+      }
+      ul li {
+        font-size: 12px;
+        line-height: 1.7;
+        display: flex;
+        align-items: flex-start;
+        gap: 7px;
+      }
+      ul li::before {
+        content: "✓";
+        color: var(--verde);
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+
+      .sep {
+        width: 48px;
+        height: 4px;
+        border-radius: 2px;
+        background: var(--laranja);
+        margin: 8px 0 16px;
+      }
+
+      /* ── Slide 1 — Capa ─────────────────────────────────────────── */
+      #s1 {
+        background: linear-gradient(
+          135deg,
+          var(--vermelho-esc) 0%,
+          var(--vermelho) 55%,
+          var(--laranja) 100%
+        );
+        min-height: 190mm;
+      }
+      #s1 .capa-body {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: white;
+        padding: 40px 60px 20px;
+        gap: 12px;
+      }
+      #s1 .capa-logo {
+        width: 72px;
+        height: 72px;
+        background: rgba(255, 255, 255, 0.15);
+        border: 3px solid rgba(255, 255, 255, 0.4);
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 900;
+        font-size: 22px;
+        letter-spacing: -1px;
+        backdrop-filter: blur(4px);
+      }
+      #s1 h1 {
+        font-size: 42px;
+        letter-spacing: -1px;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+      }
+      #s1 .subtitle {
+        font-size: 16px;
+        font-weight: 500;
+        opacity: 0.92;
+        max-width: 560px;
+      }
+      #s1 .banco {
+        font-size: 13px;
+        font-weight: 700;
+        opacity: 0.8;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+      #s1 .badges {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        justify-content: center;
+        margin-top: 8px;
+      }
+      #s1 .badge {
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        color: white;
+        font-size: 10px;
+        font-weight: 600;
+        padding: 4px 12px;
+        border-radius: 20px;
+        letter-spacing: 0.04em;
+      }
+      #s1 .capa-footer {
+        background: rgba(0, 0, 0, 0.25);
+        color: rgba(255, 255, 255, 0.75);
+        padding: 10px 32px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 10px;
+      }
+
+      /* ── Slide 2 — Problema vs Solução ─────────────────────────── */
+      .vs-col {
+        background: var(--cinza-claro);
+        border-radius: 12px;
+        padding: 20px;
+      }
+      .vs-col.problema {
+        border-top: 4px solid #dc2626;
+      }
+      .vs-col.solucao {
+        border-top: 4px solid var(--verde);
+      }
+      .vs-col h3 {
+        margin-bottom: 12px;
+      }
+      .vs-col ul li::before {
+        content: none;
+      }
+      .problema ul li::before {
+        content: "✗";
+        color: #dc2626;
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+      .solucao ul li::before {
+        content: "✓";
+        color: var(--verde);
+        font-weight: 700;
+        flex-shrink: 0;
+      }
+
+      /* ── Slide 3 — Jornada ──────────────────────────────────────── */
+      .journey {
+        display: flex;
+        gap: 0;
+        align-items: stretch;
+        position: relative;
+      }
+      .journey-step {
+        flex: 1;
+        background: var(--cinza-claro);
+        border-radius: 10px;
+        padding: 16px 14px;
+        text-align: center;
+        border: 1px solid #e5e7eb;
+        position: relative;
+      }
+      .journey-step + .journey-step::before {
+        content: "→";
+        position: absolute;
+        left: -12px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 16px;
+        color: var(--laranja);
+        font-weight: 900;
+      }
+      .journey .gap {
+        width: 20px;
+        flex-shrink: 0;
+      }
+      .step-num {
+        width: 32px;
+        height: 32px;
+        background: var(--vermelho);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 14px;
+        margin: 0 auto 8px;
+      }
+
+      /* ── Slide 4 — Formulário ───────────────────────────────────── */
+      .form-mock {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+      }
+      .form-mock-header {
+        background: var(--vermelho);
+        color: white;
+        padding: 10px 16px;
+        font-size: 12px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .form-mock-body {
+        padding: 16px;
+      }
+      .step-bar {
+        display: flex;
+        gap: 6px;
+        margin-bottom: 14px;
+      }
+      .step-dot {
+        flex: 1;
+        height: 5px;
+        border-radius: 3px;
+        background: #e5e7eb;
+      }
+      .step-dot.active {
+        background: var(--vermelho);
+      }
+      .step-dot.done {
+        background: var(--verde);
+      }
+      .form-field {
+        margin-bottom: 10px;
+      }
+      .form-label {
+        font-size: 10px;
+        font-weight: 600;
+        color: var(--cinza);
+        margin-bottom: 3px;
+        display: block;
+      }
+      .form-input {
+        width: 100%;
+        padding: 7px 10px;
+        border: 1px solid #d1d5db;
+        border-radius: 6px;
+        font-size: 11px;
+        color: var(--preto);
+        background: var(--cinza-claro);
+      }
+      .form-input.filled {
+        border-color: var(--verde);
+        background: #f0fdf8;
+      }
+      .form-btn {
+        display: inline-block;
+        padding: 8px 20px;
+        background: var(--vermelho);
+        color: white;
+        border-radius: 6px;
+        font-size: 11px;
+        font-weight: 700;
+        text-align: center;
+        margin-top: 8px;
+      }
+
+      /* ── Slide 5 — Chatbot ──────────────────────────────────────── */
+      .chat-mock {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        font-size: 11px;
+      }
+      .chat-header {
+        background: var(--vermelho);
+        color: white;
+        padding: 10px 16px;
+        font-weight: 700;
+        font-size: 12px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .chat-body {
+        padding: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .msg {
+        max-width: 80%;
+        padding: 8px 12px;
+        border-radius: 12px;
+        line-height: 1.5;
+        font-size: 11px;
+      }
+      .msg-bot {
+        background: var(--cinza-claro);
+        border-radius: 2px 12px 12px 12px;
+        align-self: flex-start;
+      }
+      .msg-user {
+        background: var(--vermelho);
+        color: white;
+        border-radius: 12px 2px 12px 12px;
+        align-self: flex-end;
+      }
+      .msg-label {
+        font-size: 9px;
+        font-weight: 700;
+        margin-bottom: 2px;
+        color: var(--cinza);
+      }
+      .msg-label-user {
+        text-align: right;
+        color: rgba(255, 255, 255, 0.75);
+      }
+
+      /* ── Slide 6 — Painel Interno ───────────────────────────────── */
+      .dashboard-mock {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .dash-header {
+        background: var(--vermelho-esc);
+        color: white;
+        padding: 9px 14px;
+        font-size: 11px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .dash-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 10.5px;
+      }
+      .dash-table th {
+        background: var(--cinza-claro);
+        padding: 7px 12px;
+        text-align: left;
+        font-weight: 700;
+        color: var(--cinza);
+        border-bottom: 1px solid #e5e7eb;
+        font-size: 10px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+      }
+      .dash-table td {
+        padding: 8px 12px;
+        border-bottom: 1px solid #f3f4f6;
+      }
+      .dash-table tr:last-child td {
+        border-bottom: none;
+      }
+      .dash-table tr:hover td {
+        background: #fef2f4;
+      }
+      .status-badge {
+        display: inline-block;
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-size: 9.5px;
+        font-weight: 700;
+        letter-spacing: 0.03em;
+      }
+      .s-pendente {
+        background: #fef9c3;
+        color: #713f12;
+      }
+      .s-analise {
+        background: #dbeafe;
+        color: #1e3a8a;
+      }
+      .s-concluido {
+        background: #dcfce7;
+        color: #14532d;
+      }
+      .s-rejeitado {
+        background: #fee2e2;
+        color: #7f1d1d;
+      }
+
+      /* ── Slide 7 — Arquitetura ──────────────────────────────────── */
+      .arch-layer {
+        border-radius: 10px;
+        padding: 14px 20px;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      .arch-label {
+        font-weight: 800;
+        font-size: 12px;
+        min-width: 120px;
+      }
+      .arch-items {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .arch-item {
+        background: rgba(255, 255, 255, 0.25);
+        padding: 4px 10px;
+        border-radius: 6px;
+        font-size: 11px;
+        font-weight: 600;
+        backdrop-filter: blur(4px);
+      }
+      .arch-arrow {
+        text-align: center;
+        font-size: 18px;
+        color: var(--laranja);
+        margin: -4px 0;
+        font-weight: 900;
+      }
+
+      /* ── Slide 8 — Stack ────────────────────────────────────────── */
+      .stack-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 11.5px;
+      }
+      .stack-table th {
+        background: var(--vermelho);
+        color: white;
+        padding: 8px 14px;
+        text-align: left;
+        font-weight: 700;
+        font-size: 11px;
+      }
+      .stack-table td {
+        padding: 8px 14px;
+        border-bottom: 1px solid #f0f0f0;
+        vertical-align: top;
+      }
+      .stack-table tr:nth-child(even) td {
+        background: var(--cinza-claro);
+      }
+      .stack-table .camada {
+        font-weight: 700;
+        color: var(--vermelho);
+      }
+      .stack-table .techs {
+        color: var(--preto);
+      }
+
+      /* ── Slide 9 — Segurança ────────────────────────────────────── */
+      .sec-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 10px 14px;
+        background: var(--cinza-claro);
+        border-radius: 8px;
+        margin-bottom: 8px;
+        border-left: 4px solid var(--vermelho);
+      }
+      .sec-icon {
+        font-size: 20px;
+        flex-shrink: 0;
+      }
+      .sec-title {
+        font-weight: 700;
+        font-size: 12px;
+        margin-bottom: 2px;
+      }
+      .sec-desc {
+        font-size: 11px;
+        color: var(--cinza);
+      }
+
+      /* ── Slide 10 — Agentes IA ──────────────────────────────────── */
+      .agent-card {
+        background: var(--cinza-claro);
+        border-radius: 10px;
+        padding: 14px;
+        border: 1px solid #e5e7eb;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+      }
+      .agent-card .agent-icon {
+        font-size: 22px;
+      }
+      .agent-card .agent-name {
+        font-weight: 700;
+        font-size: 12px;
+        color: var(--vermelho);
+      }
+      .agent-card .agent-model {
+        font-size: 10px;
+        font-weight: 600;
+        color: var(--azul);
+      }
+      .agent-card .agent-desc {
+        font-size: 10.5px;
+        color: var(--cinza);
+      }
+
+      /* ── Slide 11 — Roadmap ─────────────────────────────────────── */
+      .fase {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        padding: 10px 14px;
+        border-radius: 8px;
+        margin-bottom: 7px;
+      }
+      .fase.done {
+        background: #f0fdf8;
+        border: 1px solid #bbf7e0;
+      }
+      .fase.next {
+        background: #fff8e1;
+        border: 1px solid #fde68a;
+      }
+      .fase-num {
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 12px;
+        flex-shrink: 0;
+      }
+      .fase.done .fase-num {
+        background: var(--verde);
+        color: white;
+      }
+      .fase.next .fase-num {
+        background: var(--amarelo);
+        color: var(--preto);
+      }
+      .fase-title {
+        font-weight: 700;
+        font-size: 12px;
+      }
+      .fase-desc {
+        font-size: 10.5px;
+        color: var(--cinza);
+      }
+      .fase-status {
+        font-size: 9.5px;
+        font-weight: 700;
+        margin-left: auto;
+        flex-shrink: 0;
+      }
+      .fase.done .fase-status {
+        color: var(--verde);
+      }
+      .fase.next .fase-status {
+        color: var(--laranja-esc);
+      }
+
+      /* ── Slide 12 — Diferenciais ────────────────────────────────── */
+      .diff-card {
+        background: var(--cinza-claro);
+        border-radius: 10px;
+        padding: 16px;
+        border: 1px solid #e5e7eb;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+      }
+      .diff-icon {
+        font-size: 28px;
+      }
+      .diff-title {
+        font-weight: 700;
+        font-size: 12px;
+        color: var(--vermelho);
+      }
+      .diff-desc {
+        font-size: 10.5px;
+        color: var(--cinza);
+        line-height: 1.5;
+      }
+
+      /* ── Print ──────────────────────────────────────────────────── */
+      @media print {
+        body {
+          background: white;
+        }
+        .print-tip {
+          display: none !important;
+        }
+        .slide {
+          width: 100%;
+          min-height: 0;
+          margin: 0;
+          box-shadow: none;
+          page-break-after: always;
+          page-break-inside: avoid;
+          break-after: page;
+          break-inside: avoid;
+        }
+        @page {
+          size: A4 landscape;
+          margin: 8mm;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="print-tip">
+      📄 Para gerar o PDF: <strong>Ctrl + P</strong> (ou Cmd + P no Mac) →
+      Escolha <strong>"Salvar como PDF"</strong> → Layout:
+      <strong>Paisagem</strong> → Desmarque "Cabeçalhos e rodapés"
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 1 — CAPA
+═════════════════════════════════════════════════════════════════ -->
+    <div class="slide" id="s1">
+      <div class="capa-body">
+        <div class="capa-logo">BRF</div>
+        <p class="banco">Banco Regional de Fomento</p>
+        <h1>EncerraDigital</h1>
+        <p class="subtitle">
+          Sistema digital de encerramento de conta corrente — do presencial ao
+          100% digital, seguro e conforme as normas BRF.
+        </p>
+        <div class="badges">
+          <span class="badge">✓ LGPD Compliant</span>
+          <span class="badge">✓ OWASP ASVS</span>
+          <span class="badge">✓ BRF-3303-03-11</span>
+          <span class="badge">✓ BRF-3303-40-64</span>
+          <span class="badge">✓ 7 Fases Entregues</span>
+        </div>
+      </div>
+      <div class="capa-footer">
+        <span>Versão 1.0 — Abril de 2026</span>
+        <span>Confidencial — uso interno BRF</span>
+        <span>BRF-3303-03-11 / BRF-3303-40-64</span>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 2 — O PROBLEMA E A SOLUÇÃO
+═════════════════════════════════════════════════════════════════ -->
+    <div class="slide">
+      <div class="slide-header">
+        <div class="logo-area">
+          <div class="logo-box">BRF</div>
+          <span class="logo-text">EncerraDigital</span>
+        </div>
+        <span class="slide-title">O Problema → A Solução</span>
+        <span class="slide-num">02 / 12</span>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2" style="height: 100%">
+          <div class="vs-col problema">
+            <h3 style="color: #dc2626">❌ Processo Atual (Presencial)</h3>
+            <div class="sep" style="background: #dc2626"></div>
+            <ul>
+              <li>Cliente precisa ir à agência pessoalmente</li>
+              <li>Preenchimento manual de formulários em papel</li>
+              <li>Filas, espera e múltiplas visitas necessárias</li>
+              <li>Risco de perda de documentos físicos</li>
+              <li>Sem rastreabilidade do status da solicitação</li>
+              <li>Sem conformidade automática com o normativo</li>
+              <li>Dependência total de horário bancário</li>
+              <li>Arquivamento manual em pastas físicas</li>
+            </ul>
+          </div>
+          <div class="vs-col solucao">
+            <h3 style="color: var(--verde)">
+              ✅ EncerraDigital (100% Digital)
+            </h3>
+            <div class="sep"></div>
+            <ul>
+              <li>Solicitação online em qualquer hora e lugar</li>
+              <li>Formulário guiado multi-etapa ou chatbot interativo</li>
+              <li>Protocolo gerado automaticamente, rastreável</li>
+              <li>Geração automática do Termo BRF-3303-40-64</li>
+              <li>Assinatura digital via gov.br / ICP-Brasil</li>
+              <li>Dados cifrados AES-256-CBC em trânsito e repouso</li>
+              <li>Painel do operador com auditoria e LGPD</li>
+              <li>Status em tempo real sem expor dados sensíveis</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span class="normativos"
+          >Normativos: BRF-3303-03-11 / BRF-3303-40-64 v.020</span
+        >
+        <span>EncerraDigital BRF — Banco Regional de Fomento</span>
+        <span>Confidencial</span>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 3 — JORNADA DO CLIENTE
+═════════════════════════════════════════════════════════════════ -->
+    <div class="slide">
+      <div class="slide-header">
+        <div class="logo-area">
+          <div class="logo-box">BRF</div>
+          <span class="logo-text">EncerraDigital</span>
+        </div>
+        <span class="slide-title">Jornada do Cliente</span>
+        <span class="slide-num">03 / 12</span>
+      </div>
+      <div class="slide-body">
+        <p style="font-size: 12px; color: var(--cinza); margin-bottom: 20px">
+          5 etapas simples — do início ao encerramento concluído, sem sair de
+          casa.
+        </p>
+
+        <div style="display: flex; gap: 0; align-items: stretch">
+          <div class="journey-step">
+            <div class="step-num">1</div>
+            <h4 style="margin-bottom: 6px">Identificação</h4>
+            <p style="font-size: 10.5px; color: var(--cinza)">
+              Cliente acessa o portal público e informa sua agência, conta e
+              CPF.
+            </p>
+            <div style="margin-top: 10px">
+              <span class="tag tag-laranja">Interface Pública</span>
+            </div>
+          </div>
+          <div
+            style="
+              width: 22px;
+              flex-shrink: 0;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 18px;
+              color: var(--laranja);
+              font-weight: 900;
+            "
+          >
+            ›
+          </div>
+          <div class="journey-step">
+            <div class="step-num">2</div>
+            <h4 style="margin-bottom: 6px">Formulário / Chatbot</h4>
+            <p style="font-size: 10.5px; color: var(--cinza)">
+              Preenche o formulário de 3 etapas ou usa o chatbot guiado.
+            </p>
+            <div style="margin-top: 10px">
+              <span class="tag tag-vermelho">BRF-3303-03-11</span>
+            </div>
+          </div>
+          <div
+            style="
+              width: 22px;
+              flex-shrink: 0;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 18px;
+              color: var(--laranja);
+              font-weight: 900;
+            "
+          >
+            ›
+          </div>
+          <div class="journey-step">
+            <div class="step-num">3</div>
+            <h4 style="margin-bottom: 6px">Termo Gerado</h4>
+            <p style="font-size: 10.5px; color: var(--cinza)">
+              Sistema gera o Termo PDF com 14 seções conforme normativo
+              BRF-3303-40-64.
+            </p>
+            <div style="margin-top: 10px">
+              <span class="tag tag-verde">PDF Automático</span>
+            </div>
+          </div>
+          <div
+            style="
+              width: 22px;
+              flex-shrink: 0;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 18px;
+              color: var(--laranja);
+              font-weight: 900;
+            "
+          >
+            ›
+          </div>
+          <div class="journey-step">
+            <div class="step-num">4</div>
+            <h4 style="margin-bottom: 6px">Assinatura Digital</h4>
+            <p style="font-size: 10.5px; color: var(--cinza)">
+              Cliente assina via gov.br ou certificado ICP-Brasil (A1/A3) e faz
+              upload.
+            </p>
+            <div style="margin-top: 10px">
+              <span class="tag tag-azul">gov.br / ICP-Brasil</span>
+            </div>
+          </div>
+          <div
+            style="
+              width: 22px;
+              flex-shrink: 0;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              font-size: 18px;
+              color: var(--laranja);
+              font-weight: 900;
+            "
+          >
+            ›
+          </div>
+          <div class="journey-step">
+            <div class="step-num">5</div>
+            <h4 style="margin-bottom: 6px">Análise e Conclusão</h4>
+            <p style="font-size: 10.5px; color: var(--cinza)">
+              Operador analisa no painel interno e conclui ou rejeita com
+              auditoria.
+            </p>
+            <div style="margin-top: 10px">
+              <span class="tag tag-cinza">Módulo Interno</span>
+            </div>
+          </div>
+        </div>
+
+        <div
+          style="
+            margin-top: 20px;
+            background: var(--cinza-claro);
+            border-radius: 8px;
+            padding: 12px 16px;
+            display: flex;
+            gap: 24px;
+            align-items: center;
+          "
+        >
+          <span style="font-size: 11px; color: var(--cinza)"
+            >Rastreabilidade completa:</span
+          >
+          <span class="pill pill-ok">✓ Protocolo único ENC-2026-XXXXXX</span>
+          <span class="pill pill-ok">✓ Logs de auditoria imutáveis</span>
+          <span class="pill pill-ok">✓ Status sem expor dados (LGPD)</span>
+          <span class="pill pill-ok">✓ SHA-256 em todos os documentos</span>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span class="normativos"
+          >Normativos: BRF-3303-03-11 / BRF-3303-40-64 v.020</span
+        >
+        <span>EncerraDigital BRF — Banco Regional de Fomento</span>
+        <span>Confidencial</span>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 4 — FORMULÁRIO MULTI-ETAPA
+═════════════════════════════════════════════════════════════════ -->
+    <div class="slide">
+      <div class="slide-header">
+        <div class="logo-area">
+          <div class="logo-box">BRF</div>
+          <span class="logo-text">EncerraDigital</span>
+        </div>
+        <span class="slide-title">Formulário Multi-etapa</span>
+        <span class="slide-num">04 / 12</span>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2" style="gap: 24px">
+          <div>
+            <!-- Mockup formulário etapa 1 -->
+            <div class="form-mock">
+              <div class="form-mock-header">🏦 Encerramento de Conta — BRF</div>
+              <div class="form-mock-body">
+                <div class="step-bar">
+                  <div class="step-dot done"></div>
+                  <div class="step-dot active"></div>
+                  <div class="step-dot"></div>
+                </div>
+                <p
+                  style="
+                    font-size: 10px;
+                    font-weight: 700;
+                    color: var(--cinza);
+                    margin-bottom: 10px;
+                    text-transform: uppercase;
+                    letter-spacing: 0.05em;
+                  "
+                >
+                  Etapa 2 de 3 — Informações Complementares
+                </p>
+                <div class="grid-2" style="gap: 8px">
+                  <div class="form-field">
+                    <label class="form-label">Estado (UF)</label>
+                    <div class="form-input filled">🗺 Maranhão — MA</div>
+                  </div>
+                  <div class="form-field">
+                    <label class="form-label">Agência BRF</label>
+                    <div class="form-input filled">0001 — São Luís Centro</div>
+                  </div>
+                </div>
+                <div class="form-field">
+                  <label class="form-label">Número da Conta</label>
+                  <div class="form-input filled">•••••••••-9</div>
+                </div>
+                <div class="form-field">
+                  <label class="form-label">Motivo do Encerramento</label>
+                  <div class="form-input">Mudança de domicílio bancário</div>
+                </div>
+                <div class="form-btn">→ Próxima Etapa</div>
+              </div>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 12px">
+            <h3 style="color: var(--vermelho); margin-bottom: 4px">
+              3 Etapas Guiadas
+            </h3>
+            <div class="card card-vermelho">
+              <h4>Etapa 1 — Dados da Conta</h4>
+              <p style="margin-top: 4px; font-size: 11px; color: var(--cinza)">
+                Seleção UF → Agência (cascata, 300 agências BCB), número de
+                conta, titular, motivo.
+              </p>
+            </div>
+            <div class="card card-laranja">
+              <h4>Etapa 2 — Inf. Complementares</h4>
+              <p style="margin-top: 4px; font-size: 11px; color: var(--cinza)">
+                Situação de cheques, saldo positivo, endereço de
+                correspondência, e-mail.
+              </p>
+            </div>
+            <div class="card card-verde">
+              <h4>Etapa 3 — Confirmar e Assinar</h4>
+              <p style="margin-top: 4px; font-size: 11px; color: var(--cinza)">
+                Revisão dos dados, aceite do normativo BRF-3303-03-11 e envio
+                com protocolo.
+              </p>
+            </div>
+            <div
+              style="
+                background: var(--cinza-claro);
+                border-radius: 8px;
+                padding: 10px 14px;
+              "
+            >
+              <ul style="gap: 4px">
+                <li>Validação em tempo real (Zod + class-validator)</li>
+                <li>UF → Agência em cascata (300 agências BRF)</li>
+                <li>Aceite de termos com timestamp + versão LGPD</li>
+                <li>Protocolo único gerado automaticamente</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span class="normativos"
+          >Normativos: BRF-3303-03-11 / BRF-3303-40-64 v.020</span
+        >
+        <span>EncerraDigital BRF — Banco Regional de Fomento</span>
+        <span>Confidencial</span>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 5 — CHATBOT GUIADO
+═════════════════════════════════════════════════════════════════ -->
+    <div class="slide">
+      <div class="slide-header">
+        <div class="logo-area">
+          <div class="logo-box">BRF</div>
+          <span class="logo-text">EncerraDigital</span>
+        </div>
+        <span class="slide-title">Chatbot Guiado</span>
+        <span class="slide-num">05 / 12</span>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2" style="gap: 24px">
+          <div>
+            <div class="chat-mock">
+              <div class="chat-header">
+                🤖 Assistente BRF — Encerramento de Conta
+              </div>
+              <div class="chat-body">
+                <div>
+                  <div class="msg-label">Assistente BRF</div>
+                  <div class="msg msg-bot">
+                    Olá! Vou ajudá-lo a encerrar sua conta no BRF. Primeiro, me
+                    informe o estado onde sua agência está localizada. 😊
+                  </div>
+                </div>
+                <div style="align-self: flex-end">
+                  <div
+                    class="msg-label"
+                    style="text-align: right; color: var(--cinza)"
+                  >
+                    Você
+                  </div>
+                  <div class="msg msg-user">Maranhão</div>
+                </div>
+                <div>
+                  <div class="msg-label">Assistente BRF</div>
+                  <div class="msg msg-bot">
+                    Perfeito! Encontrei <strong>29 agências</strong> no
+                    Maranhão. Qual é o código ou nome da sua agência?
+                  </div>
+                </div>
+                <div style="align-self: flex-end">
+                  <div
+                    class="msg-label"
+                    style="text-align: right; color: var(--cinza)"
+                  >
+                    Você
+                  </div>
+                  <div class="msg msg-user">0001 — São Luís Centro</div>
+                </div>
+                <div>
+                  <div class="msg-label">Assistente BRF</div>
+                  <div class="msg msg-bot">
+                    ✓ Agência selecionada. Agora me informe o
+                    <strong>número da conta</strong> que deseja encerrar.
+                  </div>
+                </div>
+                <div style="align-self: flex-end">
+                  <div
+                    class="msg-label"
+                    style="text-align: right; color: var(--cinza)"
+                  >
+                    Você
+                  </div>
+                  <div class="msg msg-user">12345-9</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 12px">
+            <h3 style="color: var(--vermelho); margin-bottom: 4px">
+              Alternativa acessível ao formulário
+            </h3>
+            <ul style="gap: 8px">
+              <li>
+                Interface conversacional — ideal para clientes menos
+                familiarizados com formulários
+              </li>
+              <li>
+                10 passos guiados cobrindo todos os dados obrigatórios da norma
+              </li>
+              <li>Indicador de progresso visual (barra de etapas)</li>
+              <li>Respostas por texto livre ou seleção de opções</li>
+              <li>Mesmo fluxo de validação e segurança do formulário</li>
+              <li>Toggle instantâneo entre chatbot e formulário</li>
+              <li>Simulação de digitação animada para experiência natural</li>
+            </ul>
+            <div
+              style="
+                background: #fef2f4;
+                border-radius: 8px;
+                padding: 10px 14px;
+                border-left: 4px solid var(--vermelho);
+                margin-top: 4px;
+              "
+            >
+              <h4 style="margin-bottom: 4px; color: var(--vermelho)">
+                Acessibilidade
+              </h4>
+              <p style="font-size: 11px; color: var(--cinza)">
+                O chatbot foi projetado para clientes com menor familiaridade
+                digital, usando linguagem simples e fluxo linear sem formulários
+                complexos.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span class="normativos"
+          >Normativos: BRF-3303-03-11 / BRF-3303-40-64 v.020</span
+        >
+        <span>EncerraDigital BRF — Banco Regional de Fomento</span>
+        <span>Confidencial</span>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 6 — PAINEL DO OPERADOR INTERNO
+═════════════════════════════════════════════════════════════════ -->
+    <div class="slide">
+      <div class="slide-header">
+        <div class="logo-area">
+          <div class="logo-box">BRF</div>
+          <span class="logo-text">EncerraDigital</span>
+        </div>
+        <span class="slide-title">Painel do Operador Interno</span>
+        <span class="slide-num">06 / 12</span>
+      </div>
+      <div class="slide-body">
+        <div style="display: flex; gap: 20px; margin-bottom: 16px">
+          <div
+            class="card card-amarelo"
+            style="flex: 1; text-align: center; padding: 12px"
+          >
+            <div
+              style="
+                font-size: 24px;
+                font-weight: 900;
+                color: var(--laranja-esc);
+              "
+            >
+              12
+            </div>
+            <div style="font-size: 10px; font-weight: 600; color: var(--cinza)">
+              Pendentes
+            </div>
+          </div>
+          <div
+            class="card card-azul"
+            style="flex: 1; text-align: center; padding: 12px"
+          >
+            <div style="font-size: 24px; font-weight: 900; color: var(--azul)">
+              5
+            </div>
+            <div style="font-size: 10px; font-weight: 600; color: var(--cinza)">
+              Em Análise
+            </div>
+          </div>
+          <div
+            class="card card-verde"
+            style="flex: 1; text-align: center; padding: 12px"
+          >
+            <div style="font-size: 24px; font-weight: 900; color: var(--verde)">
+              87
+            </div>
+            <div style="font-size: 10px; font-weight: 600; color: var(--cinza)">
+              Concluídas
+            </div>
+          </div>
+          <div
+            class="card card-vermelho"
+            style="flex: 1; text-align: center; padding: 12px"
+          >
+            <div
+              style="font-size: 24px; font-weight: 900; color: var(--vermelho)"
+            >
+              3
+            </div>
+            <div style="font-size: 10px; font-weight: 600; color: var(--cinza)">
+              Rejeitadas
+            </div>
+          </div>
+        </div>
+
+        <div class="dashboard-mock">
+          <div class="dash-header">
+            <span>📋 Solicitações de Encerramento</span>
+            <span style="font-size: 10px; opacity: 0.8"
+              >Operador: BRF0001 | Sessão JWT 8h</span
+            >
+          </div>
+          <table class="dash-table">
+            <thead>
+              <tr>
+                <th>Protocolo</th>
+                <th>Agência</th>
+                <th>Data</th>
+                <th>Status</th>
+                <th>Ações</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-family: monospace; font-size: 10px">
+                  ENC-2026-000012
+                </td>
+                <td>0001 — São Luís / MA</td>
+                <td>07/04/2026</td>
+                <td><span class="status-badge s-pendente">PENDENTE</span></td>
+                <td>
+                  <span class="tag tag-azul" style="cursor: pointer"
+                    >Ver detalhe</span
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td style="font-family: monospace; font-size: 10px">
+                  ENC-2026-000011
+                </td>
+                <td>0015 — Fortaleza Centro / CE</td>
+                <td>06/04/2026</td>
+                <td><span class="status-badge s-analise">EM ANÁLISE</span></td>
+                <td>
+                  <span class="tag tag-azul" style="cursor: pointer"
+                    >Ver detalhe</span
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td style="font-family: monospace; font-size: 10px">
+                  ENC-2026-000010
+                </td>
+                <td>0023 — Recife / PE</td>
+                <td>06/04/2026</td>
+                <td><span class="status-badge s-concluido">CONCLUÍDO</span></td>
+                <td>
+                  <span class="tag tag-azul" style="cursor: pointer"
+                    >Ver detalhe</span
+                  >
+                </td>
+              </tr>
+              <tr>
+                <td style="font-family: monospace; font-size: 10px">
+                  ENC-2026-000009
+                </td>
+                <td>0005 — São Luís Tirirical / MA</td>
+                <td>05/04/2026</td>
+                <td><span class="status-badge s-rejeitado">REJEITADO</span></td>
+                <td>
+                  <span class="tag tag-azul" style="cursor: pointer"
+                    >Ver detalhe</span
+                  >
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div
+          style="
+            margin-top: 10px;
+            background: #fef2f4;
+            border-radius: 6px;
+            padding: 7px 14px;
+            font-size: 10px;
+            color: var(--cinza);
+            font-family: monospace;
+          "
+        >
+          [AUDITORIA] operador=BRF0001 acessou id=12 — 2026-04-07T09:14:32Z |
+          IP: 10.x.x.xxx
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span class="normativos"
+          >Normativos: BRF-3303-03-11 / BRF-3303-40-64 v.020</span
+        >
+        <span>EncerraDigital BRF — Banco Regional de Fomento</span>
+        <span>Confidencial</span>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 7 — ARQUITETURA TÉCNICA
+═════════════════════════════════════════════════════════════════ -->
+    <div class="slide">
+      <div class="slide-header">
+        <div class="logo-area">
+          <div class="logo-box">BRF</div>
+          <span class="logo-text">EncerraDigital</span>
+        </div>
+        <span class="slide-title">Arquitetura Técnica</span>
+        <span class="slide-num">07 / 12</span>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2" style="gap: 28px; align-items: start">
+          <div>
+            <!-- Camadas -->
+            <div
+              class="arch-layer"
+              style="
+                background: linear-gradient(90deg, #a6193c, #c0224a);
+                color: white;
+              "
+            >
+              <span class="arch-label">🌐 Front Público</span>
+              <div class="arch-items">
+                <span class="arch-item">Next.js 14</span>
+                <span class="arch-item">React 18</span>
+                <span class="arch-item">TailwindCSS</span>
+                <span class="arch-item">Zod + RHF</span>
+              </div>
+            </div>
+            <div class="arch-arrow">↕</div>
+            <div
+              class="arch-layer"
+              style="
+                background: linear-gradient(90deg, #c96d0a, #f68b1f);
+                color: white;
+              "
+            >
+              <span class="arch-label">🏦 Front Interno</span>
+              <div class="arch-items">
+                <span class="arch-item">Next.js 14</span>
+                <span class="arch-item">NextAuth v4</span>
+                <span class="arch-item">OIDC/SAML</span>
+                <span class="arch-item">SSO BRF</span>
+              </div>
+            </div>
+            <div class="arch-arrow">↕</div>
+            <div
+              class="arch-layer"
+              style="
+                background: linear-gradient(90deg, #7a1228, #a6193c);
+                color: white;
+              "
+            >
+              <span class="arch-label">⚙️ Backend BFF</span>
+              <div class="arch-items">
+                <span class="arch-item">NestJS</span>
+                <span class="arch-item">TypeScript</span>
+                <span class="arch-item">Guards JWT</span>
+                <span class="arch-item">Swagger</span>
+              </div>
+            </div>
+            <div class="arch-arrow">↕</div>
+            <div
+              class="arch-layer"
+              style="
+                background: linear-gradient(90deg, #055a47, #07a684);
+                color: white;
+              "
+            >
+              <span class="arch-label">🗄️ Infraestrutura</span>
+              <div class="arch-items">
+                <span class="arch-item">PostgreSQL 16</span>
+                <span class="arch-item">Prisma ORM</span>
+                <span class="arch-item">Redis</span>
+                <span class="arch-item">MinIO S3</span>
+              </div>
+            </div>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 10px">
+            <h3 style="color: var(--vermelho)">Princípios Arquiteturais</h3>
+            <div class="card card-vermelho">
+              <h4>Monorepo pnpm Workspaces</h4>
+              <p style="font-size: 11px; color: var(--cinza); margin-top: 3px">
+                3 pacotes independentes com build e lint isolados. ADR-001.
+              </p>
+            </div>
+            <div class="card card-laranja">
+              <h4>BFF — Backend for Frontend</h4>
+              <p style="font-size: 11px; color: var(--cinza); margin-top: 3px">
+                Único ponto de acesso ao banco. Fronts nunca acessam DB
+                diretamente. ADR-002.
+              </p>
+            </div>
+            <div class="card card-verde">
+              <h4>Separação de Responsabilidades</h4>
+              <p style="font-size: 11px; color: var(--cinza); margin-top: 3px">
+                Controller → Service → Repository. Lógica de negócio nunca em
+                controllers.
+              </p>
+            </div>
+            <div class="card card-azul">
+              <h4>Storage S3-Compatível</h4>
+              <p style="font-size: 11px; color: var(--cinza); margin-top: 3px">
+                MinIO local/dev, S3 em produção. Documentos fora do diretório
+                público. ADR-004.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span class="normativos"
+          >ADRs: 001-Monorepo · 002-BFF NestJS · 003-PostgreSQL ·
+          004-MinIO</span
+        >
+        <span>EncerraDigital BRF — Banco Regional de Fomento</span>
+        <span>Confidencial</span>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 8 — STACK DE TECNOLOGIAS
+═════════════════════════════════════════════════════════════════ -->
+    <div class="slide">
+      <div class="slide-header">
+        <div class="logo-area">
+          <div class="logo-box">BRF</div>
+          <span class="logo-text">EncerraDigital</span>
+        </div>
+        <span class="slide-title">Stack de Tecnologias</span>
+        <span class="slide-num">08 / 12</span>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2" style="gap: 20px; align-items: start">
+          <table class="stack-table">
+            <thead>
+              <tr>
+                <th>Camada</th>
+                <th>Tecnologia</th>
+                <th>Versão</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="camada">Frontend cliente</td>
+                <td class="techs">Next.js · React · TailwindCSS</td>
+                <td style="font-size: 10px; color: var(--cinza)">
+                  14.2 / 18 / 3.4
+                </td>
+              </tr>
+              <tr>
+                <td class="camada">Frontend interno</td>
+                <td class="techs">Next.js · NextAuth · OIDC/SAML</td>
+                <td style="font-size: 10px; color: var(--cinza)">14.2 / v4</td>
+              </tr>
+              <tr>
+                <td class="camada">Backend BFF</td>
+                <td class="techs">NestJS · Node.js · TypeScript</td>
+                <td style="font-size: 10px; color: var(--cinza)">
+                  10.x / 20 LTS
+                </td>
+              </tr>
+              <tr>
+                <td class="camada">ORM & Banco</td>
+                <td class="techs">Prisma ORM · PostgreSQL</td>
+                <td style="font-size: 10px; color: var(--cinza)">5.x / 16</td>
+              </tr>
+              <tr>
+                <td class="camada">Cache</td>
+                <td class="techs">Redis</td>
+                <td style="font-size: 10px; color: var(--cinza)">7</td>
+              </tr>
+              <tr>
+                <td class="camada">Storage</td>
+                <td class="techs">MinIO (dev) / S3-compatível</td>
+                <td style="font-size: 10px; color: var(--cinza)">—</td>
+              </tr>
+              <tr>
+                <td class="camada">PDF</td>
+                <td class="techs">pdf-lib — geração nativa</td>
+                <td style="font-size: 10px; color: var(--cinza)">1.17</td>
+              </tr>
+              <tr>
+                <td class="camada">Validação</td>
+                <td class="techs">
+                  Zod (frontend) · class-validator (backend)
+                </td>
+                <td style="font-size: 10px; color: var(--cinza)">3.x</td>
+              </tr>
+            </tbody>
+          </table>
+          <div style="display: flex; flex-direction: column; gap: 10px">
+            <table class="stack-table">
+              <thead>
+                <tr>
+                  <th>Área</th>
+                  <th>Ferramenta</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="camada">Testes unitários</td>
+                  <td class="techs">Jest · ts-jest (22 testes ✅)</td>
+                </tr>
+                <tr>
+                  <td class="camada">Testes E2E</td>
+                  <td class="techs">Playwright · Chromium (6 testes ✅)</td>
+                </tr>
+                <tr>
+                  <td class="camada">Lint / Format</td>
+                  <td class="techs">ESLint · Prettier</td>
+                </tr>
+                <tr>
+                  <td class="camada">Containerização</td>
+                  <td class="techs">Docker · Dev Containers (VS Code)</td>
+                </tr>
+                <tr>
+                  <td class="camada">CI/CD</td>
+                  <td class="techs">GitHub Actions</td>
+                </tr>
+                <tr>
+                  <td class="camada">Deploy</td>
+                  <td class="techs">Railway (backend + 2 frontends)</td>
+                </tr>
+                <tr>
+                  <td class="camada">Gerenc. pacotes</td>
+                  <td class="techs">pnpm Workspaces (monorepo)</td>
+                </tr>
+              </tbody>
+            </table>
+            <div
+              style="
+                background: var(--cinza-claro);
+                border-radius: 8px;
+                padding: 10px 14px;
+              "
+            >
+              <p style="font-size: 11px; color: var(--cinza)">
+                <strong style="color: var(--vermelho)">tsc --noEmit</strong>
+                executado com <strong>zero erros</strong> nos 3 módulos. Build
+                de produção validado.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span class="normativos"
+          >22 testes Jest ✅ &nbsp;|&nbsp; 6 testes Playwright E2E ✅
+          &nbsp;|&nbsp; tsc --noEmit ✅</span
+        >
+        <span>EncerraDigital BRF — Banco Regional de Fomento</span>
+        <span>Confidencial</span>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 9 — SEGURANÇA & LGPD
+═════════════════════════════════════════════════════════════════ -->
+    <div class="slide">
+      <div class="slide-header">
+        <div class="logo-area">
+          <div class="logo-box">BRF</div>
+          <span class="logo-text">EncerraDigital</span>
+        </div>
+        <span class="slide-title">Segurança & LGPD — OWASP ASVS</span>
+        <span class="slide-num">09 / 12</span>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2" style="gap: 20px; align-items: start">
+          <div>
+            <h3 style="color: var(--vermelho); margin-bottom: 12px">
+              🔐 Segurança Implementada
+            </h3>
+            <div class="sec-item">
+              <span class="sec-icon">🔑</span>
+              <div>
+                <div class="sec-title">AES-256-CBC — Dados em Repouso</div>
+                <div class="sec-desc">
+                  titularNome, numeroConta, emailCliente e contaTransferencia
+                  criptografados no banco. Chave via variável de ambiente.
+                </div>
+              </div>
+            </div>
+            <div class="sec-item">
+              <span class="sec-icon">🛡️</span>
+              <div>
+                <div class="sec-title">Headers HTTP de Segurança</div>
+                <div class="sec-desc">
+                  CSP, HSTS, X-Frame-Options: DENY, Referrer-Policy,
+                  Permissions-Policy via Helmet + next.config.mjs.
+                </div>
+              </div>
+            </div>
+            <div class="sec-item">
+              <span class="sec-icon">📁</span>
+              <div>
+                <div class="sec-title">Upload Seguro de Arquivos</div>
+                <div class="sec-desc">
+                  Validação magic bytes %PDF, limite 10 MB, armazenamento fora
+                  do diretório público, hash SHA-256 por arquivo.
+                </div>
+              </div>
+            </div>
+            <div class="sec-item">
+              <span class="sec-icon">🚫</span>
+              <div>
+                <div class="sec-title">Sem Exposição de Stack Trace</div>
+                <div class="sec-desc">
+                  API nunca retorna mensagens de erro internas. IP mascarado em
+                  logs (10.x.x.xxx). Dados pessoais nunca em logs.
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h3 style="color: var(--vermelho); margin-bottom: 12px">
+              ⚖️ Conformidade LGPD
+            </h3>
+            <div class="sec-item" style="border-left-color: var(--verde)">
+              <span class="sec-icon">📋</span>
+              <div>
+                <div class="sec-title">Aceite de Termos Rastreável</div>
+                <div class="sec-desc">
+                  Timestamp + versão do documento registrados em cada
+                  solicitação. Base legal documentada.
+                </div>
+              </div>
+            </div>
+            <div class="sec-item" style="border-left-color: var(--verde)">
+              <span class="sec-icon">🎯</span>
+              <div>
+                <div class="sec-title">Coleta Mínima de Dados</div>
+                <div class="sec-desc">
+                  Apenas os dados necessários para o processo de encerramento
+                  são coletados, conforme princípio da necessidade.
+                </div>
+              </div>
+            </div>
+            <div class="sec-item" style="border-left-color: var(--verde)">
+              <span class="sec-icon">📊</span>
+              <div>
+                <div class="sec-title">Log de Auditoria Obrigatório</div>
+                <div class="sec-desc">
+                  Todos os acessos a dados pessoais no módulo interno são
+                  logados com operador, id e timestamp.
+                </div>
+              </div>
+            </div>
+            <div class="sec-item" style="border-left-color: var(--verde)">
+              <span class="sec-icon">👁️</span>
+              <div>
+                <div class="sec-title">Status Sem Exposição de Dados</div>
+                <div class="sec-desc">
+                  Consulta pública de status retorna apenas fase da solicitação
+                  — sem nome, CPF ou dados bancários.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span class="normativos"
+          >OWASP ASVS Nível 2 · LGPD Art. 6º · Lei 13.709/2018</span
+        >
+        <span>EncerraDigital BRF — Banco Regional de Fomento</span>
+        <span>Confidencial</span>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 10 — AGENTES DE IA
+═════════════════════════════════════════════════════════════════ -->
+    <div class="slide">
+      <div class="slide-header">
+        <div class="logo-area">
+          <div class="logo-box">BRF</div>
+          <span class="logo-text">EncerraDigital</span>
+        </div>
+        <span class="slide-title">Desenvolvimento com Agentes de IA</span>
+        <span class="slide-num">10 / 12</span>
+      </div>
+      <div class="slide-body">
+        <p style="font-size: 12px; color: var(--cinza); margin-bottom: 18px">
+          O projeto usa 6 agentes de IA especializados no GitHub Copilot, cada
+          um com instruções e contexto próprios, otimizando qualidade e custo de
+          desenvolvimento.
+        </p>
+        <div class="grid-3" style="gap: 12px; margin-bottom: 16px">
+          <div class="agent-card">
+            <span class="agent-icon">🏛️</span>
+            <div class="agent-name">Arquiteto</div>
+            <div class="agent-model">Claude Opus 4.6</div>
+            <div class="agent-desc">
+              Decisões de design, ADRs e refatorações estruturais de alto
+              impacto.
+            </div>
+          </div>
+          <div class="agent-card">
+            <span class="agent-icon">⚙️</span>
+            <div class="agent-name">Dev Backend</div>
+            <div class="agent-model">Claude Sonnet 4.6</div>
+            <div class="agent-desc">
+              Endpoints NestJS, services, repositories e migrações Prisma.
+            </div>
+          </div>
+          <div class="agent-card">
+            <span class="agent-icon">🌐</span>
+            <div class="agent-name">Dev Frontend</div>
+            <div class="agent-model">Claude Sonnet 4.6</div>
+            <div class="agent-desc">
+              Componentes React, páginas Next.js e UX de alta qualidade.
+            </div>
+          </div>
+          <div class="agent-card">
+            <span class="agent-icon">🔐</span>
+            <div class="agent-name">Segurança</div>
+            <div class="agent-model">Claude Opus 4.6</div>
+            <div class="agent-desc">
+              Revisão OWASP ASVS, LGPD, análise de vulnerabilidades críticas.
+            </div>
+          </div>
+          <div class="agent-card">
+            <span class="agent-icon">🧪</span>
+            <div class="agent-name">Testes</div>
+            <div class="agent-model">Claude Sonnet 4.6</div>
+            <div class="agent-desc">
+              Geração de testes Jest unitários e Playwright E2E completos.
+            </div>
+          </div>
+          <div class="agent-card">
+            <span class="agent-icon">📝</span>
+            <div class="agent-name">Documentador</div>
+            <div class="agent-model">Claude Haiku 4.5</div>
+            <div class="agent-desc">
+              ADRs, changelogs, backlog e memória persistente do projeto.
+            </div>
+          </div>
+        </div>
+        <div
+          style="
+            background: var(--cinza-claro);
+            border-radius: 8px;
+            padding: 12px 16px;
+            display: flex;
+            gap: 16px;
+            align-items: flex-start;
+          "
+        >
+          <div style="flex: 1">
+            <h4 style="margin-bottom: 6px; color: var(--vermelho)">
+              Memória Persistente
+            </h4>
+            <p style="font-size: 11px; color: var(--cinza)">
+              Cada sessão de desenvolvimento lê
+              <code
+                style="
+                  background: #e5e7eb;
+                  padding: 1px 5px;
+                  border-radius: 3px;
+                  font-size: 10px;
+                "
+                >docs/memoria/contexto-atual.md</code
+              >
+              para retomar exatamente onde parou — sem perda de contexto entre
+              sessões ou conversas.
+            </p>
+          </div>
+          <div style="flex: 1">
+            <h4 style="margin-bottom: 6px; color: var(--vermelho)">
+              ADRs Documentados
+            </h4>
+            <p style="font-size: 11px; color: var(--cinza)">
+              7 Architecture Decision Records (ADR-001 a ADR-007) registram
+              todas as decisões técnicas importantes com contexto, alternativas
+              e consequências.
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span class="normativos"
+          >GitHub Copilot · .github/agents/ ·
+          docs/estrategia-agentes-e-memoria.md</span
+        >
+        <span>EncerraDigital BRF — Banco Regional de Fomento</span>
+        <span>Confidencial</span>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 11 — ROADMAP — 7 FASES ENTREGUES
+═════════════════════════════════════════════════════════════════ -->
+    <div class="slide">
+      <div class="slide-header">
+        <div class="logo-area">
+          <div class="logo-box">BRF</div>
+          <span class="logo-text">EncerraDigital</span>
+        </div>
+        <span class="slide-title">Roadmap — Fases do Projeto</span>
+        <span class="slide-num">11 / 12</span>
+      </div>
+      <div class="slide-body">
+        <div class="grid-2" style="gap: 18px; align-items: start">
+          <div>
+            <div class="fase done">
+              <div class="fase-num">1</div>
+              <div>
+                <div class="fase-title">Catálogos BRF</div>
+                <div class="fase-desc">
+                  300 agências reais (BCB), 7 motivos. API endpoints /agencias +
+                  /ufs.
+                </div>
+              </div>
+              <div class="fase-status">✓ Concluída</div>
+            </div>
+            <div class="fase done">
+              <div class="fase-num">2</div>
+              <div>
+                <div class="fase-title">Scaffold Backend NestJS</div>
+                <div class="fase-desc">
+                  main.ts, Helmet, CORS, ValidationPipe, Swagger, PrismaModule
+                  global.
+                </div>
+              </div>
+              <div class="fase-status">✓ Concluída</div>
+            </div>
+            <div class="fase done">
+              <div class="fase-num">3</div>
+              <div>
+                <div class="fase-title">Backend Solicitações</div>
+                <div class="fase-desc">
+                  DTOs, Repository, Service (AES-256-CBC), Controller, protocolo
+                  único.
+                </div>
+              </div>
+              <div class="fase-status">✓ Concluída</div>
+            </div>
+            <div class="fase done">
+              <div class="fase-num">4</div>
+              <div>
+                <div class="fase-title">Frontend Cliente</div>
+                <div class="fase-desc">
+                  Next.js 14, formulário multi-etapa, chatbot guiado, status por
+                  protocolo.
+                </div>
+              </div>
+              <div class="fase-status">✓ Concluída</div>
+            </div>
+          </div>
+          <div>
+            <div class="fase done">
+              <div class="fase-num">5</div>
+              <div>
+                <div class="fase-title">Frontend Interno + Auth</div>
+                <div class="fase-desc">
+                  NextAuth OIDC mock, dashboard, detalhe com descriptografia,
+                  LGPD audit.
+                </div>
+              </div>
+              <div class="fase-status">✓ Concluída</div>
+            </div>
+            <div class="fase done">
+              <div class="fase-num">6</div>
+              <div>
+                <div class="fase-title">Upload + PDF do Termo</div>
+                <div class="fase-desc">
+                  MinIO, pdf-lib, 14 seções BRF-3303-40-64, upload com validação
+                  magic bytes.
+                </div>
+              </div>
+              <div class="fase-status">✓ Concluída</div>
+            </div>
+            <div class="fase done">
+              <div class="fase-num">7</div>
+              <div>
+                <div class="fase-title">Testes Jest + Playwright</div>
+                <div class="fase-desc">
+                  22 testes unitários + 6 testes E2E. Cobertura de segurança,
+                  PDF e fluxo completo.
+                </div>
+              </div>
+              <div class="fase-status">✓ Concluída</div>
+            </div>
+            <div class="fase next">
+              <div class="fase-num">8</div>
+              <div>
+                <div class="fase-title">Assinatura Digital Real gov.br</div>
+                <div class="fase-desc">
+                  Integração SERPRO/ITI para validação de assinatura ICP-Brasil
+                  A1/A3 em produção.
+                </div>
+              </div>
+              <div class="fase-status">⟳ Próxima</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span class="normativos"
+          >7 fases concluídas · 64 arquivos · +12.000 linhas de código</span
+        >
+        <span>EncerraDigital BRF — Banco Regional de Fomento</span>
+        <span>Confidencial</span>
+      </div>
+    </div>
+
+    <!-- ═══════════════════════════════════════════════════════════════
+     SLIDE 12 — DIFERENCIAIS
+═════════════════════════════════════════════════════════════════ -->
+    <div class="slide">
+      <div class="slide-header">
+        <div class="logo-area">
+          <div class="logo-box">BRF</div>
+          <span class="logo-text">EncerraDigital</span>
+        </div>
+        <span class="slide-title">Por que é um Sistema Real</span>
+        <span class="slide-num">12 / 12</span>
+      </div>
+      <div class="slide-body">
+        <p
+          style="
+            font-size: 12px;
+            color: var(--cinza);
+            margin-bottom: 18px;
+            text-align: center;
+          "
+        >
+          Não é um protótipo — é um sistema bancário completo, pronto para
+          produção.
+        </p>
+        <div class="grid-3" style="gap: 12px; margin-bottom: 16px">
+          <div class="diff-card">
+            <span class="diff-icon">📜</span>
+            <div class="diff-title">Normativos Reais</div>
+            <div class="diff-desc">
+              Termo BRF-3303-40-64 v.020 com 14 seções obrigatórias geradas
+              automaticamente em PDF.
+            </div>
+          </div>
+          <div class="diff-card">
+            <span class="diff-icon">🏢</span>
+            <div class="diff-title">300 Agências Reais</div>
+            <div class="diff-desc">
+              Dados reais das agências BRF via BCB (Banco Central do Brasil),
+              licença ODbL.
+            </div>
+          </div>
+          <div class="diff-card">
+            <span class="diff-icon">🔐</span>
+            <div class="diff-title">Segurança Bancária</div>
+            <div class="diff-desc">
+              AES-256-CBC, OWASP ASVS Nível 2, magic bytes, SHA-256, headers
+              CSP/HSTS.
+            </div>
+          </div>
+          <div class="diff-card">
+            <span class="diff-icon">⚖️</span>
+            <div class="diff-title">LGPD Compliant</div>
+            <div class="diff-desc">
+              Aceite rastreável, coleta mínima, auditoria imutável, dados
+              sensíveis criptografados.
+            </div>
+          </div>
+          <div class="diff-card">
+            <span class="diff-icon">🧪</span>
+            <div class="diff-title">Testes Automatizados</div>
+            <div class="diff-desc">
+              22 testes Jest unitários + 6 E2E Playwright cobrindo fluxo
+              completo de ponta a ponta.
+            </div>
+          </div>
+          <div class="diff-card">
+            <span class="diff-icon">🤖</span>
+            <div class="diff-title">IA Especializada</div>
+            <div class="diff-desc">
+              6 agentes Copilot com memória persistente — desenvolvimento
+              orientado a contexto.
+            </div>
+          </div>
+        </div>
+        <div
+          style="
+            background: linear-gradient(
+              90deg,
+              var(--vermelho-esc),
+              var(--vermelho)
+            );
+            border-radius: 10px;
+            padding: 14px 24px;
+            color: white;
+            text-align: center;
+          "
+        >
+          <h2 style="font-size: 18px; margin-bottom: 6px">
+            EncerraDigital BRF está pronto para produção
+          </h2>
+          <p style="font-size: 12px; opacity: 0.9">
+            Monorepo · NestJS · Next.js 14 · PostgreSQL 16 · Prisma · Redis ·
+            MinIO · Docker · CI/CD GitHub Actions
+          </p>
+          <div
+            style="
+              display: flex;
+              gap: 10px;
+              justify-content: center;
+              margin-top: 12px;
+              flex-wrap: wrap;
+            "
+          >
+            <span
+              style="
+                background: rgba(255, 255, 255, 0.2);
+                padding: 4px 14px;
+                border-radius: 20px;
+                font-size: 11px;
+                font-weight: 700;
+              "
+              >🌐 :3000 — Portal Cliente</span
+            >
+            <span
+              style="
+                background: rgba(255, 255, 255, 0.2);
+                padding: 4px 14px;
+                border-radius: 20px;
+                font-size: 11px;
+                font-weight: 700;
+              "
+              >🏦 :3001 — Painel Interno</span
+            >
+            <span
+              style="
+                background: rgba(255, 255, 255, 0.2);
+                padding: 4px 14px;
+                border-radius: 20px;
+                font-size: 11px;
+                font-weight: 700;
+              "
+              >⚙️ :3333 — API BFF</span
+            >
+          </div>
+        </div>
+      </div>
+      <div class="slide-footer">
+        <span class="normativos"
+          >BRF-3303-03-11 / BRF-3303-40-64 · LGPD · OWASP ASVS</span
+        >
+        <span>EncerraDigital BRF — Banco Regional de Fomento · Abril 2026</span>
+        <span>Confidencial</span>
+      </div>
+    </div>
+  </body>
+</html>
